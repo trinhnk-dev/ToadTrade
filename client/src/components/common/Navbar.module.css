@@ -1,0 +1,96 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.header {
+  background-color: #2d1c18;
+  font-size: 18px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0px;
+}
+
+.imgLogo {
+  width: 40%;
+  display: inline-block;
+}
+
+.imgLogo img {
+  width: 100%;
+}
+
+.navLogo {
+  width: 15%;
+}
+
+.navBar {
+  display: flex;
+  justify-content: space-around;
+  width: 30%;
+}
+
+.navLink {
+  color: white;
+  text-decoration: none;
+}
+
+.navLink:hover {
+  opacity: 0.75;
+  color: white;
+}
+
+.navIcons {
+  width: 15%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.navName {
+  margin-left: 5px;
+}
+
+.imgLogo img:hover {
+  opacity: 1;
+}
+
+.navIcon {
+  height: 27px;
+}
+
+.navIcon i {
+  margin-right: 10px;
+  color: wihte;
+  display: inline;
+}
+
+.navIcon i::after {
+  color: white;
+}
+
+.signTo {
+  text-decoration: none;
+}
+
+.signTo:hover {
+  color: white;
+}
+
+.btnSign:hover {
+  background-color: #f7d106;
+  cursor: pointer;
+}

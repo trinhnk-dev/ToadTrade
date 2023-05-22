@@ -1,0 +1,56 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.carousel {
+  display: flex;
+  justify-content: space-around;
+  min-height: 236px;
+  max-height: 236px;
+  margin-top: 20px;
+}
+
+.carouselBig {
+  max-width: 800px;
+  max-height: 235px;
+}
+
+.carouselSmall {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  margin-left: 0.3125rem;
+}
+
+.carouselSTop {
+  height: 100%;
+}
+.carouselSTop img {
+  max-height: 116px;
+  width: 100%;
+}
+
+.carouselSBottom {
+  height: 100%;
+}
+.carouselSBottom img {
+  max-height: 116px;
+  width: 100%;
+}
+
+.carousel-item {
+  max-height: 100%;
+}
