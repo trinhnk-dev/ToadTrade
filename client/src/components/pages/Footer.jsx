@@ -84,7 +84,7 @@ function Footer() {
           <div className={styles.rowCoppyRight}>
             <div className={styles.footerLeft}>
               <p>
-                Copyright © 2022
+                Copyright © 2023
                 <Link to="/" className={styles.coppyRightToadTrade}>
                   ToadTrade
                 </Link>

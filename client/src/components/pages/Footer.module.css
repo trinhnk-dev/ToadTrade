@@ -143,6 +143,7 @@ ul {
 
 .footerLeft a:hover {
   opacity: 0.8;
+  color: white;
   text-decoration: underline;
 }
 
