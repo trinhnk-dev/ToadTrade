@@ -1,0 +1,179 @@
+body {
+  line-height: 1.5;
+  font-family: "Poppins", sans-serif;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+ul {
+  list-style: none;
+}
+.footer {
+  background-color: #2d1c18;
+  padding: 30px 0;
+  opacity: 0.8;
+}
+
+.col {
+  width: 20%;
+  padding: 0 15px;
+}
+.footerLogo {
+  width: 40%;
+}
+.col img {
+  width: 100%;
+}
+.footerTitle {
+  color: white;
+  margin-top: 10px;
+}
+.footerTitle h2 {
+  font-size: 24px;
+}
+.col h4 {
+  font-size: 18px;
+  color: #ffffff;
+  text-transform: capitalize;
+  margin-bottom: 35px;
+  font-weight: 500;
+  position: relative;
+}
+.col h4::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  background-color: #e91e63;
+  height: 2px;
+  box-sizing: border-box;
+  width: 100px;
+}
+.col ul li:not(:last-child) {
+  margin-bottom: 10px;
+}
+.col ul li a {
+  font-size: 16px;
+  text-transform: capitalize;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 300;
+  color: white;
+  display: block;
+  transition: all 0.3s ease;
+  margin-bottom: 5px;
+}
+.col ul li a:hover {
+  color: #ffffff;
+  padding-left: 8px;
+}
+.col .socialLinks a {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 0 10px 10px 0;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  color: #ffffff;
+  transition: all 0.5s ease;
+}
+.col .socialLinks a:hover {
+  color: #24262b;
+  background-color: #ffffff;
+}
+
+/*responsive*/
+@media (max-width: 767px) {
+  .col {
+    width: 50%;
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 574px) {
+  .col {
+    width: 100%;
+  }
+}
+
+.footerCoppyRight {
+  background-color: #2d1c18;
+  color: white;
+  padding: 10px 0px;
+}
+
+.coppyRightToadTrade {
+  margin-left: 3px;
+}
+
+.rowCoppyRight {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footerLeft {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footerLeft p {
+  margin: 0;
+}
+
+.footerLeft a {
+  color: #f7d106;
+  text-decoration: none;
+}
+
+.footerLeft a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.footerRight {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+}
+
+.footerRight a {
+  margin-right: 10px;
+  color: white;
+}
+
+.footerRight a {
+  padding: 3px 10px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footerRight .facebook i {
+  color: #4267b2;
+}
+
+.footerRight .tiktok i {
+  color: #111111;
+
+  filter: drop-shadow(2px 0px 0px #fd3e3e) drop-shadow(-2px -2px 0px #4de8f4);
+}
+
+.footerRight a:hover {
+  opacity: 0.75;
+}

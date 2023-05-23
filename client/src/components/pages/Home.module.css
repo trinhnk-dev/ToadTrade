@@ -21,6 +21,7 @@
 .carouselBig {
   max-width: 800px;
   max-height: 235px;
+  cursor: pointer;
 }
 
 .carouselSmall {
@@ -37,6 +38,7 @@
 
 .carouselSTop {
   height: 100%;
+  cursor: pointer;
 }
 .carouselSTop img {
   max-height: 116px;
@@ -45,6 +47,7 @@
 
 .carouselSBottom {
   height: 100%;
+  cursor: pointer;
 }
 .carouselSBottom img {
   max-height: 116px;

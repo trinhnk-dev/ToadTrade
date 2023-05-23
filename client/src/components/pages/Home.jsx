@@ -14,6 +14,7 @@ import carouselS2 from "../../images/carousel-sm-2.png";
 import { useNavigate } from "react-router-dom";
 import { StoreContext, actions } from "../../store";
 import { deletePlayerByID, getPlayers } from "../../api";
+import Footer from "./Footer";
 
 function Home() {
   const [state, dispatch] = useContext(StoreContext);
@@ -62,7 +63,6 @@ function Home() {
                   className="d-block w-100"
                   src={carouselL1}
                   alt="First slide"
-                  style={{ objectFit: "contain" }}
                 />
               </Carousel.Item>
               <Carousel.Item>
@@ -70,7 +70,6 @@ function Home() {
                   className="d-block w-100"
                   src={carouselL2}
                   alt="Second slide"
-                  style={{ objectFit: "contain" }}
                 />
               </Carousel.Item>
               <Carousel.Item>
@@ -78,7 +77,6 @@ function Home() {
                   className="d-block w-100"
                   src={carouselL3}
                   alt="Third slide"
-                  style={{ objectFit: "contain" }}
                 />
               </Carousel.Item>
               <Carousel.Item>
@@ -86,7 +84,6 @@ function Home() {
                   className="d-block w-100"
                   src={carouselL4}
                   alt="Fourth slide"
-                  style={{ objectFit: "contain" }}
                 />
               </Carousel.Item>
             </Carousel>
@@ -179,6 +176,7 @@ function Home() {
           ))}
         </div>
       </div> */}
+      <Footer />
     </>
   );
 }
