@@ -26,7 +26,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/posts" element={<Posts />} />
             <Route path="/upload" element={<AddPlayer />} />
-            {/* <Route path="/players" element={<Players />} /> */}
+            <Route path="/players" element={<Players />} />
             <Route path="/register" element={<Register />} />
             <Route path="/home" element={<Home />} />
             {state.players.map((item, index) => (
@@ -52,7 +52,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/posts" element={<Posts />} />
             <Route path="/upload" element={<AddPlayer />} />
-            {/* <Route path="/players" element={<Players />} /> */}
+            <Route path="/players" element={<Players />} />
             <Route path="/users" element={<Users />} />{" "}
             <Route
               path="/accounts"
@@ -81,7 +81,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/posts" element={<Posts />} />
             <Route path="/upload" element={<AddPlayer />} />
-            {/* <Route path="/players" element={<Players />} /> */}
+            <Route path="/players" element={<Players />} />
             <Route
               path="/accounts"
               element={<Accounts id={state.profile.id} />}
