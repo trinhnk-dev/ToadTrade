@@ -10,6 +10,10 @@ import carouselL3 from "../../images/carousel-big-3.png";
 import carouselL4 from "../../images/carousel-big-4.png";
 import carouselS1 from "../../images/carousel-sm-1.png";
 import carouselS2 from "../../images/carousel-sm-2.png";
+import { stationeryList } from "../../data";
+import { techDevice } from "../../data";
+import { bookList } from "../../data";
+import { uniformList } from "../../data";
 
 import { useNavigate } from "react-router-dom";
 import { StoreContext, actions } from "../../store";
@@ -53,52 +57,161 @@ function Home() {
   return (
     <>
       <Navbar />
-
-      <div className={styles.container}>
-        <div className={styles.carousel}>
-          <div className={styles.carouselBig}>
-            <Carousel activeIndex={index} onSelect={handleSelect}>
-              <Carousel.Item>
-                <img
-                  className="d-block w-100"
-                  src={carouselL1}
-                  alt="First slide"
-                />
-              </Carousel.Item>
-              <Carousel.Item>
-                <img
-                  className="d-block w-100"
-                  src={carouselL2}
-                  alt="Second slide"
-                />
-              </Carousel.Item>
-              <Carousel.Item>
-                <img
-                  className="d-block w-100"
-                  src={carouselL3}
-                  alt="Third slide"
-                />
-              </Carousel.Item>
-              <Carousel.Item>
-                <img
-                  className="d-block w-100"
-                  src={carouselL4}
-                  alt="Fourth slide"
-                />
-              </Carousel.Item>
-            </Carousel>
+      <div className={styles.wrapperBanner}>
+        <div className={styles.container}>
+          <div className={styles.carousel}>
+            <div className={styles.carouselBig}>
+              <Carousel activeIndex={index} onSelect={handleSelect}>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src={carouselL1}
+                    alt="First slide"
+                  />
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src={carouselL2}
+                    alt="Second slide"
+                  />
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src={carouselL3}
+                    alt="Third slide"
+                  />
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src={carouselL4}
+                    alt="Fourth slide"
+                  />
+                </Carousel.Item>
+              </Carousel>
+            </div>
+            <div className={styles.carouselSmall}>
+              <Link to="/">
+                <div className={styles.carouselSTop}>
+                  <img src={carouselS1} alt="" />
+                </div>
+              </Link>
+              <Link to="/">
+                <div className={styles.carouselSBottom}>
+                  <img src={carouselS2} alt="" />
+                </div>
+              </Link>
+            </div>
           </div>
-          <div className={styles.carouselSmall}>
-            <Link to="/">
-              <div className={styles.carouselSTop}>
-                <img src={carouselS1} alt="" />
-              </div>
-            </Link>
-            <Link to="/">
-              <div className={styles.carouselSBottom}>
-                <img src={carouselS2} alt="" />
-              </div>
-            </Link>
+        </div>
+        <div className={styles.container}>
+          <div className={styles.product}>
+            <div className={styles.productTitle}>
+              <h3>Họa cụ & đồ dùng học tập</h3>
+            </div>
+            <div className={styles.productContent}>
+              {stationeryList.map((item) => {
+                const { id, name, price, img, time, address } = item;
+                return (
+                  <div className={styles.productItem} key={id}>
+                    <div className={styles.productImage}>
+                      <img src={img} alt="" />
+                    </div>
+                    <div className={styles.productText}>
+                      <h4>{name}</h4>
+                      <h6>{price}</h6>
+                      <div className={styles.infoFooter}>
+                        <span>{time}</span>
+                        <p>{address}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+        <div className={styles.container}>
+          <div className={styles.product}>
+            <div className={styles.productTitle}>
+              <h3>Đồ công nghệ</h3>
+            </div>
+            <div className={styles.productContent}>
+              {techDevice.map((item) => {
+                const { id, name, price, img, time, address } = item;
+                return (
+                  <div className={styles.productItem} key={id}>
+                    <div className={styles.productImage}>
+                      <img src={img} alt="" />
+                    </div>
+                    <div className={styles.productText}>
+                      <h4>{name}</h4>
+                      <h6>{price}</h6>
+                      <div className={styles.infoFooter}>
+                        <span>{time}</span>
+                        <p>{address}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+        <div className={styles.container}>
+          <div className={styles.product}>
+            <div className={styles.productTitle}>
+              <h3>Giáo Trình</h3>
+            </div>
+            <div className={styles.productContent}>
+              {bookList.map((item) => {
+                const { id, name, price, img, time, address } = item;
+                return (
+                  <div className={styles.productItem} key={id}>
+                    <div className={styles.productImage}>
+                      <img src={img} alt="" />
+                    </div>
+                    <div className={styles.productText}>
+                      <h4>{name}</h4>
+                      <h6>{price}</h6>
+                      <div className={styles.infoFooter}>
+                        <span>{time}</span>
+                        <p>{address}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+        <div className={styles.container}>
+          <div className={styles.product}>
+            <div className={styles.productTitle}>
+              <h3>Đồng phục</h3>
+            </div>
+            <div className={styles.productContent}>
+              {uniformList.map((item) => {
+                const { id, name, price, img, time, address } = item;
+                return (
+                  <div className={styles.productItem} key={id}>
+                    <div className={styles.productImage}>
+                      <img src={img} alt="" />
+                    </div>
+                    <div className={styles.productText}>
+                      <h4>{name}</h4>
+                      <h6>{price}</h6>
+                      <div className={styles.infoFooter}>
+                        <span>{time}</span>
+                        <p>{address}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
