@@ -1,3 +1,78 @@
+import carouselL1 from "./images/carousel-big-1.png";
+import carouselL2 from "./images/carousel-big-2.png";
+import carouselL3 from "./images/carousel-big-3.png";
+import carouselL4 from "./images/carousel-big-4.png";
+import subBanner1 from "./images/sub-banner-1.png";
+import subBanner2 from "./images/sub-banner-2.png";
+import subBanner3 from "./images/sub-banner-3.png";
+import subBanner4 from "./images/sub-banner-4.png";
+import subBanner5 from "./images/sub-banner-5.png";
+import subBanner6 from "./images/sub-banner-6.png";
+import subBanner7 from "./images/sub-banner-7.png";
+import subBanner8 from "./images/sub-banner-8.png";
+
+export const carouselList = [
+  {
+    id: "carouselL1",
+    img: carouselL1,
+  },
+  {
+    id: "carouselL2",
+    img: carouselL2,
+  },
+  {
+    id: "carouselL3",
+    img: carouselL3,
+  },
+  {
+    id: "carouselL4",
+    img: carouselL4,
+  },
+];
+
+export const subBannerList = [
+  {
+    id: "subBanner1",
+    img: subBanner1,
+    name: "Mua bán họa cụ",
+  },
+  {
+    id: "subBanner2",
+    img: subBanner2,
+    name: "Mua bán giáo trình",
+  },
+  {
+    id: "subBanner3",
+    img: subBanner3,
+    name: "Mua bán đồ điện tử",
+  },
+  {
+    id: "subBanner4",
+    img: subBanner4,
+    name: "Mua Laptop cũ giá tốt",
+  },
+  {
+    id: "subBanner5",
+    img: subBanner5,
+    name: "Mua máy ảnh cũ",
+  },
+  {
+    id: "subBanner6",
+    img: subBanner6,
+    name: "Mua bán đồng phục",
+  },
+  {
+    id: "subBanner7",
+    img: subBanner7,
+    name: "Tin đăng đã lưu",
+  },
+  {
+    id: "subBanner8",
+    img: subBanner8,
+    name: "Tìm kiếm đã lưu",
+  },
+];
+
 export const stationeryList = [
   {
     id: "stationeryList",

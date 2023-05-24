@@ -76,12 +76,18 @@
   flex-direction: column;
   align-items: center;
   padding-top: 20px;
-  transition: 0.3s all;
+  transition: 0.5s all;
 }
 
 .productItem:hover {
-  transform: translateY(-1%);
-  transition: 0.3s all;
+  transition: 0.5s all;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 7px 0px;
+  z-index: 10;
+}
+
+.productTitle h3 {
+  font-size: 20px;
+  margin-top: 10px;
 }
 
 .productImage {
@@ -117,4 +123,31 @@
 
 .infoFooter span {
   font-weight: 500;
+}
+
+.subBanner {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0px;
+}
+
+.subBannerItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 15%;
+  text-align: center;
+}
+
+.subBannerImg img {
+  padding: 5px;
+  border-radius: 10px;
+  border: 2px solid #f5f5f5;
+  cursor: pointer;
+}
+
+.subBannerItem a {
+  width: 85%;
+  color: black;
+  text-decoration: none;
 }

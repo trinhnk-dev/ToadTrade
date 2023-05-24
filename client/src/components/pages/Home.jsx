@@ -10,6 +10,8 @@ import carouselL3 from "../../images/carousel-big-3.png";
 import carouselL4 from "../../images/carousel-big-4.png";
 import carouselS1 from "../../images/carousel-sm-1.png";
 import carouselS2 from "../../images/carousel-sm-2.png";
+import { carouselList } from "../../data";
+import { subBannerList } from "../../data";
 import { stationeryList } from "../../data";
 import { techDevice } from "../../data";
 import { bookList } from "../../data";
@@ -34,22 +36,6 @@ function Home() {
   };
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
-  useEffect(() => {
-    async function fetchMyAPI() {
-      const response = await getPlayers();
-      dispatch(actions.setPlayer(response));
-      sessionStorage.setItem("players", JSON.stringify(response));
-    }
-    fetchMyAPI();
-  }, []);
-
-  const handleDelete = async (id, token) => {
-    const confirm = window.confirm("Are you sure you want to delete ?");
-    if (confirm) {
-      await dispatch(deletePlayerByID({ id, token }));
-    }
-    return;
-  };
 
   const handleNavigate = (id) => {
     return navigate(`/players/${id}`);
@@ -58,38 +44,18 @@ function Home() {
     <>
       <Navbar />
       <div className={styles.wrapperBanner}>
-        <div className={styles.container}>
+        <div className={styles.container} style={{ marginBottom: "0" }}>
           <div className={styles.carousel}>
             <div className={styles.carouselBig}>
               <Carousel activeIndex={index} onSelect={handleSelect}>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src={carouselL1}
-                    alt="First slide"
-                  />
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src={carouselL2}
-                    alt="Second slide"
-                  />
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src={carouselL3}
-                    alt="Third slide"
-                  />
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src={carouselL4}
-                    alt="Fourth slide"
-                  />
-                </Carousel.Item>
+                {carouselList.map((item) => {
+                  const { id, img } = item;
+                  return (
+                    <Carousel.Item key={id}>
+                      <img className="d-block w-100" src={img} alt="" />
+                    </Carousel.Item>
+                  );
+                })}
               </Carousel>
             </div>
             <div className={styles.carouselSmall}>
@@ -104,6 +70,21 @@ function Home() {
                 </div>
               </Link>
             </div>
+          </div>
+        </div>
+        <div className={styles.container}>
+          <div className={styles.subBanner}>
+            {subBannerList.map((item) => {
+              const { id, img, name } = item;
+              return (
+                <div className={styles.subBannerItem} key={id}>
+                  <div className={styles.subBannerImg}>
+                    <img src={img} alt="" />
+                  </div>
+                  <Link to="/">{name}</Link>
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className={styles.container}>
@@ -187,7 +168,10 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className={styles.container}>
+        <div
+          className={styles.container}
+          style={{ marginBottom: 0, paddingBottom: "80px" }}
+        >
           <div className={styles.product}>
             <div className={styles.productTitle}>
               <h3>Đồng phục</h3>

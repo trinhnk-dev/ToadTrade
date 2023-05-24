@@ -46,75 +46,6 @@ export const register = async (req, res, next) => {
   }
 };
 
-//PLAYERS
-export const getPlayers = async () => {
-  try {
-    const { data: result } = await axios.get(`${baseURL}/players/`);
-    return result;
-  } catch (e) {
-    return Promise.reject(e);
-  }
-};
-
-export const getPlayerByID = async (id) => {
-  try {
-    const { data: result } = await axios.get(`${baseURL}/players/${id}`);
-    return result;
-  } catch (e) {
-    return Promise.reject(e);
-  }
-};
-
-export const addPlayer = async (req, res) => {
-  try {
-    const { data: result } = await axios.post(
-      `${baseURL}/players/add`,
-      req.values,
-      {
-        headers: {
-          access_token: req.token,
-        },
-      }
-    );
-    return Promise.resolve(result);
-  } catch (e) {
-    return Promise.reject(e);
-  }
-};
-
-export const editPlayer = async (req, res) => {
-  try {
-    const { data: result } = await axios.put(
-      `${baseURL}/players/${req.id}`,
-      req.values,
-      {
-        headers: {
-          access_token: req.token,
-        },
-      }
-    );
-    return result;
-  } catch (e) {
-    return Promise.reject(e);
-  }
-};
-
-export const deletePlayerByID = async (req, res) => {
-  try {
-    const { data: result } = await axios.delete(
-      `${baseURL}/players/${req.id}`,
-      {
-        headers: {
-          access_token: req.token,
-        },
-      }
-    );
-    return result;
-  } catch (e) {
-    return Promise.reject(e);
-  }
-};
-
 //USERS
 export const getAllUsers = async (req, res) => {
   try {
@@ -191,51 +122,6 @@ export const editProfile = async (req, res) => {
       `${baseURL}/users/edit/${req.id}`,
       req.values
     );
-    return result;
-  } catch (e) {
-    return Promise.reject(e);
-  }
-};
-
-//NATIONS
-
-export const getNations = async () => {
-  try {
-    const { data: result } = await axios.get(`${baseURL}/nations/`);
-    return result;
-  } catch (e) {
-    return Promise.reject(e);
-  }
-};
-
-export const addNation = async (req, res) => {
-  try {
-    const { data: result } = await axios.post(
-      `${baseURL}/nations/add`,
-      req.values,
-      {
-        headers: {
-          access_token: req.token,
-        },
-      }
-    );
-    return Promise.resolve(result);
-  } catch (e) {
-    return Promise.reject(e);
-  }
-};
-
-export const deleteNation = async (req, res) => {
-  try {
-    const { data: result } = await axios.delete(
-      `${baseURL}/nations/${req.id}`,
-      {
-        headers: {
-          access_token: req.token,
-        },
-      }
-    );
-    console.log(result);
     return result;
   } catch (e) {
     return Promise.reject(e);
