@@ -43,7 +43,7 @@ function Home() {
   return (
     <>
       <Navbar />
-      <div className={styles.wrapperBanner}>
+      <section className={styles.row}>
         <div className={styles.container} style={{ marginBottom: "0" }}>
           <div className={styles.carousel}>
             <div className={styles.carouselBig}>
@@ -198,7 +198,7 @@ function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* <div className="container">
         <div className="mt-3 p-2 d-flex justify-content-center">

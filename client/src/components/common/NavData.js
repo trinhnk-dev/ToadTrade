@@ -13,12 +13,6 @@ export const navData = [
   },
   {
     id: 3,
-    link: "/orders",
-    name: "Đơn hàng",
-    // icon: `<i class="fa-solid fa-bag-shopping"></i>`,
-  },
-  {
-    id: 4,
     link: "/chat",
     name: "Chat",
     // icon: `<i class="fa-solid fa-comment-sms"></i>`,

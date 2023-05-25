@@ -310,3 +310,66 @@ export const uniformList = [
     description: "Mình cần pass lại bộ đồng phục Hutech này ạ",
   },
 ];
+
+export const chatList = [
+  {
+    id: "chat1",
+    name: "Minh Anh",
+    avatar:
+      "https://static.chotot.com/storage/chat/member-profile-avatar_140x140.png",
+    send: "Bút này còn không bạn ",
+    reply: "Dạ còn bạn",
+    active: "Hoạt động 5 phút trước",
+    timeChat: "Thứ 4,  24/05/2023",
+    timeSend: "17:49",
+    timeReply: "17:50",
+  },
+  {
+    id: "chat2",
+    name: "Thủy Tiên",
+    avatar:
+      "https://scontent.fsgn2-9.fna.fbcdn.net/v/t1.15752-9/330114322_630517955504427_2353082012534426760_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=ae9488&_nc_ohc=SROp6GJT5x8AX8UyDOW&_nc_ht=scontent.fsgn2-9.fna&oh=03_AdSxs_j8rFGcXuNPHUJG3_iUUudh2rh_eEb7KWbDRuzGYg&oe=64967BFE",
+    send: "Bộ Họa Cụ này dùng đc bao lâu r bạn",
+    reply: "Mình mới dùng có 1 kỳ spring à bạn ",
+    active: "Hoạt động 10 phút trước",
+    timeChat: "Thứ 2,  22/05/2023",
+    timeSend: "13:39",
+    timeReply: "13:40",
+  },
+  {
+    id: "chat3",
+    name: "Thảo Quyên",
+    avatar:
+      "https://scontent.fsgn2-7.fna.fbcdn.net/v/t1.15752-9/333553810_220909560446623_77944696727708151_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ae9488&_nc_ohc=UPsTzKJbZiIAX8-2nAe&_nc_ht=scontent.fsgn2-7.fna&oh=03_AdSZOVD--LyVE5Q0jfX7ywD1IRbCG2WligW4Ah_93eD4FA&oe=6496A151",
+    send: "Con máy ảnh này tình trạng sao vậy bạn",
+    reply: "Khoảng 95% đó bạn",
+    active: "Hoạt động 1 giờ trước",
+    timeChat: "Chủ Nhật,  21/05/2023",
+    timeSend: "12:00",
+    timeReply: "12:30",
+  },
+  {
+    id: "chat4",
+    name: "Quỳnh Như",
+    avatar:
+      "https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/316091508_3384189581862304_4871959459303493855_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=a4a2d7&_nc_ohc=YXYSHvZInwsAX80Sfyx&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfCm4UKONoBPVCRo7VYYLWLxkQWpNYdtoTAdQ2jynbwcLg&oe=6474F1DB",
+    send: "Sách Mac này còn không bạn",
+    reply: "Còn đó b",
+    active: "Hoạt động 2 giờ trước",
+    timeChat: "Thứ 3,  23/05/2023",
+    timeSend: "18:49",
+    timeReply: "18:50",
+  },
+  {
+    id: "chat5",
+    name: "Tú Anh",
+    avatar:
+      "https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.15752-9/333591172_515708350645150_1656170722902439391_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=ae9488&_nc_ohc=Xf-lWn4BocEAX9JSd71&_nc_ht=scontent.fsgn2-4.fna&oh=03_AdQwIuhqWVwSA5uPbGtVNw-YtWohHmPQNKuGzcuADB0hiQ&oe=64968C05",
+    send: "Con laptop này tình trạng sao bạn",
+    reply: "Mới keng đó bạn",
+    active: "Đang hoạt động",
+    timeChat: "Thứ bảy,  20/05/2023",
+    timeSend: "06:49",
+    timeReply: "07:50",
+  },
+];
