@@ -1,25 +1,26 @@
-import React, { useContext, useEffect, useState } from 'react'
-import styles from '../players/Details.module.css'
+import React, { useContext, useEffect, useState } from "react";
+import styles from "./Details.module.css";
 
 function Details({ id, disabled }) {
-  const [APIData, setAPIData] = useState([])
-  const baseURL = 'https://64135ff3c469cff60d61bf08.mockapi.io/toad/v1/products'
+  const [APIData, setAPIData] = useState([]);
+  const baseURL =
+    "https://64135ff3c469cff60d61bf08.mockapi.io/toad/v1/products";
   useEffect(() => {
-    getDetailPosts()
-  }, [])
+    getDetailPosts();
+  }, []);
 
   function getDetailPosts() {
     fetch(baseURL)
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP Status: ${response.status}`)
+          throw new Error(`HTTP Status: ${response.status}`);
         }
-        return response.json()
+        return response.json();
       })
       .then((data) => {
-        setAPIData(data)
+        setAPIData(data);
       })
-      .catch((error) => console.log(error.message))
+      .catch((error) => console.log(error.message));
   }
 
   return (
@@ -44,7 +45,7 @@ function Details({ id, disabled }) {
         ))}
       </div>
     </>
-  )
+  );
 }
 
-export default Details
+export default Details;
