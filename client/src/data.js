@@ -372,4 +372,16 @@ export const chatList = [
     timeSend: "06:49",
     timeReply: "07:50",
   },
+  {
+    id: "chat6",
+    name: "Hoàng Vũ",
+    avatar:
+      "https://scontent.fsgn2-8.fna.fbcdn.net/v/t1.15752-9/333660760_1139040980070821_4927025051744801117_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ae9488&_nc_ohc=bjQARWgHDWAAX_68pWy&_nc_ht=scontent.fsgn2-8.fna&oh=03_AdReSQTJtHnvE6oZJ1DYHhxu1g0S56LW9sS0UgMP5mblPA&oe=6496E5BD",
+    send: "Bán tui bộ vovinam này",
+    reply: "kê bạn ",
+    active: "Đang hoạt động",
+    timeChat: "Thứ 5,  15/05/2023",
+    timeSend: "08:49",
+    timeReply: "09:50",
+  },
 ];

@@ -31,11 +31,13 @@ const Chat = () => {
                       onClick={() => handleChatItemClick(id)}
                     >
                       <div className={styles.chatImg}>
-                        <img src={avatar} alt="" />
+                        <div className={styles.avatar}>
+                          <img src={avatar} alt="" />
+                        </div>
                       </div>
                       <div className={styles.chatText}>
                         <h6>{name}</h6>
-                        <p>{reply}</p>
+                        <span className={styles.replyText}>{reply}</span>
                       </div>
                     </div>
                   );

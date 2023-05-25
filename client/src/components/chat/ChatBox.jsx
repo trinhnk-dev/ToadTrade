@@ -8,7 +8,11 @@ const ChatBox = ({ selectedChatId }) => {
   const [inputValue, setInputValue] = useState("");
 
   if (!selectedChat) {
-    return <div>Chọn một chat để hiển thị</div>;
+    return (
+      <div className={styles.nothing}>
+        Hãy chọn một đoạn chat để tiếp tục cuộc trò chuyện
+      </div>
+    );
   }
 
   const { send, reply, avatar, name, active, timeChat, timeSend, timeReply } =
@@ -27,7 +31,9 @@ const ChatBox = ({ selectedChatId }) => {
     <div className={styles.row}>
       <div className={styles.chatHeader}>
         <div className={styles.chatImg}>
-          <img src={avatar} alt="" />
+          <div className={styles.imgHeader}>
+            <img src={avatar} alt="" />
+          </div>
         </div>
         <div className={styles.chatText}>
           <h6>{name}</h6>
@@ -49,22 +55,35 @@ const ChatBox = ({ selectedChatId }) => {
             </div>
           </div>
           <div className={styles.chatReply}>
-            <div className={styles.replyContent}>
-              <p>{reply}</p>
-              <span>{timeReply}</span>
+            <div className={styles.replyItem}>
+              <div className={styles.replyImg}>
+                <div className={styles.img}>
+                  <img src={avatar} alt="" />
+                </div>
+              </div>
+              <div className={styles.replyContent}>
+                <p>{reply}</p>
+                <span>{timeReply}</span>
+              </div>
             </div>
+
             <div className={styles.emptyBox}></div>
           </div>
         </div>
 
         <div className={styles.chatInput}>
+          <div className={styles.addInput}>
+            <i class="fa-sharp fa-solid fa-circle-plus"></i>
+          </div>
           <input
             type="text"
             placeholder="Nhập tin nhắn..."
             value={inputValue}
             onChange={handleInputChange}
           />
-          <button onClick={handleSendClick}>Gửi</button>
+          <div onClick={handleSendClick} className={styles.sendChat}>
+            <i class="fa-regular fa-paper-plane"></i>
+          </div>
         </div>
       </div>
     </div>

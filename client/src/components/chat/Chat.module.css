@@ -45,20 +45,22 @@
 }
 
 .chatImg {
-  max-width: 46px;
-  max-height: 46px;
-  border-radius: 50%;
   margin-right: 10px;
-  object-fit: contain;
 }
 
 .chatImg img {
   width: 100%;
+}
+
+.avatar {
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
+  overflow: hidden;
 }
 
 .chatText {
-  width: 80%;
+  width: 60%;
 }
 
 .chatText h6 {
@@ -67,4 +69,12 @@
 
 .chatList {
   width: 100%;
+}
+
+.replyText {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Số dòng tối đa hiển thị */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
