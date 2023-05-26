@@ -1,11 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { chatList } from "../../data";
 import styles from "./ChatBox.module.css";
+import { setLatestMessage } from "../chat/Chat";
 
-const ChatBox = ({ selectedChatId }) => {
+const ChatBox = ({ selectedChatId, onUpdateLatestMessage }) => {
   const selectedChat = chatList.find((chat) => chat.id === selectedChatId);
 
   const [inputValue, setInputValue] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [latestMessage, setLatestMessage] = useState("");
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSendClick();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
 
   if (!selectedChat) {
     return (
@@ -15,16 +32,33 @@ const ChatBox = ({ selectedChatId }) => {
     );
   }
 
-  const { send, reply, avatar, name, active, timeChat, timeSend, timeReply } =
-    selectedChat;
+  const { avatar, name, active } = selectedChat;
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
   const handleSendClick = () => {
-    console.log("Đã gửi chat: ", inputValue);
-    setInputValue("");
+    if (inputValue.trim() !== "") {
+      const newMessage = {
+        send: inputValue,
+        timeSend: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+        timeChat: new Date().toLocaleString([], {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        }),
+      };
+
+      setMessages([...messages, newMessage]);
+      setInputValue("");
+      setLatestMessage(newMessage.send);
+      onUpdateLatestMessage(newMessage.send);
+    }
   };
 
   return (
@@ -44,17 +78,21 @@ const ChatBox = ({ selectedChatId }) => {
         <div className={styles.chatBox}>
           <div className={styles.chatContent}>
             <div className={styles.chatTime}>
-              <h6>{timeChat}</h6>
+              {messages.length > 0 && <h6>{messages[0].timeChat}</h6>}
             </div>
           </div>
-          <div className={styles.chatSend}>
-            <div className={styles.emptyBox}></div>
-            <div className={styles.sendContent}>
-              <p>{send}</p>
-              <span>{timeSend}</span>
+          {messages.map((message, index) => (
+            <div key={index} className={styles.chatSend}>
+              <div className={styles.emptyBox}></div>
+              <div className={styles.sendContent}>
+                <p>{message.send}</p>
+                <div className={styles.sendTime}>
+                  <span>{message.timeSend}</span>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className={styles.chatReply}>
+          ))}
+          {/* <div className={styles.chatReply}>
             <div className={styles.replyItem}>
               <div className={styles.replyImg}>
                 <div className={styles.img}>
@@ -68,7 +106,7 @@ const ChatBox = ({ selectedChatId }) => {
             </div>
 
             <div className={styles.emptyBox}></div>
-          </div>
+          </div> */}
         </div>
 
         <div className={styles.chatInput}>
@@ -80,6 +118,7 @@ const ChatBox = ({ selectedChatId }) => {
             placeholder="Nhập tin nhắn..."
             value={inputValue}
             onChange={handleInputChange}
+            onKeyDown={handleKeyPress}
           />
           <div onClick={handleSendClick} className={styles.sendChat}>
             <i class="fa-regular fa-paper-plane"></i>

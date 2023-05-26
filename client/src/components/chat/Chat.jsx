@@ -8,10 +8,16 @@ import { chatList } from "../../data";
 
 const Chat = () => {
   const [selectedChatId, setSelectedChatId] = useState(null);
+  const [latestMessage, setLatestMessage] = useState("");
 
   const handleChatItemClick = (chatId) => {
     setSelectedChatId(chatId);
   };
+
+  const handleUpdateLatestMessage = (message) => {
+    setLatestMessage(message);
+  };
+
   return (
     <>
       <Navbar />
@@ -21,7 +27,7 @@ const Chat = () => {
             <div className={styles.chatBox}>
               <div className={styles.chatContent}>
                 {chatList.map((item) => {
-                  const { id, name, reply, avatar } = item;
+                  const { id, name, avatar } = item;
                   return (
                     <div
                       className={`${styles.chatItem} ${
@@ -37,7 +43,9 @@ const Chat = () => {
                       </div>
                       <div className={styles.chatText}>
                         <h6>{name}</h6>
-                        <span className={styles.replyText}>{reply}</span>
+                        <span className={styles.replyText}>
+                          {selectedChatId ? latestMessage : "Ấn để trò chuyện"}
+                        </span>
                       </div>
                     </div>
                   );
@@ -45,7 +53,10 @@ const Chat = () => {
               </div>
             </div>
             <div className={styles.chatList}>
-              <ChatBox selectedChatId={selectedChatId} />
+              <ChatBox
+                selectedChatId={selectedChatId}
+                onUpdateLatestMessage={handleUpdateLatestMessage}
+              />
             </div>
           </div>
         </div>

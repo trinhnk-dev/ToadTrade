@@ -1,5 +1,5 @@
-const User = require('../models/User');
-const { hashPassword } = require('../utils/passwordService');
+const User = require("../models/User");
+const { hashPassword } = require("../utils/passwordService");
 
 const register = async (req, res, next) => {
   try {
@@ -9,7 +9,7 @@ const register = async (req, res, next) => {
     if (checkUser) {
       return res.status(400).json({
         status: 400,
-        message: 'Username has ready existed!',
+        message: "Username has ready existed!",
       });
     } else {
       const password = hashPassword(req.body.password);
@@ -23,10 +23,10 @@ const register = async (req, res, next) => {
       newUser.save();
       return res
         .status(200)
-        .json({ status: 200, message: 'Register user successfully!' });
+        .json({ status: 200, message: "Register user successfully!" });
     }
   } catch (e) {
-    res.status(500).json({ status: 500, message: 'Internal Server Error!' });
+    res.status(500).json({ status: 500, message: "Internal Server Error!" });
     next(e);
   }
 };
@@ -35,7 +35,7 @@ const getAllUsers = async (req, res, next) => {
     const allUsers = await User.find();
     return res.status(200).json(allUsers);
   } catch (e) {
-    res.status(500).json({ status: 500, message: 'Internal Server Error!' });
+    res.status(500).json({ status: 500, message: "Internal Server Error!" });
     next(e);
   }
 };
@@ -45,7 +45,7 @@ const getUser = async (req, res, next) => {
   try {
     const userInfo = await User.findOne({ _id: userId });
     if (!userInfo)
-      return res.status(404).json({ status: 404, message: 'Not Found User!' });
+      return res.status(404).json({ status: 404, message: "Not Found User!" });
     const data = {
       _id: userInfo._id,
       username: userInfo.username,
@@ -54,7 +54,7 @@ const getUser = async (req, res, next) => {
     };
     return res.status(200).json(data);
   } catch (e) {
-    res.status(500).json({ status: 500, message: 'Internal Server Error!' });
+    res.status(500).json({ status: 500, message: "Internal Server Error!" });
     next(e);
   }
 };
@@ -66,10 +66,10 @@ const editInfo = async (req, res, next) => {
     if (!userInfo)
       return res
         .status(400)
-        .json({ status: 400, message: 'Cannot update User!' });
-    res.status(200).json({ status: 200, message: 'Update Successfully!' });
+        .json({ status: 400, message: "Cannot update User!" });
+    res.status(200).json({ status: 200, message: "Update Successfully!" });
   } catch (e) {
-    res.status(500).json({ status: 500, message: 'Internal Server Error!' });
+    res.status(500).json({ status: 500, message: "Internal Server Error!" });
     next(e);
   }
 };
@@ -81,10 +81,10 @@ const removeUsers = async (req, res, next) => {
     if (!userInfo)
       return res
         .status(400)
-        .json({ status: 400, message: 'Delete User failed!' });
-    res.status(200).json({ status: 200, message: 'Delete Successfully!' });
+        .json({ status: 400, message: "Delete User failed!" });
+    res.status(200).json({ status: 200, message: "Delete Successfully!" });
   } catch (e) {
-    res.status(500).json({ status: 500, message: 'Internal Server Error!' });
+    res.status(500).json({ status: 500, message: "Internal Server Error!" });
     next(e);
   }
 };
@@ -100,10 +100,10 @@ const upRole = async (req, res, next) => {
     if (!userInfo)
       return res
         .status(400)
-        .json({ status: 400, message: 'Cannot update role Admin!' });
-    res.status(200).json({ state: 200, message: 'Update successfully!' });
+        .json({ status: 400, message: "Cannot update role Admin!" });
+    res.status(200).json({ state: 200, message: "Update successfully!" });
   } catch (e) {
-    res.status(500).json({ status: 500, message: 'Internal Server Error! ' });
+    res.status(500).json({ status: 500, message: "Internal Server Error! " });
     next(e);
   }
 };
@@ -115,10 +115,10 @@ const downRole = async (req, res, next) => {
     if (!userInfo)
       return res
         .status(400)
-        .json({ status: 400, message: 'Cannot update User!' });
-    res.status(200).json({ state: 200, message: 'Update successfully!' });
+        .json({ status: 400, message: "Cannot update User!" });
+    res.status(200).json({ state: 200, message: "Update successfully!" });
   } catch (e) {
-    res.status(500).json({ status: 500, message: 'Internal Server Error! ' });
+    res.status(500).json({ status: 500, message: "Internal Server Error! " });
     next(e);
   }
 };

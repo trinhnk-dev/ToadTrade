@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { logOut } from "../../store/Actions";
 import Navbar from "../common/Navbar";
 import styles from "./Home.module.css";
@@ -17,7 +16,7 @@ import { techDevice } from "../../data";
 import { bookList } from "../../data";
 import { uniformList } from "../../data";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StoreContext, actions } from "../../store";
 import { deletePlayerByID, getPlayers } from "../../api";
 import Footer from "./Footer";
@@ -40,10 +39,32 @@ function Home() {
   const handleNavigate = (id) => {
     return navigate(`/players/${id}`);
   };
+
+  const [APIData, setAPIData] = useState([]);
+  const baseURL =
+    "https://64135ff3c469cff60d61bf08.mockapi.io/toad/v1/DetailPost";
+  useEffect(() => {
+    getPosts();
+  }, []);
+
+  function getPosts() {
+    fetch(baseURL)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setAPIData(data);
+      })
+      .catch((error) => console.log(error.message));
+  }
+
   return (
     <>
       <Navbar />
-      <section className={styles.row}>
+      <div className={styles.row}>
         <div className={styles.container} style={{ marginBottom: "0" }}>
           <div className={styles.carousel}>
             <div className={styles.carouselBig}>
@@ -87,25 +108,26 @@ function Home() {
             })}
           </div>
         </div>
+
+        {/* Stationery */}
         <div className={styles.container}>
           <div className={styles.product}>
             <div className={styles.productTitle}>
-              <h3>Họa cụ & đồ dùng học tập</h3>
+              <h3>Những sản phẩm đang bán</h3>
             </div>
             <div className={styles.productContent}>
-              {stationeryList.map((item) => {
-                const { id, name, price, img, time, address } = item;
+              {APIData.map((stationery) => {
                 return (
-                  <div className={styles.productItem} key={id}>
+                  <div className={styles.productItem} key={stationery.id}>
                     <div className={styles.productImage}>
-                      <img src={img} alt="" />
+                      <img src={stationery.img} alt="" />
                     </div>
                     <div className={styles.productText}>
-                      <h4>{name}</h4>
-                      <h6>{price}</h6>
+                      <h4 className={styles.ellipsis}>{stationery.name}</h4>
+                      <h6>{stationery.price} VNĐ</h6>
                       <div className={styles.infoFooter}>
-                        <span>{time}</span>
-                        <p>{address}</p>
+                        <span>Độ mới: {stationery.status}%</span>
+                        <p>{stationery.address}</p>
                       </div>
                     </div>
                   </div>
@@ -114,61 +136,69 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className={styles.container}>
+
+        {/* Tech */}
+        {/* <div className={styles.container}>
           <div className={styles.product}>
             <div className={styles.productTitle}>
               <h3>Đồ công nghệ</h3>
             </div>
             <div className={styles.productContent}>
-              {techDevice.map((item) => {
-                const { id, name, price, img, time, address } = item;
-                return (
-                  <div className={styles.productItem} key={id}>
-                    <div className={styles.productImage}>
-                      <img src={img} alt="" />
-                    </div>
-                    <div className={styles.productText}>
-                      <h4>{name}</h4>
-                      <h6>{price}</h6>
-                      <div className={styles.infoFooter}>
-                        <span>{time}</span>
-                        <p>{address}</p>
+              {APIData.map((tech) => {
+                if (tech.type === "tech") {
+                  return (
+                    <div className={styles.productItem} key={tech.id}>
+                      <div className={styles.productImage}>
+                        <img src={tech.img} alt="" />
+                      </div>
+                      <div className={styles.productText}>
+                        <h4>{tech.name}</h4>
+                        <h6>{tech.price}</h6>
+                        <div className={styles.infoFooter}>
+                          <span>{tech.time}</span>
+                          <p>{tech.address}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
+                  );
+                }
               })}
             </div>
           </div>
-        </div>
-        <div className={styles.container}>
+        </div> */}
+
+        {/* Book */}
+        {/* <div className={styles.container}>
           <div className={styles.product}>
             <div className={styles.productTitle}>
               <h3>Giáo Trình</h3>
             </div>
             <div className={styles.productContent}>
-              {bookList.map((item) => {
-                const { id, name, price, img, time, address } = item;
-                return (
-                  <div className={styles.productItem} key={id}>
-                    <div className={styles.productImage}>
-                      <img src={img} alt="" />
-                    </div>
-                    <div className={styles.productText}>
-                      <h4>{name}</h4>
-                      <h6>{price}</h6>
-                      <div className={styles.infoFooter}>
-                        <span>{time}</span>
-                        <p>{address}</p>
+              {APIData.map((book) => {
+                if (book.type === "book") {
+                  return (
+                    <div className={styles.productItem} key={book.id}>
+                      <div className={styles.productImage}>
+                        <img src={book.img} alt="" />
+                      </div>
+                      <div className={styles.productText}>
+                        <h4>{book.name}</h4>
+                        <h6>{book.price}</h6>
+                        <div className={styles.infoFooter}>
+                          <span>{book.time}</span>
+                          <p>{book.address}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
+                  );
+                }
               })}
             </div>
           </div>
-        </div>
-        <div
+        </div> */}
+
+        {/* Uniform */}
+        {/* <div
           className={styles.container}
           style={{ marginBottom: 0, paddingBottom: "80px" }}
         >
@@ -177,28 +207,29 @@ function Home() {
               <h3>Đồng phục</h3>
             </div>
             <div className={styles.productContent}>
-              {uniformList.map((item) => {
-                const { id, name, price, img, time, address } = item;
-                return (
-                  <div className={styles.productItem} key={id}>
-                    <div className={styles.productImage}>
-                      <img src={img} alt="" />
-                    </div>
-                    <div className={styles.productText}>
-                      <h4>{name}</h4>
-                      <h6>{price}</h6>
-                      <div className={styles.infoFooter}>
-                        <span>{time}</span>
-                        <p>{address}</p>
+              {APIData.map((uniform) => {
+                if (uniform.type === "uniform") {
+                  return (
+                    <div className={styles.productItem} key={uniform.id}>
+                      <div className={styles.productImage}>
+                        <img src={uniform.img} alt="" />
+                      </div>
+                      <div className={styles.productText}>
+                        <h4>{uniform.name}</h4>
+                        <h6>{uniform.price}</h6>
+                        <div className={styles.infoFooter}>
+                          <span>{uniform.time}</span>
+                          <p>{uniform.address}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
+                  );
+                }
               })}
             </div>
           </div>
-        </div>
-      </section>
+        </div> */}
+      </div>
 
       {/* <div className="container">
         <div className="mt-3 p-2 d-flex justify-content-center">

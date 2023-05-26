@@ -34,7 +34,7 @@
 .chatItem {
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 10px;
+  margin-right: 5px;
   border-bottom: 3px solid #f5f5f5;
   padding: 10px 0px;
   cursor: pointer;
@@ -65,6 +65,10 @@
 
 .chatText h6 {
   margin-bottom: 0;
+}
+
+.chatBox {
+  width: 25%;
 }
 
 .chatList {

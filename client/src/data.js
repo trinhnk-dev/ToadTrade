@@ -114,7 +114,8 @@ export const stationeryList = [
     id: "stationeryList5",
     name: "Khay đựng họa cụ, bút marker, bút viết, cọ, ...",
     price: "48.000 VNĐ",
-    img: "https://product.hstatic.net/200000350979/product/image_1_2d9c0a8939904cd4a4d5a528b12a3a93.png",
+    img:
+      "https://product.hstatic.net/200000350979/product/image_1_2d9c0a8939904cd4a4d5a528b12a3a93.png",
     time: "5 giờ trước",
     address: "Tp Hồ Chí Minh",
     description: "Khay đựng bút siêu tiện lợi",
@@ -126,7 +127,8 @@ export const techDevice = [
     id: "techDevice1",
     name: "Iphone 14 Pro Max",
     price: "20.000.000 VNĐ",
-    img: "https://www.digitaltrends.com/wp-content/uploads/2022/09/iPhone-14-Pro-Back-Purple-Hand.jpg?p=1",
+    img:
+      "https://www.digitaltrends.com/wp-content/uploads/2022/09/iPhone-14-Pro-Back-Purple-Hand.jpg?p=1",
     time: "1 giờ trước",
     address: "Tp Hồ Chí Minh",
     brand: "Apple",
@@ -140,7 +142,8 @@ export const techDevice = [
     id: "techDevice2",
     name: "Macbook Pro 2019",
     price: "30.000.000 VNĐ",
-    img: "https://bizweb.dktcdn.net/100/046/882/products/macbook-pro-13-inch-touch2019-core-i7-8569u-2-8-ghz-ram-8gb-16gb-ssd-256gb-512gb-1tb-mv982-model-a1989-emc-3358.jpg?v=1658205236260",
+    img:
+      "https://bizweb.dktcdn.net/100/046/882/products/macbook-pro-13-inch-touch2019-core-i7-8569u-2-8-ghz-ram-8gb-16gb-ssd-256gb-512gb-1tb-mv982-model-a1989-emc-3358.jpg?v=1658205236260",
     time: "5 giờ trước",
     address: "Tp Hồ Chí Minh",
     brand: "Apple",
@@ -157,7 +160,8 @@ export const techDevice = [
     id: "techDevice3",
     name: "Máy ảnh Canon",
     price: "10.000.000 VNĐ",
-    img: "https://img.websosanh.vn/v2/users/review/images/u13i0dtj9hsqs.jpg?compress=85",
+    img:
+      "https://img.websosanh.vn/v2/users/review/images/u13i0dtj9hsqs.jpg?compress=85",
     time: "30 phút trước",
     address: "Tp Hồ Chí Minh",
     brand: "Canon",
@@ -169,7 +173,8 @@ export const techDevice = [
     id: "techDevice4",
     name: "Samsung Galaxy S23",
     price: "15.000.000 VNĐ",
-    img: "https://www.stuff.tv/wp-content/uploads/sites/2/2023/02/Samsung-Galaxy-S23-review-in-hand-front.jpg?w=1080",
+    img:
+      "https://www.stuff.tv/wp-content/uploads/sites/2/2023/02/Samsung-Galaxy-S23-review-in-hand-front.jpg?w=1080",
     time: "1 giờ trước",
     address: "Tp Hồ Chí Minh",
     brand: "Samsung",
@@ -183,7 +188,8 @@ export const techDevice = [
     id: "techDevice5",
     name: "Laptop Gaming Asus TUF",
     price: "13.000.000 VNĐ",
-    img: "https://laptoptld.com/wp-content/uploads/2022/05/Laptop-Asus-TUF-Gaming-A15-FA506II-AL012T-4.jpg",
+    img:
+      "https://laptoptld.com/wp-content/uploads/2022/05/Laptop-Asus-TUF-Gaming-A15-FA506II-AL012T-4.jpg",
     time: "5 giờ trước",
     address: "Tp Hồ Chí Minh",
     brand: "Asus",
@@ -214,7 +220,8 @@ export const bookList = [
     name: "Giáo trình chủ nghĩa Mac-Lenin",
     status: "95%",
     price: "50.000 VNĐ",
-    img: "https://cdn.luatminhkhue.vn/lmk/article/Sach-luat/Giao-trinh-Triet-hoc-Mac-Lenin.jpg",
+    img:
+      "https://cdn.luatminhkhue.vn/lmk/article/Sach-luat/Giao-trinh-Triet-hoc-Mac-Lenin.jpg",
     time: "5 giờ trước",
     address: "Tp Hồ Chí Minh",
     description:
@@ -271,7 +278,8 @@ export const uniformList = [
     size: "M",
     color: "Cam",
     price: "100.000 VNĐ",
-    img: "https://uvi.vn/wp-content/uploads/2021/11/Chup-anh-mac-dong-phuc-ao-thun-Hutech.jpeg",
+    img:
+      "https://uvi.vn/wp-content/uploads/2021/11/Chup-anh-mac-dong-phuc-ao-thun-Hutech.jpeg",
     time: "10 giờ trước",
     address: "Tp Hồ Chí Minh",
     description: "Mình cần pass lại bộ đồng phục Hutech này ạ",
@@ -282,7 +290,8 @@ export const uniformList = [
     size: "M",
     color: "Cam",
     price: "90.000 VNĐ",
-    img: "https://cdn.haitrieu.com/wp-content/uploads/2021/12/hinh-anh-thuc-te-dong-phuc-sinh-vien-khoa-quan-tri-kinh-doanh-truong-dai-hoc-van-lang.png",
+    img:
+      "https://cdn.haitrieu.com/wp-content/uploads/2021/12/hinh-anh-thuc-te-dong-phuc-sinh-vien-khoa-quan-tri-kinh-doanh-truong-dai-hoc-van-lang.png",
     time: "5 giờ trước",
     address: "Tp Hồ Chí Minh",
     description: "Mình cần pass lại bộ đồng phục Văn Lang này ạ",
@@ -304,7 +313,8 @@ export const uniformList = [
     size: "M",
     color: "Trắng xanh",
     price: "60.000 VNĐ",
-    img: "https://dongphucgiadinh.com/wp-content/uploads/2022/09/ao-thun-dong-phuc-dai-hoc-khoa-hoc-xa-hoi-va-nhan-van.jpg",
+    img:
+      "https://dongphucgiadinh.com/wp-content/uploads/2022/09/ao-thun-dong-phuc-dai-hoc-khoa-hoc-xa-hoi-va-nhan-van.jpg",
     time: "10 giờ trước",
     address: "Tp Hồ Chí Minh",
     description: "Mình cần pass lại bộ đồng phục Hutech này ạ",
@@ -316,72 +326,11 @@ export const chatList = [
     id: "chat1",
     name: "Minh Anh",
     avatar:
-      "https://static.chotot.com/storage/chat/member-profile-avatar_140x140.png",
+      "https://scontent.fsgn2-7.fna.fbcdn.net/v/t1.15752-9/349560742_795547881824915_8773908625762130158_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_ohc=yHgUdilfFAMAX9OMj2i&_nc_ht=scontent.fsgn2-7.fna&oh=03_AdQOBx2pNKFrsromg0rWwFguisqYFcoTtCd2UdooKW4V0g&oe=64985D02",
     send: "Bút này còn không bạn ",
-    reply: "Dạ còn bạn",
     active: "Hoạt động 5 phút trước",
     timeChat: "Thứ 4,  24/05/2023",
     timeSend: "17:49",
     timeReply: "17:50",
-  },
-  {
-    id: "chat2",
-    name: "Thủy Tiên",
-    avatar:
-      "https://scontent.fsgn2-9.fna.fbcdn.net/v/t1.15752-9/330114322_630517955504427_2353082012534426760_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=ae9488&_nc_ohc=SROp6GJT5x8AX8UyDOW&_nc_ht=scontent.fsgn2-9.fna&oh=03_AdSxs_j8rFGcXuNPHUJG3_iUUudh2rh_eEb7KWbDRuzGYg&oe=64967BFE",
-    send: "Bộ Họa Cụ này dùng đc bao lâu r bạn",
-    reply: "Mình mới dùng có 1 kỳ spring à bạn ",
-    active: "Hoạt động 10 phút trước",
-    timeChat: "Thứ 2,  22/05/2023",
-    timeSend: "13:39",
-    timeReply: "13:40",
-  },
-  {
-    id: "chat3",
-    name: "Thảo Quyên",
-    avatar:
-      "https://scontent.fsgn2-7.fna.fbcdn.net/v/t1.15752-9/333553810_220909560446623_77944696727708151_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ae9488&_nc_ohc=UPsTzKJbZiIAX8-2nAe&_nc_ht=scontent.fsgn2-7.fna&oh=03_AdSZOVD--LyVE5Q0jfX7ywD1IRbCG2WligW4Ah_93eD4FA&oe=6496A151",
-    send: "Con máy ảnh này tình trạng sao vậy bạn",
-    reply: "Khoảng 95% đó bạn",
-    active: "Hoạt động 1 giờ trước",
-    timeChat: "Chủ Nhật,  21/05/2023",
-    timeSend: "12:00",
-    timeReply: "12:30",
-  },
-  {
-    id: "chat4",
-    name: "Quỳnh Như",
-    avatar:
-      "https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/316091508_3384189581862304_4871959459303493855_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=a4a2d7&_nc_ohc=YXYSHvZInwsAX80Sfyx&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfCm4UKONoBPVCRo7VYYLWLxkQWpNYdtoTAdQ2jynbwcLg&oe=6474F1DB",
-    send: "Sách Mac này còn không bạn",
-    reply: "Còn đó b",
-    active: "Hoạt động 2 giờ trước",
-    timeChat: "Thứ 3,  23/05/2023",
-    timeSend: "18:49",
-    timeReply: "18:50",
-  },
-  {
-    id: "chat5",
-    name: "Tú Anh",
-    avatar:
-      "https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.15752-9/333591172_515708350645150_1656170722902439391_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=ae9488&_nc_ohc=Xf-lWn4BocEAX9JSd71&_nc_ht=scontent.fsgn2-4.fna&oh=03_AdQwIuhqWVwSA5uPbGtVNw-YtWohHmPQNKuGzcuADB0hiQ&oe=64968C05",
-    send: "Con laptop này tình trạng sao bạn",
-    reply: "Mới keng đó bạn",
-    active: "Đang hoạt động",
-    timeChat: "Thứ bảy,  20/05/2023",
-    timeSend: "06:49",
-    timeReply: "07:50",
-  },
-  {
-    id: "chat6",
-    name: "Hoàng Vũ",
-    avatar:
-      "https://scontent.fsgn2-8.fna.fbcdn.net/v/t1.15752-9/333660760_1139040980070821_4927025051744801117_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ae9488&_nc_ohc=bjQARWgHDWAAX_68pWy&_nc_ht=scontent.fsgn2-8.fna&oh=03_AdReSQTJtHnvE6oZJ1DYHhxu1g0S56LW9sS0UgMP5mblPA&oe=6496E5BD",
-    send: "Bán tui bộ vovinam này",
-    reply: "kê bạn ",
-    active: "Đang hoạt động",
-    timeChat: "Thứ 5,  15/05/2023",
-    timeSend: "08:49",
-    timeReply: "09:50",
   },
 ];

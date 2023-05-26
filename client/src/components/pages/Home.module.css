@@ -68,6 +68,7 @@
 .productContent {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .productItem {
@@ -109,6 +110,13 @@
 .productText h4 {
   margin-top: 10px;
   font-size: 16px;
+  padding-bottom: 5px;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .productText h6 {
   font-size: 14px;

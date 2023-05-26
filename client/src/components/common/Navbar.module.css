@@ -102,3 +102,11 @@
   background-color: #f7d106;
   cursor: pointer;
 }
+
+.activeNavItem span {
+  color: #f7d106;
+}
+
+.activeNavItem:hover span {
+  color: #f7d106;
+}

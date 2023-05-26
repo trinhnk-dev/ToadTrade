@@ -8,6 +8,7 @@ import { StoreContext } from "./store";
 import Users from "./components/users";
 import Register from "./components/pages/Register";
 import Chat from "./components/chat/Chat";
+import Details from "./components/pages/Details";
 
 const history = createBrowserHistory();
 
@@ -22,6 +23,7 @@ function App() {
             <Route path="/*" element={<Navigate to="/home" />} exact />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/details" component={<Details />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/home" element={<Home />} />
           </Routes>
@@ -38,6 +40,7 @@ function App() {
             <Route path="/*" element={<Navigate to="/home" />} exact />
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/details" component={<Details />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/users" element={<Users />} />{" "}
             <Route
@@ -58,6 +61,7 @@ function App() {
             <Route path="/*" element={<Navigate to="/home" />} exact />
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/details" component={<Details />} />
             <Route path="/chat" element={<Chat />} />
             <Route
               path="/accounts"

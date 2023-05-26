@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../../store";
 import { logOut } from "../../store/Actions";
@@ -10,9 +10,13 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 function Navbar() {
   const [state, dispatch] = useContext(StoreContext);
+  const [activeNavItem, setActiveNavItem] = useState(navData[0].id);
 
   const onLogout = async () => {
     await dispatch(logOut());
+  };
+  const handleNavItemClick = (itemId) => {
+    setActiveNavItem(itemId);
   };
 
   return (
@@ -35,14 +39,20 @@ function Navbar() {
               {navData.map((item) => {
                 const { id, link, name, icon } = item;
                 return (
-                  <div className={styles.navItem}>
+                  <div
+                    className={`{styles.navItem} ${
+                      activeNavItem === id ? styles.activeNavItem : ""
+                    }`}
+                    key={id}
+                    onClick={() => handleNavItemClick(id)}
+                  >
                     {state.accessToken ? (
-                      <Link to={link} className={styles.navLink} key={id}>
+                      <Link to={link} className={styles.navLink}>
                         <span dangerouslySetInnerHTML={{ __html: icon }}></span>
                         <span className={styles.navName}>{name}</span>
                       </Link>
                     ) : (
-                      <Link to="/login" className={styles.navLink} key={id}>
+                      <Link to="/login" className={styles.navLink}>
                         {" "}
                         <span dangerouslySetInnerHTML={{ __html: icon }}></span>
                         <span className={styles.navName}>{name}</span>

@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken');
-const { checkPassword } = require('../../utils/passwordService');
-const User = require('../../models/User');
+const jwt = require("jsonwebtoken");
+const { checkPassword } = require("../../utils/passwordService");
+const User = require("../../models/User");
 
 const login = async (req, res, next) => {
   try {
@@ -8,9 +8,9 @@ const login = async (req, res, next) => {
       username: req.body.username,
     });
 
-    if (!user) return res.status(404).json('User not found!');
+    if (!user) return res.status(404).json("User not found!");
     if (!(await checkPassword(req.body.password, user.password))) {
-      return res.status(400).json('Password is incorrect!');
+      return res.status(400).json("Password is incorrect!");
     }
     const payload = {
       username: user.username,
@@ -20,17 +20,17 @@ const login = async (req, res, next) => {
       isAdmin: user.isAdmin,
     };
     const accessToken = jwt.sign(payload, process.env.SECRET_KEY, {
-      expiresIn: '30m',
+      expiresIn: "30m",
     });
 
     return res.status(200).json({
       status: 200,
-      message: 'Login successfully!',
+      message: "Login successfully!",
       profile: { ...payload },
       accessToken: accessToken,
     });
   } catch (e) {
-    res.status(500).json('Internal Server Error!');
+    res.status(500).json("Internal Server Error!");
     return next(e);
   }
 };

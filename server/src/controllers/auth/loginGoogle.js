@@ -1,7 +1,7 @@
-const User = require('../../models/User');
-const jwt = require('jsonwebtoken');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const passport = require('passport');
+const User = require("../../models/User");
+const jwt = require("jsonwebtoken");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const passport = require("passport");
 
 const loginOauth = async (req, res, next) => {
   const authUser = req.user;
@@ -16,17 +16,17 @@ const loginOauth = async (req, res, next) => {
       isAdmin: user.isAdmin,
     };
     const accessToken = jwt.sign(payload, process.env.SECRET_KEY, {
-      expiresIn: '30m',
+      expiresIn: "30m",
     });
 
     return res.status(200).json({
       status: 200,
-      message: 'Login successfully!',
+      message: "Login successfully!",
       profile: { ...payload },
       accessToken: accessToken,
     });
   } else {
-    res.status(500).json('Internal Server Error!');
+    res.status(500).json("Internal Server Error!");
     return next(e);
   }
 };
@@ -36,9 +36,9 @@ passport.use(
   new GoogleStrategy(
     {
       clientID:
-        '33568893407-f04fp9hslih8ou12pstifudsj9ph0j0h.apps.googleusercontent.com',
-      clientSecret: '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',
-      callbackURL: 'http://localhost:5000/api/auth/google/callback',
+        "33568893407-f04fp9hslih8ou12pstifudsj9ph0j0h.apps.googleusercontent.com",
+      clientSecret: "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",
+      callbackURL: "http://localhost:5000/api/auth/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       //get the user data from google
