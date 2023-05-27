@@ -16,7 +16,7 @@ const login = async (req, res, next) => {
       username: user.username,
       name: user.name,
       id: user.id,
-      yoB: user.yoB,
+      phone: user.phone,
       isAdmin: user.isAdmin,
     };
     const accessToken = jwt.sign(payload, process.env.SECRET_KEY, {

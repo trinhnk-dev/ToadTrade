@@ -97,10 +97,10 @@ function Navbar() {
                       }}
                     >
                       <span
-                        className=" mx-3"
+                        className=" ml-3"
                         style={{ textTransform: "capitalize" }}
                       >
-                        Welcome {state.profile.username}!
+                        {state.profile.name}
                       </span>
                     </Dropdown.Toggle>
 

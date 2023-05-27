@@ -16,7 +16,7 @@ function Register() {
     username: "",
     password: "",
     name: "",
-    yoB: "",
+    phone: "",
   });
 
   useEffect(() => {
@@ -24,12 +24,18 @@ function Register() {
     if (state.accessToken) {
       navigate("/");
     } else {
-      setValues({ username: "", password: "", name: "", yoB: "" });
+      setValues({ username: "", password: "", name: "", phone: "" });
       navigate("/register");
     }
   }, [state, navigate]);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    // Kiểm tra độ dài giá trị nhập vào
+    if (name === "phone" && value.length > 10) {
+      return;
+    }
     setValues({
       ...values,
       [e.target.name]: e.target.value,
@@ -116,17 +122,16 @@ function Register() {
           <div className={styles.txtField}>
             <input
               type="number"
-              id="inputyoB"
-              name="yoB"
-              min={1970}
-              max={2015}
+              id="inputphone"
+              name="phone"
+              maxLength={10}
               // placeholder="Type your year of birth"
-              value={values.yoB}
+              value={values.phone}
               onChange={handleChange}
               required
             />
             <span></span>
-            <label htmlFor="inputyoB">Năm Sinh</label>
+            <label htmlFor="inputphone">Số điện thoại</label>
           </div>
 
           {/* Register Button */}

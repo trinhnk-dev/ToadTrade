@@ -1,7 +1,7 @@
 export const navData = [
   {
     id: 1,
-    link: "/upload",
+    link: "/createPost",
     name: "Đăng tin",
     // icon: `<i class="fa-solid fa-comment-sms"></i>`,
   },

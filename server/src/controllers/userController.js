@@ -16,7 +16,7 @@ const register = async (req, res, next) => {
       const newUser = new User({
         username: req.body.username,
         name: req.body.name,
-        yoB: req.body.yoB,
+        phone: req.body.phone,
         password: password,
         isAdmin: false,
       });
@@ -50,7 +50,7 @@ const getUser = async (req, res, next) => {
       _id: userInfo._id,
       username: userInfo.username,
       name: userInfo.name,
-      yoB: userInfo.yoB,
+      phone: userInfo.phone,
     };
     return res.status(200).json(data);
   } catch (e) {

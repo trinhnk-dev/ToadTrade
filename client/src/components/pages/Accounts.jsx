@@ -11,7 +11,7 @@ function Accounts({ id }) {
   const [refresh, setRefresh] = useState(false);
   const [values, setValues] = useState({
     username: "",
-    yoB: "",
+    phone: "",
     name: "",
   });
 
@@ -24,6 +24,12 @@ function Accounts({ id }) {
   }, [refresh]);
 
   const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    // Kiểm tra độ dài giá trị nhập vào
+    if (name === "phone" && value.length > 10) {
+      return;
+    }
     setValues({
       ...values,
       [event.target.name]: event.target.value,
@@ -87,15 +93,14 @@ function Accounts({ id }) {
           <div className={styles.txtField}>
             <input
               type="number"
-              name="yoB"
-              min="1970"
-              max="2015"
+              name="phone"
+              maxLength={10}
               required
               onChange={handleChange}
-              value={values.yoB}
+              value={values.phone}
             />
             <span></span>
-            <label className="labels">Year Of Birth</label>
+            <label className="labels">Số điện thoại</label>
           </div>
 
           {/* Save Button */}
