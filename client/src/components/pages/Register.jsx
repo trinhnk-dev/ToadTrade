@@ -121,10 +121,11 @@ function Register() {
           {/* Year of Birth */}
           <div className={styles.txtField}>
             <input
-              type="number"
+              type="text"
               id="inputphone"
               name="phone"
               maxLength={10}
+              pattern="[0-9]*"
               // placeholder="Type your year of birth"
               value={values.phone}
               onChange={handleChange}

@@ -92,9 +92,10 @@ function Accounts({ id }) {
           {/* Year of Birth */}
           <div className={styles.txtField}>
             <input
-              type="number"
+              type="text"
               name="phone"
               maxLength={10}
+              pattern="[0-9]*"
               required
               onChange={handleChange}
               value={values.phone}

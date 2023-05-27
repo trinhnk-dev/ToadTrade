@@ -90,6 +90,7 @@ function CreatePost() {
                 value={formik.values.name}
                 onChange={formik.handleChange}
                 className={styles.input}
+                placeholder="Nhập tên sản phẩm"
               />
               {formik.errors.name && formik.touched.name && (
                 <p color="red">{formik.errors.name}</p>
@@ -121,6 +122,7 @@ function CreatePost() {
                 value={formik.values.img}
                 onChange={formik.handleChange}
                 className={styles.input}
+                placeholder="Nhập url sản phẩm"
               />
               {formik.errors.img && formik.touched.img && (
                 <p color="red">{formik.errors.img}</p>
@@ -151,6 +153,7 @@ function CreatePost() {
                 value={formik.values.address}
                 onChange={formik.handleChange}
                 className={styles.input}
+                placeholder="Nhập địa chỉ của bạn"
               />
               {formik.errors.address && formik.touched.address && (
                 <p color="red">{formik.errors.address}</p>
@@ -165,6 +168,7 @@ function CreatePost() {
                 value={formik.values.description}
                 onChange={formik.handleChange}
                 className={styles.textarea}
+                placeholder="Mô tả sản phẩm"
               />
               {formik.errors.description && formik.touched.description && (
                 <p>{formik.errors.description}</p>

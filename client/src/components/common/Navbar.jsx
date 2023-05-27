@@ -10,13 +10,9 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 function Navbar() {
   const [state, dispatch] = useContext(StoreContext);
-  const [activeNavItem, setActiveNavItem] = useState(navData[0].id);
 
   const onLogout = async () => {
     await dispatch(logOut());
-  };
-  const handleNavItemClick = (itemId) => {
-    setActiveNavItem(itemId);
   };
 
   return (
@@ -39,13 +35,7 @@ function Navbar() {
               {navData.map((item) => {
                 const { id, link, name, icon } = item;
                 return (
-                  <div
-                    className={`{styles.navItem} ${
-                      activeNavItem === id ? styles.activeNavItem : ""
-                    }`}
-                    key={id}
-                    onClick={() => handleNavItemClick(id)}
-                  >
+                  <div className={styles.navItem} key={id}>
                     {state.accessToken ? (
                       <Link to={link} className={styles.navLink}>
                         <span dangerouslySetInnerHTML={{ __html: icon }}></span>

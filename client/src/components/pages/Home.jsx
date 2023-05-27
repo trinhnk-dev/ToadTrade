@@ -32,10 +32,6 @@ function Home() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
 
-  const handleNavigate = (id) => {
-    return navigate(`/players/${id}`);
-  };
-
   const [APIData, setAPIData] = useState([]);
   const baseURL =
     "https://64135ff3c469cff60d61bf08.mockapi.io/toad/v1/DetailPost";
@@ -116,7 +112,9 @@ function Home() {
                 return (
                   <div className={styles.productItem} key={stationery.id}>
                     <div className={styles.productImage}>
-                      <img src={stationery.img} alt="" />
+                      <Link to={"detail/" + stationery.id}>
+                        <img src={stationery.img} alt="" />
+                      </Link>
                     </div>
                     <div className={styles.productText}>
                       <h4 className={styles.ellipsis}>{stationery.name}</h4>
@@ -125,14 +123,6 @@ function Home() {
                         <span>Độ mới: {stationery.status}%</span>
                         <p>{stationery.address}</p>
                       </div>
-                      <button>
-                        <Link
-                          to={"detail/" + stationery.id}
-                          style={{ textDecoration: "none", color: "#0078D2" }}
-                        >
-                          Detail
-                        </Link>
-                      </button>
                     </div>
                   </div>
                 );

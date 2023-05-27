@@ -7,7 +7,7 @@ export const navData = [
   },
   {
     id: 2,
-    link: "/players",
+    link: "/manage",
     name: "Quản lý tin",
     // icon: `<i class="fa-solid fa-file-arrow-up"></i>`,
   },

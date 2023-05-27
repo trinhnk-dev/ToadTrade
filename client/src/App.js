@@ -10,6 +10,7 @@ import Users from "./components/users";
 import Register from "./components/pages/Register";
 import Chat from "./components/chat/Chat";
 import CreatePost from "./components/pages/CreatePost";
+import Manage from "./components/pages/Manage";
 
 const history = createBrowserHistory();
 
@@ -61,6 +62,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home />} />
             <Route path="/chat" element={<Chat />} />
+            <Route path="/manage" element={<Manage />} />
             <Route
               path="/accounts"
               element={<Accounts id={state.profile.id} />}
