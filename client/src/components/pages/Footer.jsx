@@ -31,9 +31,9 @@ function Footer() {
               <h4>ToadTrade</h4>
               <ul>
                 <li>
-                  <a href="#">Về chúng tôi</a>
-                  <a href="#">Dịch vụ</a>
-                  <a href="#">Lịch sử hình thành</a>
+                  <Link to="/">Về chúng tôi</Link>
+                  <Link to="/">Dịch vụ</Link>
+                  <Link to="/">Lịch sử hình thành</Link>
                 </li>
               </ul>
             </div>
@@ -56,10 +56,10 @@ function Footer() {
               <h4>Danh mục</h4>
               <ul>
                 <li>
-                  <a href="#">Dụng cụ học tập</a>
-                  <a href="#">Đồ điện tử</a>
-                  <a href="#">Giáo Trình</a>
-                  <a href="#">Đồng phục</a>
+                  <Link to="/">Dụng cụ học tập</Link>
+                  <Link to="/">Đồ điện tử</Link>
+                  <Link to="/">Giáo Trình</Link>
+                  <Link to="/">Đồng phục</Link>
                 </li>
               </ul>
             </div>
@@ -68,12 +68,12 @@ function Footer() {
             <div className={styles.col}>
               <h4>Theo dõi</h4>
               <div className={styles.socialLinks}>
-                <a href="#">
+                <Link to="/">
                   <i className="fab fa-facebook-f"></i>
-                </a>
-                <a href="#">
+                </Link>
+                <Link to="/">
                   <i className="fab fa-tiktok"></i>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

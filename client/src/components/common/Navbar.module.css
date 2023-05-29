@@ -37,10 +37,46 @@
   width: 15%;
 }
 
+@media screen and (max-width: 1136px) {
+  .navLogo {
+    width: 20%;
+    margin-left: 10px;
+  }
+}
+@media screen and (max-width: 896px) {
+  .navLogo {
+    width: 25%;
+    margin-left: 10px;
+  }
+}
+@media screen and (max-width: 690px) {
+  .navLogo {
+    width: 30%;
+    margin-left: 10px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .navLogo {
+    width: 50%;
+    margin-left: 10px;
+  }
+}
+
 .navBar {
   display: flex;
   justify-content: space-around;
   width: 20%;
+}
+
+@media screen and (max-width: 1060px) {
+  .navBar {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .navBar {
+    width: 40%;
+  }
 }
 
 .navLink {
@@ -102,6 +138,10 @@
   background-color: #f7d106;
   cursor: pointer;
 }
+.btnSignOut:hover {
+  background-color: #e91e63;
+  cursor: pointer;
+}
 
 .activeNavItem span {
   color: #f7d106;
@@ -109,4 +149,97 @@
 
 .activeNavItem:hover span {
   color: #f7d106;
+}
+
+.showName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 576px) {
+  .offCanvasButton {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .offCanvasButton {
+    display: block;
+  }
+
+  .navBar {
+    display: none;
+  }
+
+  .imgLogo {
+    width: 30%;
+  }
+
+  .navName {
+    font-size: 20px;
+  }
+
+  .navIcons {
+    display: none;
+  }
+
+  .formControl {
+    width: 100%;
+    padding: 5px 5px;
+  }
+
+  .navItem {
+    margin-top: 10px;
+  }
+
+  .navOffCanvas span {
+    font-size: 20px;
+  }
+
+  .signToCanvas {
+    color: white;
+  }
+
+  .signToCanvas:hover {
+    opacity: 0.75;
+  }
+
+  .navContent {
+    justify-content: space-between;
+  }
+
+  .offCanvasButton button {
+    background: transparent;
+    padding: 5px 10px;
+    border: 1px solid white;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+  }
+
+  .offCanvasButton i {
+    color: white;
+    font-size: 30px;
+  }
+
+  .btnSignCanvas {
+    background-color: transparent;
+    border: none;
+    color: white;
+    margin-left: 5px;
+    font-size: 20px;
+    margin-top: 10px;
+  }
+
+  .showName {
+    display: block;
+    margin-left: 5px;
+    margin-top: 10px;
+  }
+
+  .showName span {
+    font-size: 20px;
+  }
 }
