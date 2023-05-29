@@ -1,56 +1,56 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { logOut } from '../../store/Actions'
-import Navbar from '../common/Navbar'
-import styles from './Home.module.css'
-import Carousel from 'react-bootstrap/Carousel'
-import carouselS1 from '../../images/carousel-sm-1.png'
-import carouselS2 from '../../images/carousel-sm-2.png'
-import { carouselList } from '../../data'
-import { subBannerList } from '../../data'
-import { stationeryList } from '../../data'
-import { techDevice } from '../../data'
-import { bookList } from '../../data'
-import { uniformList } from '../../data'
+import React, { useContext, useEffect, useState } from "react";
+import { logOut } from "../../store/Actions";
+import Navbar from "../common/Navbar";
+import styles from "./Home.module.css";
+import Carousel from "react-bootstrap/Carousel";
+import carouselS1 from "../../images/carousel-sm-1.png";
+import carouselS2 from "../../images/carousel-sm-2.png";
+import { carouselList } from "../../data";
+import { subBannerList } from "../../data";
+import { stationeryList } from "../../data";
+import { techDevice } from "../../data";
+import { bookList } from "../../data";
+import { uniformList } from "../../data";
 
-import { Link, useNavigate } from 'react-router-dom'
-import { StoreContext, actions } from '../../store'
-import { deletePlayerByID, getPlayers } from '../../api'
-import Footer from './Footer'
+import { Link, useNavigate } from "react-router-dom";
+import { StoreContext, actions } from "../../store";
+import { deletePlayerByID, getPlayers } from "../../api";
+import Footer from "./Footer";
 
 function Home() {
-  const [state, dispatch] = useContext(StoreContext)
+  const [state, dispatch] = useContext(StoreContext);
 
-  const [index, setIndex] = useState(0)
+  const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex)
-  }
+    setIndex(selectedIndex);
+  };
 
   const onLogout = async () => {
-    await dispatch(logOut())
-  }
-  const navigate = useNavigate()
-  const [search, setSearch] = useState('')
+    await dispatch(logOut());
+  };
+  const navigate = useNavigate();
+  const [search, setSearch] = useState("");
 
-  const [APIData, setAPIData] = useState([])
+  const [APIData, setAPIData] = useState([]);
   const baseURL =
-    'https://64135ff3c469cff60d61bf08.mockapi.io/toad/v1/DetailPost'
+    "https://64135ff3c469cff60d61bf08.mockapi.io/toad/v1/DetailPost";
   useEffect(() => {
-    getPosts()
-  }, [])
+    getPosts();
+  }, []);
 
   function getPosts() {
     fetch(baseURL)
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP Status: ${response.status}`)
+          throw new Error(`HTTP Status: ${response.status}`);
         }
-        return response.json()
+        return response.json();
       })
       .then((data) => {
-        setAPIData(data)
+        setAPIData(data);
       })
-      .catch((error) => console.log(error.message))
+      .catch((error) => console.log(error.message));
   }
 
   return (
@@ -58,17 +58,17 @@ function Home() {
       <Navbar />
       <div className={styles.row}>
         {/* Carousel */}
-        <div className={styles.container} style={{ marginBottom: '0' }}>
+        <div className={styles.container} style={{ marginBottom: "0" }}>
           <div className={styles.carousel}>
             <div className={styles.carouselBig}>
               <Carousel activeIndex={index} onSelect={handleSelect}>
                 {carouselList.map((item) => {
-                  const { id, img } = item
+                  const { id, img } = item;
                   return (
                     <Carousel.Item key={id}>
                       <img className="d-block w-100" src={img} alt="" />
                     </Carousel.Item>
-                  )
+                  );
                 })}
               </Carousel>
             </div>
@@ -91,7 +91,7 @@ function Home() {
         <div className={styles.container}>
           <div className={styles.subBanner}>
             {subBannerList.map((item) => {
-              const { id, img, name } = item
+              const { id, img, name } = item;
               return (
                 <div className={styles.subBannerItem} key={id}>
                   <div className={styles.subBannerImg}>
@@ -99,7 +99,7 @@ function Home() {
                   </div>
                   <Link to="/">{name}</Link>
                 </div>
-              )
+              );
             })}
           </div>
         </div>
@@ -112,11 +112,11 @@ function Home() {
             </div>
             <div className={styles.productContent}>
               {APIData.map((stationery) => {
-                if (stationery.type === 'stationery') {
+                if (stationery.type === "stationery") {
                   return (
                     <div className={styles.productItem} key={stationery.id}>
                       <div className={styles.productImage}>
-                        <Link to={'detail/' + stationery.id}>
+                        <Link to={"detail/" + stationery.id}>
                           <img src={stationery.img} alt="" />
                         </Link>
                       </div>
@@ -129,7 +129,7 @@ function Home() {
                         </div>
                       </div>
                     </div>
-                  )
+                  );
                 }
               })}
             </div>
@@ -137,18 +137,18 @@ function Home() {
         </div>
 
         {/* Technology */}
-        <div className={styles.container}>
+        <div className={styles.container} id="tech">
           <div className={styles.product}>
             <div className={styles.productTitle}>
               <h3>Đồ công nghệ</h3>
             </div>
             <div className={styles.productContent}>
               {APIData.map((tech) => {
-                if (tech.type === 'tech') {
+                if (tech.type === "tech") {
                   return (
                     <div className={styles.productItem} key={tech.id}>
                       <div className={styles.productImage}>
-                        <Link to={'detail/' + tech.id}>
+                        <Link to={"detail/" + tech.id}>
                           <img src={tech.img} alt="" />
                         </Link>
                       </div>
@@ -161,7 +161,7 @@ function Home() {
                         </div>
                       </div>
                     </div>
-                  )
+                  );
                 }
               })}
             </div>
@@ -176,11 +176,11 @@ function Home() {
             </div>
             <div className={styles.productContent}>
               {APIData.map((book) => {
-                if (book.type === 'book') {
+                if (book.type === "book") {
                   return (
                     <div className={styles.productItem} key={book.id}>
                       <div className={styles.productImage}>
-                        <Link to={'detail/' + book.id}>
+                        <Link to={"detail/" + book.id}>
                           <img src={book.img} alt="" />
                         </Link>
                       </div>
@@ -193,7 +193,7 @@ function Home() {
                         </div>
                       </div>
                     </div>
-                  )
+                  );
                 }
               })}
             </div>
@@ -208,11 +208,11 @@ function Home() {
             </div>
             <div className={styles.productContent}>
               {APIData.map((uniform) => {
-                if (uniform.type === 'uniform') {
+                if (uniform.type === "uniform") {
                   return (
                     <div className={styles.productItem} key={uniform.id}>
                       <div className={styles.productImage}>
-                        <Link to={'detail/' + uniform.id}>
+                        <Link to={"detail/" + uniform.id}>
                           <img src={uniform.img} alt="" />
                         </Link>
                       </div>
@@ -225,7 +225,7 @@ function Home() {
                         </div>
                       </div>
                     </div>
-                  )
+                  );
                 }
               })}
             </div>
@@ -235,7 +235,7 @@ function Home() {
 
       <Footer />
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;
