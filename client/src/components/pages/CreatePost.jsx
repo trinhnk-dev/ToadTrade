@@ -1,83 +1,87 @@
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useState } from "react";
-import Navbar from "../common/Navbar";
-import Footer from "./Footer";
-import styles from "../pages/CreatePost.module.css";
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { useState } from 'react'
+import Navbar from '../common/Navbar'
+import Footer from './Footer'
+import styles from '../pages/CreatePost.module.css'
 
 function CreatePost() {
   const baseUrl =
-    "https://64135ff3c469cff60d61bf08.mockapi.io/toad/v1/DetailPost";
-  const [open, setOpen] = useState(false);
+    'https://64135ff3c469cff60d61bf08.mockapi.io/toad/v1/DetailPost'
+  const [open, setOpen] = useState(false)
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
   const formik = useFormik({
     initialValues: {
-      name: "",
+      name: '',
       price: 0,
-      img: "",
+      img: '',
       status: 0,
-      address: "",
-      description: "",
+      address: '',
+      description: '',
+      type: '',
     },
     validationSchema: Yup.object({
       // Name
       name: Yup.string()
-        .min(5, "Your name must be at least 5 characters!")
-        .max(25, "Your name must be under 25 characters")
-        .required("You must fill in this section"),
+        .min(5, 'Your name must be at least 5 characters!')
+        .max(25, 'Your name must be under 25 characters')
+        .required('You must fill in this section'),
 
       // Price
       price: Yup.number()
         .integer()
-        .required("You must fill in this section"),
+        .required('You must fill in this section'),
 
       // img
       img: Yup.string()
-        .required("Required.")
-        .min(10, "Must be 10 characters or more"),
+        .required('Required.')
+        .min(10, 'Must be 10 characters or more'),
 
       // Status
       status: Yup.number()
         .integer()
-        .required("You must fill in this section"),
+        .required('You must fill in this section'),
 
       // Address
-      address: Yup.string().required("You must fill in this section"),
+      address: Yup.string().required('You must fill in this section'),
 
       // Description
       description: Yup.string()
-        .min(8, "Your password must be at least 8 characters")
-        .required("You must fill in this section"),
+        .min(8, 'Your password must be at least 8 characters')
+        .required('You must fill in this section'),
+
+      // Type
+      // type: Yup.string().required('Must choose'),
     }),
     onSubmit: (values, { resetForm }) => {
       fetch(baseUrl, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(values),
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        credentials: "same-origin",
+        credentials: 'same-origin',
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error(`HTTP Status: ${response.status}`);
+            throw new Error(`HTTP Status: ${response.status}`)
           }
-          return response.json();
+          return response.json()
         })
         .then((data) => setOpen(true))
-        .catch((error) => console.log(error.message));
-      resetForm();
+        .catch((error) => console.log(error.message))
+      resetForm()
     },
-  });
+  })
 
   //   Return
   return (
     <div>
       <Navbar />
       <div className={styles.wrapper}>
-        {" "}
+        {' '}
         <div className={styles.title}>Create Post</div>
         <div className={styles.form}>
           <form onSubmit={formik.handleSubmit}>
@@ -175,6 +179,52 @@ function CreatePost() {
               )}
             </div>
 
+            {/* Type */}
+            <div className={styles.inputField}>
+              <label>Type</label>
+
+              {/* Stationery Type */}
+              <input
+                type="radio"
+                name="type"
+                checked={formik.values.type === 'stationery'}
+                onChange={() => formik.setFieldValue('type', 'stationery')}
+              />
+              <label>Stationery</label>
+
+              {/* Tech Type */}
+              <input
+                type="radio"
+                checked={formik.values.type === 'tech'}
+                name="type"
+                onChange={() => formik.setFieldValue('type', 'tech')}
+              />
+              <label>Technology</label>
+
+              {/* Book Type */}
+              <input
+                type="radio"
+                name="type"
+                checked={formik.values.type === 'book'}
+                onChange={() => formik.setFieldValue('type', 'book')}
+              />
+              <label>Book</label>
+
+              {/* Uniform Type */}
+              <input
+                type="radio"
+                name="type"
+                checked={formik.values.type === 'uniform'}
+                onChange={() => formik.setFieldValue('type', 'uniform')}
+              />
+              <label>Uniform</label>
+
+              {formik.errors.type && formik.touched.type && (
+                <p>{formik.errors.type}</p>
+              )}
+            </div>
+
+            {/* Create Button */}
             <div className={styles.inputField}>
               <input type="submit" value="Create" className={styles.btn} />
             </div>
@@ -184,6 +234,6 @@ function CreatePost() {
 
       <Footer />
     </div>
-  );
+  )
 }
-export default CreatePost;
+export default CreatePost
