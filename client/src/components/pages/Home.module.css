@@ -21,7 +21,6 @@
 .carousel {
   display: flex;
   justify-content: space-around;
-  min-height: 236px;
   max-height: 236px;
 }
 
@@ -41,6 +40,12 @@
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
   margin-left: 0.3125rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .carouselSmall {
+    display: none;
+  }
 }
 
 .carouselSTop {
@@ -67,7 +72,7 @@
 
 .productContent {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
 
@@ -78,6 +83,29 @@
   align-items: center;
   padding-top: 20px;
   transition: 0.5s all;
+}
+
+@media (max-width: 1060px) {
+  .productItem {
+    width: 25%;
+  }
+}
+
+@media (max-width: 792px) {
+  .productItem {
+    width: 33.33%;
+  }
+}
+
+@media (max-width: 630px) {
+  .productItem {
+    width: 50%;
+  }
+}
+@media (max-width: 480px) {
+  .productItem {
+    width: 100%;
+  }
 }
 
 .productItem:hover {
@@ -137,14 +165,33 @@
   display: flex;
   justify-content: space-around;
   padding: 10px 0px;
+  flex-wrap: wrap;
 }
 
 .subBannerItem {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 15%;
+  width: 10%;
   text-align: center;
+}
+
+@media (max-width: 892px) {
+  .subBannerItem {
+    width: 25%;
+    margin-top: 10px;
+  }
+}
+/* 
+@media (max-width: 630px) {
+  .subBannerItem {
+    width: 33.33%;
+  }
+} */
+@media (max-width: 480px) {
+  .subBannerItem {
+    width: 50%;
+  }
 }
 
 .subBannerImg img {

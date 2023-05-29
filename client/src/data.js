@@ -34,31 +34,37 @@ export const subBannerList = [
   {
     id: "subBanner1",
     img: subBanner1,
+    href: "#stationery",
     name: "Mua bán họa cụ",
   },
   {
     id: "subBanner2",
     img: subBanner2,
+    href: "#book",
     name: "Mua bán giáo trình",
   },
   {
     id: "subBanner3",
     img: subBanner3,
+    href: "#tech",
     name: "Mua bán đồ điện tử",
   },
   {
     id: "subBanner4",
     img: subBanner4,
+    href: "#tech",
     name: "Mua Laptop cũ giá tốt",
   },
   {
     id: "subBanner5",
     img: subBanner5,
+    href: "#tech",
     name: "Mua máy ảnh cũ",
   },
   {
     id: "subBanner6",
     img: subBanner6,
+    href: "#uniform",
     name: "Mua bán đồng phục",
   },
   {

@@ -91,13 +91,13 @@ function Home() {
         <div className={styles.container}>
           <div className={styles.subBanner}>
             {subBannerList.map((item) => {
-              const { id, img, name } = item;
+              const { id, img, name, href } = item;
               return (
                 <div className={styles.subBannerItem} key={id}>
                   <div className={styles.subBannerImg}>
                     <img src={img} alt="" />
                   </div>
-                  <Link to="/">{name}</Link>
+                  <a href={href}>{name}</a>
                 </div>
               );
             })}
@@ -105,7 +105,7 @@ function Home() {
         </div>
 
         {/* Stationery */}
-        <div className={styles.container}>
+        <div className={styles.container} id="stationery">
           <div className={styles.product}>
             <div className={styles.productTitle}>
               <h3>Hoạ cụ vẽ</h3>
@@ -169,7 +169,7 @@ function Home() {
         </div>
 
         {/* Book */}
-        <div className={styles.container}>
+        <div className={styles.container} id="book">
           <div className={styles.product}>
             <div className={styles.productTitle}>
               <h3>Sách và giáo trình</h3>
@@ -201,7 +201,7 @@ function Home() {
         </div>
 
         {/* Uniform */}
-        <div className={styles.container}>
+        <div className={styles.container} id="uniform">
           <div className={styles.product}>
             <div className={styles.productTitle}>
               <h3>Đồng phục</h3>
