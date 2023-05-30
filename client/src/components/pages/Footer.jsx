@@ -1,6 +1,6 @@
-import styles from '../pages/Footer.module.css'
-import footerLogo from '../../images/toadtrade-logo.png'
-import { Link } from 'react-router-dom'
+import styles from "../pages/Footer.module.css";
+import footerLogo from "../../images/toadtrade-logo.png";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -9,8 +9,17 @@ function Footer() {
         <div className={styles.container}>
           <div className={styles.row}>
             {/* Logo */}
-            <div className={styles.col}>
+            <div
+              className={styles.col}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <img src={footerLogo} alt="" />
+              <h2>ToadTrade</h2>
             </div>
 
             {/* Company */}
@@ -90,6 +99,6 @@ function Footer() {
         </div>
       </div>
     </body>
-  )
+  );
 }
-export default Footer
+export default Footer;
