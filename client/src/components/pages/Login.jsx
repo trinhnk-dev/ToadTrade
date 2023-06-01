@@ -3,12 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { login, loginwithGoogle } from "../../api";
 import { StoreContext, actions } from "../../store";
 import { message } from "antd";
-import * as Yup from "yup";
 import Navbar from "../common/Navbar";
 import styles from "../pages/Login.module.css";
 import logoToadTrade from "../../images/toadtrade-logo.png";
 import Footer from "./Footer";
-import { useFormik } from "formik";
 
 function Login() {
   const [state, dispatch] = useContext(StoreContext);
@@ -17,23 +15,6 @@ function Login() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
-  const login = useFormik({
-    initialValues: {
-      username: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      username: Yup.string()
-        .min(5, "Tên đăng nhập phải tối thiểu 5 ký tự")
-        .max(25, "Tên đăng nhập phải dưới 25 ký tự")
-        .required("Không được để trống ô này"),
-      password: Yup.string()
-        .min(5, "Mật khẩu phải tối thiểu 5 ký tự")
-        .max(25, "Mật khẩu phải dưới 25 ký tự")
-        .required("Không được để trống ô này"),
-    }),
-  });
 
   useEffect(() => {
     setErrorMessage(state.data);
@@ -53,6 +34,16 @@ function Login() {
     }
     try {
       const result = await login({ username, password });
+      dispatch(actions.setState(JSON.parse(result)));
+    } catch (e) {
+      dispatch(actions.setState(e.response));
+    }
+  };
+
+  const onLoginWithGoogle = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await loginwithGoogle({ username, password });
       dispatch(actions.setState(JSON.parse(result)));
     } catch (e) {
       dispatch(actions.setState(e.response));

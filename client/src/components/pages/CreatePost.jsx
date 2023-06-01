@@ -6,7 +6,27 @@ import Footer from "./Footer";
 import styles from "../pages/CreatePost.module.css";
 
 function CreatePost() {
+  const [image, setImage] = useState("");
   const baseUrl = "https://6476f6b89233e82dd53a99bf.mockapi.io/post";
+  const submitImage = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "toadtrade");
+    data.append("cloud_name", "dilykkog3");
+
+    fetch("https://api.cloudinary.com/v1_1/dilykkog3/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        formik.setFieldValue("img", data.secure_url); // Set the image URL in the formik values
+        formik.handleSubmit();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -34,9 +54,6 @@ function CreatePost() {
         .required("You must fill in this section"),
 
       // img
-      img: Yup.string()
-        .required("Required.")
-        .min(10, "Must be 10 characters or more"),
 
       // Status
       status: Yup.number()
@@ -120,10 +137,9 @@ function CreatePost() {
             <div className={styles.inputField}>
               <label>Image</label>
               <input
-                type="text"
+                type="file"
                 name="img"
-                value={formik.values.img}
-                onChange={formik.handleChange}
+                onChange={(e) => setImage(e.target.files[0])}
                 className={styles.input}
                 placeholder="Nhập url sản phẩm"
               />
@@ -224,7 +240,7 @@ function CreatePost() {
             </div>
 
             {/* Create Button */}
-            <div className={styles.inputField}>
+            <div className={styles.inputField} onClick={submitImage}>
               <input type="submit" value="Create" className={styles.btn} />
             </div>
           </form>
