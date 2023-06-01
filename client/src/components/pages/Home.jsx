@@ -33,8 +33,7 @@ function Home() {
   const [search, setSearch] = useState("");
 
   const [APIData, setAPIData] = useState([]);
-  const baseURL =
-    "https://64135ff3c469cff60d61bf08.mockapi.io/toad/v1/DetailPost";
+  const baseURL = "https://6476f6b89233e82dd53a99bf.mockapi.io/post";
   useEffect(() => {
     getPosts();
   }, []);
@@ -154,7 +153,7 @@ function Home() {
                       </div>
                       <div className={styles.productText}>
                         <h4 className={styles.ellipsis}>{tech.name}</h4>
-                        <h6>{tech.price} VNĐ</h6>
+                        <h6>{tech.price} Triệu VNĐ</h6>
                         <div className={styles.infoFooter}>
                           <span>Độ mới: {tech.status}%</span>
                           <p>{tech.address}</p>

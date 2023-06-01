@@ -11,8 +11,7 @@ function Details() {
   const [product, setProduct] = useState([]);
   const [selectedProductId, setSelectedProductId] = useState(id);
 
-  const baseURL =
-    "https://64135ff3c469cff60d61bf08.mockapi.io/toad/v1/DetailPost";
+  const baseURL = "https://6476f6b89233e82dd53a99bf.mockapi.io/post";
 
   const [isContactClicked, setIsContactClicked] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("0989 013 930");

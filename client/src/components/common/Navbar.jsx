@@ -235,13 +235,13 @@ function Navbar() {
                       <Link to="/accounts" className={styles.signTo}>
                         <div className={styles.btnSign}>
                           <button type="button" className="btn d-block">
-                            Edit Profile
+                            Chỉnh sửa thông tin
                           </button>
                         </div>
                       </Link>
                       <div className={styles.btnSign} onClick={onLogout}>
                         <button type="button" className="btn d-block">
-                          Log Out
+                          Đăng xuất
                         </button>
                       </div>
                     </Dropdown.Menu>
@@ -273,7 +273,7 @@ function Navbar() {
                       <Link to="/login" className={styles.signTo}>
                         <div className={styles.btnSign}>
                           <button type="button" className="btn d-block">
-                            Log In
+                            Đăng nhập
                           </button>
                         </div>
                       </Link>
@@ -281,7 +281,7 @@ function Navbar() {
                       <Link to="/register" className={styles.signTo}>
                         <div className={styles.btnSign}>
                           <button type="button" className="btn d-block">
-                            Register
+                            Đăng ký
                           </button>
                         </div>
                       </Link>
