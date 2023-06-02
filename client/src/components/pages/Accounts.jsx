@@ -86,7 +86,7 @@ function Accounts({ id }) {
               value={values.name}
             />
             <span></span>
-            <label className="labels">Name</label>
+            <label className="labels">Họ Tên</label>
           </div>
 
           {/* Year of Birth */}
@@ -106,7 +106,7 @@ function Accounts({ id }) {
 
           {/* Save Button */}
           <button className={styles.save} type="submit">
-            Save Profile
+            Lưu thông tin
           </button>
         </form>
       </div>

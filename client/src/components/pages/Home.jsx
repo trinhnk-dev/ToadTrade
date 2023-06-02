@@ -107,7 +107,7 @@ function Home() {
         <div className={styles.container} id="stationery">
           <div className={styles.product}>
             <div className={styles.productTitle}>
-              <h3>Hoạ cụ vẽ</h3>
+              <h3>Đồ dùng học tập</h3>
             </div>
             <div className={styles.productContent}>
               {APIData.map((stationery) => {

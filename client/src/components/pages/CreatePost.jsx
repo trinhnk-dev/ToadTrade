@@ -1,14 +1,17 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Navbar from "../common/Navbar";
 import Footer from "./Footer";
 import styles from "../pages/CreatePost.module.css";
 
 function CreatePost() {
   const [image, setImage] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
+  const imageInputRef = useRef(null);
   const baseUrl = "https://6476f6b89233e82dd53a99bf.mockapi.io/post";
   const submitImage = () => {
+    if (!image) return;
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", "toadtrade");
@@ -21,7 +24,6 @@ function CreatePost() {
       .then((res) => res.json())
       .then((data) => {
         formik.setFieldValue("img", data.secure_url); // Set the image URL in the formik values
-        formik.handleSubmit();
       })
       .catch((err) => {
         console.log(err);
@@ -44,51 +46,57 @@ function CreatePost() {
     validationSchema: Yup.object({
       // Name
       name: Yup.string()
-        .min(5, "Your name must be at least 5 characters!")
-        .max(25, "Your name must be under 25 characters")
-        .required("You must fill in this section"),
+        .min(5, "Tên phải ít nhất 5 ký tự")
+        .max(25, "Tên chứa tối đa 25 ký tự")
+        .required("Vui lòng không để trống ô này"),
 
       // Price
       price: Yup.number()
         .integer()
-        .required("You must fill in this section"),
+        .required("Vui lòng không để trống ô này"),
 
       // img
+      img: Yup.string().required("Bạn phải tải ảnh lên"),
 
       // Status
       status: Yup.number()
         .integer()
-        .required("You must fill in this section"),
+        .required("Vui lòng không để trống ô này"),
 
       // Address
-      address: Yup.string().required("You must fill in this section"),
+      address: Yup.string().required("Vui lòng không để trống ô này"),
 
       // Description
       description: Yup.string()
-        .min(8, "Your password must be at least 8 characters")
-        .required("You must fill in this section"),
+        .min(8, "Mật khẩu phải ít nhất 8 ký tự")
+        .required("Vui lòng không để trống ô này"),
 
       // Type
       // type: Yup.string().required('Must choose'),
     }),
-    onSubmit: (values, { resetForm }) => {
-      fetch(baseUrl, {
-        method: "POST",
-        body: JSON.stringify(values),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "same-origin",
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP Status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then((data) => setOpen(true))
-        .catch((error) => console.log(error.message));
-      resetForm();
+    onSubmit: async (values, { resetForm }) => {
+      setIsCreating(true);
+      try {
+        await submitImage();
+        const response = await fetch(baseUrl, {
+          method: "POST",
+          body: JSON.stringify(values),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "same-origin",
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP Status: ${response.status}`);
+        }
+        setOpen(true);
+        resetForm();
+        imageInputRef.current.value = ""; // Clear the input field
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setIsCreating(false);
+      }
     },
   });
 
@@ -98,12 +106,12 @@ function CreatePost() {
       <Navbar />
       <div className={styles.wrapper}>
         {" "}
-        <div className={styles.title}>Create Post</div>
+        <div className={styles.title}>Tạo bài đăng</div>
         <div className={styles.form}>
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={formik.handleSubmit} onChange={submitImage}>
             {/* Name */}
             <div className={styles.inputField}>
-              <label>Name</label>
+              <label>Tên sản phẩm</label>
               <input
                 type="text"
                 name="name"
@@ -120,7 +128,7 @@ function CreatePost() {
             {/* Price */}
 
             <div className={styles.inputField}>
-              <label>Price</label>
+              <label>Giá</label>
               <input
                 type="number"
                 name="price"
@@ -135,22 +143,19 @@ function CreatePost() {
 
             {/* Image */}
             <div className={styles.inputField}>
-              <label>Image</label>
+              <label>Hình ảnh</label>
               <input
+                ref={imageInputRef}
                 type="file"
                 name="img"
                 onChange={(e) => setImage(e.target.files[0])}
                 className={styles.input}
-                placeholder="Nhập url sản phẩm"
               />
-              {formik.errors.img && formik.touched.img && (
-                <p color="red">{formik.errors.img}</p>
-              )}
             </div>
 
             {/* Status */}
             <div className={styles.inputField}>
-              <label>Status (%) </label>
+              <label>Tình trạng (%) </label>
               <input
                 type="number"
                 name="status"
@@ -165,7 +170,7 @@ function CreatePost() {
 
             {/* Address */}
             <div className={styles.inputField}>
-              <label>Address</label>
+              <label>Địa chỉ</label>
               <input
                 type="text"
                 name="address"
@@ -181,7 +186,7 @@ function CreatePost() {
 
             {/* Description */}
             <div className={styles.inputField}>
-              <label>Description</label>
+              <label>Mô tả</label>
               <textarea
                 name="description"
                 value={formik.values.description}
@@ -196,7 +201,7 @@ function CreatePost() {
 
             {/* Type */}
             <div className={styles.inputField}>
-              <label>Type</label>
+              <label>Loại sản phẩm</label>
 
               {/* Stationery Type */}
               <input
@@ -205,7 +210,7 @@ function CreatePost() {
                 checked={formik.values.type === "stationery"}
                 onChange={() => formik.setFieldValue("type", "stationery")}
               />
-              <label>Stationery</label>
+              <label>Họa cụ</label>
 
               {/* Tech Type */}
               <input
@@ -214,7 +219,7 @@ function CreatePost() {
                 name="type"
                 onChange={() => formik.setFieldValue("type", "tech")}
               />
-              <label>Technology</label>
+              <label>Đồ công nghệ</label>
 
               {/* Book Type */}
               <input
@@ -223,7 +228,7 @@ function CreatePost() {
                 checked={formik.values.type === "book"}
                 onChange={() => formik.setFieldValue("type", "book")}
               />
-              <label>Book</label>
+              <label>Giáo trình</label>
 
               {/* Uniform Type */}
               <input
@@ -232,7 +237,7 @@ function CreatePost() {
                 checked={formik.values.type === "uniform"}
                 onChange={() => formik.setFieldValue("type", "uniform")}
               />
-              <label>Uniform</label>
+              <label>Đồng phục</label>
 
               {formik.errors.type && formik.touched.type && (
                 <p>{formik.errors.type}</p>
@@ -240,8 +245,14 @@ function CreatePost() {
             </div>
 
             {/* Create Button */}
-            <div className={styles.inputField} onClick={submitImage}>
-              <input type="submit" value="Create" className={styles.btn} />
+            <div className={styles.inputField}>
+              <button
+                type="submit"
+                className={styles.btn}
+                disabled={isCreating}
+              >
+                Thêm sản phẩm
+              </button>
             </div>
           </form>
         </div>

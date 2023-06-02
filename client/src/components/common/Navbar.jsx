@@ -235,7 +235,7 @@ function Navbar() {
                       <Link to="/accounts" className={styles.signTo}>
                         <div className={styles.btnSign}>
                           <button type="button" className="btn d-block">
-                            Chỉnh sửa thông tin
+                            Xem thông tin
                           </button>
                         </div>
                       </Link>
