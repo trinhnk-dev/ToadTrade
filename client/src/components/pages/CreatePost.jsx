@@ -200,6 +200,7 @@ function CreatePost() {
             </div>
 
             {/* Type */}
+
             <div className={styles.inputField}>
               <label>Loại sản phẩm</label>
 

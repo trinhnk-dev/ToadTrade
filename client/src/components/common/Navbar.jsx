@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../../store";
 import { logOut } from "../../store/Actions";
@@ -9,13 +9,29 @@ import { navData, iconData } from "./NavData";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import axios from "axios";
 
 function Navbar() {
   const [state, dispatch] = useContext(StoreContext);
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [searchTitle, setSearchTitle] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    const loadPosts = async () => {
+      setLoading(true);
+      const response = await axios.get(
+        "https://6476f6b89233e82dd53a99bf.mockapi.io/post"
+      );
+      setPosts(response.data);
+      setLoading(false);
+    };
+    loadPosts();
+  }, []);
 
   const onLogout = async () => {
     await dispatch(logOut());
@@ -197,10 +213,36 @@ function Navbar() {
             </div>
             <div className={styles.navIcons}>
               <div className={styles.navIcon}>
-                <div style={{ color: "white" }}>
-                  <span>
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                  </span>
+                <div className={styles.wrap}>
+                  <input
+                    className={styles.search}
+                    name="search"
+                    type="text"
+                    placeholder="Nhập tên sản phẩm"
+                    onChange={(e) => setSearchTitle(e.target.value)}
+                  />
+                  {loading ? (
+                    <h4>Loading...</h4>
+                  ) : (
+                    posts
+                      .filter((value) => {
+                        if (searchTitle === "") {
+                          return value;
+                        } else if (
+                          value.name
+                            .toLowerCase()
+                            .includes(searchTitle.toLowerCase())
+                        ) {
+                          return value;
+                        }
+                      })
+                      .map((item) => <h5 key={item.id}>{item.name}</h5>)
+                  )}
+                  <input
+                    className={styles.searchSubmit}
+                    value="Rechercher"
+                    type="submit"
+                  />
                 </div>
               </div>
               <div className={styles.navIcon}>

@@ -7,10 +7,6 @@ import carouselS1 from "../../images/carousel-sm-1.png";
 import carouselS2 from "../../images/carousel-sm-2.png";
 import { carouselList } from "../../data";
 import { subBannerList } from "../../data";
-import { stationeryList } from "../../data";
-import { techDevice } from "../../data";
-import { bookList } from "../../data";
-import { uniformList } from "../../data";
 
 import { Link, useNavigate } from "react-router-dom";
 import { StoreContext, actions } from "../../store";

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./Details.module.css";
 import { Link, useParams } from "react-router-dom";
+import { Image } from "antd";
 import Navbar from "../common/Navbar";
 import Footer from "./Footer";
 import { stationeryList } from "../../data";
@@ -77,7 +78,7 @@ function Details() {
           <div className={styles.stationery}>
             <div className={styles.details}>
               <div className={styles.bigImg}>
-                <img src={product.img} alt="" />
+                <Image src={product.img} />
               </div>
 
               <div className={styles.box}>
