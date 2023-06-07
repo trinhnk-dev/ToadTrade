@@ -302,3 +302,10 @@ input[type="submit"] {
   z-index: 2;
   cursor: pointer;
 }
+
+.searchContent {
+  width: 280px;
+
+  background-color: #fff;
+  margin-bottom: 5px;
+}

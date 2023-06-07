@@ -17,6 +17,15 @@ function Navbar() {
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearch = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    const filteredResults = posts.filter((item) =>
+      item.name.toLowerCase().includes(searchValue)
+    );
+    setSearchResults(filteredResults);
+  };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -219,24 +228,18 @@ function Navbar() {
                     name="search"
                     type="text"
                     placeholder="Nhập tên sản phẩm"
-                    onChange={(e) => setSearchTitle(e.target.value)}
+                    onChange={handleSearch}
                   />
                   {loading ? (
                     <h4>Loading...</h4>
                   ) : (
-                    posts
-                      .filter((value) => {
-                        if (searchTitle === "") {
-                          return value;
-                        } else if (
-                          value.name
-                            .toLowerCase()
-                            .includes(searchTitle.toLowerCase())
-                        ) {
-                          return value;
-                        }
-                      })
-                      .map((item) => <h5 key={item.id}>{item.name}</h5>)
+                    <div className={styles.searchContent}>
+                      {searchResults.map((item) => (
+                        <div key={item.id} className={styles.searchItem}>
+                          <p>{item.name}</p>
+                        </div>
+                      ))}
+                    </div>
                   )}
                   <input
                     className={styles.searchSubmit}
