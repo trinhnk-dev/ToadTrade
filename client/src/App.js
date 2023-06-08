@@ -11,6 +11,7 @@ import Register from "./components/pages/Register";
 import Chat from "./components/chat/Chat";
 import CreatePost from "./components/pages/CreatePost";
 import Manage from "./components/pages/Manage";
+import Search from "./components/pages/Search";
 
 const history = createBrowserHistory();
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/home/detail/:id" element={<Details />} />
           </Routes>
         </BrowserRouter>
@@ -42,6 +44,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home />} />
             <Route path="/users" element={<Users />} />{" "}
+            <Route path="/search" element={<Search />} />
             <Route
               path="/accounts"
               element={<Accounts id={state.profile.id} />}
@@ -62,6 +65,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home />} />
             <Route path="/chat" element={<Chat />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/manage" element={<Manage />} />
             <Route
               path="/accounts"

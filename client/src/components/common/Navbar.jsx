@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../../store";
 import { logOut } from "../../store/Actions";
+import { Tooltip } from "antd";
 import logoToadTrade from "../../images/toadtrade-logo.png";
 import styles from "../common/Navbar.module.css";
 // import Container from "react-bootstrap/Container";
@@ -18,6 +19,8 @@ function Navbar() {
   const [posts, setPosts] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+
+  const textSearch = <span>Tìm kiếm</span>;
 
   const handleSearch = (e) => {
     const searchValue = e.target.value.toLowerCase();
@@ -222,32 +225,15 @@ function Navbar() {
             </div>
             <div className={styles.navIcons}>
               <div className={styles.navIcon}>
-                <div className={styles.wrap}>
-                  <input
-                    className={styles.search}
-                    name="search"
-                    type="text"
-                    placeholder="Nhập tên sản phẩm"
-                    onChange={handleSearch}
-                  />
-                  {loading ? (
-                    <h4>Loading...</h4>
-                  ) : (
-                    <div className={styles.searchContent}>
-                      {searchResults.map((item) => (
-                        <div key={item.id} className={styles.searchItem}>
-                          <p>{item.name}</p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  <input
-                    className={styles.searchSubmit}
-                    value="Rechercher"
-                    type="submit"
-                  />
+                <div style={{ color: "white" }}>
+                  <Tooltip placement="bottom" title={textSearch}>
+                    <Link to="/search">
+                      <i class="fa-solid fa-magnifying-glass"></i>
+                    </Link>
+                  </Tooltip>
                 </div>
               </div>
+
               <div className={styles.navIcon}>
                 <div style={{ color: "white" }}>
                   <span>
