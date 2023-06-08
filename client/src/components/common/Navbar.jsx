@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../store";
 import { logOut } from "../../store/Actions";
 import { Tooltip } from "antd";
@@ -13,6 +13,9 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import axios from "axios";
 
 function Navbar() {
+  const userNavigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profile, setProfile] = useState([]);
   const [state, dispatch] = useContext(StoreContext);
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -21,14 +24,6 @@ function Navbar() {
   const [searchResults, setSearchResults] = useState([]);
 
   const textSearch = <span>Tìm kiếm</span>;
-
-  const handleSearch = (e) => {
-    const searchValue = e.target.value.toLowerCase();
-    const filteredResults = posts.filter((item) =>
-      item.name.toLowerCase().includes(searchValue)
-    );
-    setSearchResults(filteredResults);
-  };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -45,9 +40,39 @@ function Navbar() {
     loadPosts();
   }, []);
 
-  const onLogout = async () => {
-    await dispatch(logOut());
+  const handleLogout = () => {
+    sessionStorage.removeItem("userLogin");
+    setIsLoggedIn(false);
+    userNavigate("/");
   };
+
+  useEffect(() => {
+    const user = JSON.parse(sessionStorage.getItem("userLogin"));
+    if (user) {
+      setIsLoggedIn(true);
+      setProfile(user);
+    }
+  }, []);
+
+  const [user, setUser] = useState([]);
+  const baseURL = "https://6476f6b89233e82dd53a99bf.mockapi.io/user";
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  function getUser() {
+    fetch(baseURL)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setUser(data);
+      })
+      .catch((error) => console.log(error.message));
+  }
 
   return (
     <>
@@ -78,7 +103,7 @@ function Navbar() {
                 const { id, link, name, icon } = item;
                 return (
                   <div className={styles.navItem} key={id}>
-                    {state.accessToken ? (
+                    {isLoggedIn ? (
                       <div className={styles.navBarContent}>
                         <div className={styles.navText}>
                           <Link to={link} className={styles.navLink}>
@@ -143,7 +168,7 @@ function Navbar() {
                     const { id, name, link } = item;
                     return (
                       <div className={styles.navItem} key={id}>
-                        {state.accessToken ? (
+                        {isLoggedIn ? (
                           <div className={styles.navBarContent}>
                             <div className={styles.navOffCanvas}>
                               <Link to={link} className={styles.navLink}>
@@ -160,7 +185,7 @@ function Navbar() {
                       </div>
                     );
                   })}
-                  {state.accessToken ? (
+                  {isLoggedIn ? (
                     <Dropdown className={styles.showName}>
                       <Dropdown.Toggle
                         id="dropdown-autoclose-true"
@@ -176,7 +201,17 @@ function Navbar() {
                           className=" ml-3"
                           style={{ textTransform: "capitalize" }}
                         >
-                          {state.profile.name}
+                          {user
+                            .filter(
+                              (user) =>
+                                user.username === profile.username &&
+                                user.password === profile.password
+                            )
+                            .map((user) => (
+                              <span className={styles.navName} key={user.id}>
+                                {user.name}
+                              </span>
+                            ))}
                         </span>
                       </Dropdown.Toggle>
 
@@ -188,7 +223,10 @@ function Navbar() {
                             </button>
                           </div>
                         </Link>
-                        <div className={styles.btnSignOut} onClick={onLogout}>
+                        <div
+                          className={styles.btnSignOut}
+                          onClick={handleLogout}
+                        >
                           <button type="button" className="btn d-block">
                             Log Out
                           </button>
@@ -242,7 +280,7 @@ function Navbar() {
                 </div>
               </div>
               <div className={styles.navIcon}>
-                {state.accessToken ? (
+                {isLoggedIn ? (
                   <Dropdown className={styles.showName}>
                     <Dropdown.Toggle
                       id="dropdown-autoclose-true"
@@ -258,7 +296,17 @@ function Navbar() {
                         className=" ml-3"
                         style={{ textTransform: "capitalize" }}
                       >
-                        {state.profile.name}
+                        {user
+                          .filter(
+                            (user) =>
+                              user.username === profile.username &&
+                              user.password === profile.password
+                          )
+                          .map((user) => (
+                            <span className={styles.navName} key={user.id}>
+                              {user.name}
+                            </span>
+                          ))}
                       </span>
                     </Dropdown.Toggle>
 
@@ -270,7 +318,7 @@ function Navbar() {
                           </button>
                         </div>
                       </Link>
-                      <div className={styles.btnSign} onClick={onLogout}>
+                      <div className={styles.btnSign} onClick={handleLogout}>
                         <button type="button" className="btn d-block">
                           Đăng xuất
                         </button>

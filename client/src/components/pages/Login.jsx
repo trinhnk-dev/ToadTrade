@@ -1,105 +1,92 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login, loginwithGoogle } from "../../api";
-import { StoreContext, actions } from "../../store";
-import { message } from "antd";
+
 import Navbar from "../common/Navbar";
 import styles from "../pages/Login.module.css";
 import logoToadTrade from "../../images/toadtrade-logo.png";
 import Footer from "./Footer";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 function Login() {
-  const [state, dispatch] = useContext(StoreContext);
-  const [messageApi, contextHolder] = message.useMessage();
-  const navigate = useNavigate();
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const userNavigate = useNavigate();
 
-  useEffect(() => {
-    setErrorMessage(state.data);
-    if (state.accessToken) {
-      navigate("/");
-    } else {
-      setPassword("");
-      setUserName("");
-      navigate("/login");
-    }
-  }, [state, navigate]);
+  const baseUrl = "https://6476f6b89233e82dd53a99bf.mockapi.io/user";
 
-  const onLogin = async (e) => {
-    e.preventDefault();
-    if (username.length === 0 || password.length === 0) {
-      return setErrorMessage("Not empty username or password allowed");
-    }
-    try {
-      const result = await login({ username, password });
-      dispatch(actions.setState(JSON.parse(result)));
-    } catch (e) {
-      dispatch(actions.setState(e.response));
-    }
-  };
-
-  const onLoginWithGoogle = async (e) => {
-    e.preventDefault();
-    try {
-      const result = await loginwithGoogle({ username, password });
-      dispatch(actions.setState(JSON.parse(result)));
-    } catch (e) {
-      dispatch(actions.setState(e.response));
-    }
-  };
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      username: Yup.string().required("Không được để trống ô này"),
+      password: Yup.string().required("Không được để trống ô này"),
+    }),
+    onSubmit: (values, { resetForm }) => {
+      fetch(baseUrl)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          const user = data.find(
+            (user) =>
+              user.username === values.username &&
+              user.password === values.password
+          );
+          if (user) {
+            sessionStorage.setItem("userLogin", JSON.stringify(values));
+            userNavigate("/");
+          } else {
+            alert("Invalid");
+          }
+        })
+        .catch((error) => console.log(error.message));
+      resetForm();
+    },
+  });
 
   return (
     <>
-      {contextHolder}
       <Navbar />
-      <div
-        className={styles.center}
-        onKeyPress={(e) => (e.key === "Enter" ? onLogin : {})}
-      >
+      <div className={styles.center}>
         {/* <h1>Login</h1> */}
         <img
           src={logoToadTrade}
           alt="ToadTrade"
           className={styles.logoToadTrade}
         />
-        <form>
+        <form onSubmit={formik.handleSubmit}>
           {/* UserName */}
           <div className={styles.txtField}>
             <input
               type="text"
-              id="UserName"
-              name="UserName"
-              value={username}
-              onChange={(e) => setUserName(e.target.value)}
+              name="username"
+              value={formik.values.username}
+              onChange={formik.handleChange}
               required
             />
             <span></span>
-            <label htmlFor="UserName">Tên đăng nhập</label>
+            <label>Tên đăng nhập</label>
           </div>
 
           {/* Password */}
           <div className={styles.txtField}>
             <input
               type="password"
-              id="inputPassword"
               name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formik.values.password}
+              onChange={formik.handleChange}
               required
             />
             <span></span>
-            <label htmlFor="inputPassword">Mật khẩu</label>
-          </div>
-
-          {/* Error Message */}
-          <div className={styles.errorMessage}>
-            <h6>{errorMessage}</h6>
+            <label>Mật khẩu</label>
           </div>
 
           {/* Login Button */}
-          <button type="submit" onClick={onLogin} className={styles.login}>
+          <button type="submit" className={styles.login}>
             Đăng nhập
           </button>
 
