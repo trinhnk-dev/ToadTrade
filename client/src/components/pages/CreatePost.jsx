@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Navbar from "../common/Navbar";
 import Footer from "./Footer";
 import styles from "../pages/CreatePost.module.css";
@@ -9,6 +9,7 @@ function CreatePost() {
   const [image, setImage] = useState("");
   const [isCreating, setIsCreating] = useState(false);
   const imageInputRef = useRef(null);
+  const [profile, setProfile] = useState([]);
   const baseUrl = "https://6476f6b89233e82dd53a99bf.mockapi.io/post";
   const submitImage = () => {
     if (!image) return;
@@ -29,12 +30,23 @@ function CreatePost() {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    const user = JSON.parse(sessionStorage.getItem("userLogin"));
+    if (user) {
+      setProfile(user);
+      formik.setFieldValue("owner", user.username);
+    }
+    console.log(profile);
+  }, []);
+
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
   const formik = useFormik({
     initialValues: {
+      owner: "",
       name: "",
       price: 0,
       img: "",
@@ -44,6 +56,7 @@ function CreatePost() {
       type: "",
     },
     validationSchema: Yup.object({
+      owner: Yup.string(),
       // Name
       name: Yup.string()
         .min(5, "Tên phải ít nhất 5 ký tự")
@@ -109,6 +122,9 @@ function CreatePost() {
         <div className={styles.title}>Tạo bài đăng</div>
         <div className={styles.form}>
           <form onSubmit={formik.handleSubmit} onChange={submitImage}>
+            {/* Get username */}
+            {formik.values.owner === profile.username}
+
             {/* Name */}
             <div className={styles.inputField}>
               <label>Tên sản phẩm</label>
@@ -200,7 +216,6 @@ function CreatePost() {
             </div>
 
             {/* Type */}
-
             <div className={styles.inputField}>
               <label>Loại sản phẩm</label>
 
