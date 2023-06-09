@@ -32,15 +32,22 @@ function Login() {
         })
         .then((data) => {
           const user = data.find(
-            (user) =>
-              user.username === values.username &&
-              user.password === values.password
+            (userData) =>
+              userData.username === values.username &&
+              userData.password === values.password
           );
           if (user) {
-            sessionStorage.setItem("userLogin", JSON.stringify(values));
+            formik.setFieldValue("name", user.name);
+            formik.setFieldValue("phonenumber", user.phonenumber);
+            formik.setFieldValue("count", user.count);
+            const updatedValues = {
+              ...values,
+              name: user.name,
+              phonenumber: user.phonenumber,
+              count: user.count,
+            };
+            sessionStorage.setItem("userLogin", JSON.stringify(updatedValues));
             userNavigate("/");
-          } else {
-            alert("Invalid");
           }
         })
         .catch((error) => console.log(error.message));

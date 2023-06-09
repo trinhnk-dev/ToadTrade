@@ -3,56 +3,83 @@ import Navbar from "../common/Navbar";
 import { editProfile, getUserProfile } from "../../api";
 import { message } from "antd";
 import styles from "../pages/Account.module.css";
+import * as Yup from "yup";
 import logoToadTrade from "../../images/toadtrade-logo2.png";
 import Footer from "./Footer";
-function Accounts({ id }) {
+import { useFormik } from "formik";
+import { useRef } from "react";
+function Accounts() {
   const [messageApi, contextHolder] = message.useMessage();
-  const [disabled, setDisabled] = useState(true);
-  const [refresh, setRefresh] = useState(false);
-  const [values, setValues] = useState({
-    username: "",
-    phone: "",
-    name: "",
-  });
 
+  const phoneRegExp = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+
+  const imageInputRef = useRef(null);
+  const [image, setImage] = useState("");
+  const [profile, setProfile] = useState([]);
+  const baseURL = "https://6476f6b89233e82dd53a99bf.mockapi.io/user";
   useEffect(() => {
-    async function fetchMyAPI(id) {
-      const response = await getUserProfile({ id });
-      setValues(response);
+    const user = JSON.parse(sessionStorage.getItem("userLogin"));
+    if (user) {
+      setProfile(user);
     }
-    fetchMyAPI(id);
-  }, [refresh]);
+  }, []);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const submitImage = () => {
+    if (!image) return;
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "toadtrade");
+    data.append("cloud_name", "dilykkog3");
 
-    // Kiểm tra độ dài giá trị nhập vào
-    if (name === "phone" && value.length > 10) {
-      return;
-    }
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    });
+    fetch("https://api.cloudinary.com/v1_1/dilykkog3/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        editAccount.setFieldValue("img", data.secure_url); // Set the image URL in the formik values
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  const handleSubmit = async (e, id) => {
-    e.preventDefault();
-    setRefresh(true);
-    const result = await editProfile({ values, id });
-    if (result.status === 200) {
-      info("success", result.message);
-    } else {
-      info("error", result.message);
-    }
-  };
+  const editAccount = useFormik({
+    initialValues: {
+      name: "",
+      img: "",
+      phonenumber: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string()
+        .min(5, "Tên phải tối thiểu 5 ký tự")
+        .max(25, "Tên phải dưới 25 ký tự")
+        .required("Không được để trống ô này"),
+      img: Yup.string().required("Bạn phải tải ảnh lên"),
+      phonenumber: Yup.string()
+        .required()
+        .matches(phoneRegExp, "Số điện thoại này không tồn tại"),
+    }),
+    onSubmit: async (values) => {
+      try {
+        await submitImage();
 
-  const info = (status, msg) => {
-    messageApi.open({
-      type: status,
-      content: msg,
-    });
-  };
+        const editAccountResponse = await fetch(baseURL, {
+          method: "PUT",
+          body: JSON.stringify(values),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "same-origin",
+        });
+        if (!editAccountResponse.ok) {
+          throw new Error(`HTTP Status: ${editAccountResponse.status}`);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
+  });
 
   return (
     <>
@@ -64,51 +91,69 @@ function Accounts({ id }) {
           alt="ToadTrade"
           className={styles.logoToadTrade}
         />
-        <form onSubmit={(e) => handleSubmit(e, id)}>
+        <form>
           {/* Username */}
           <div className={styles.txtField}>
             <input
               type="text"
-              value={values.username}
+              value={profile.username}
               name="username"
               disabled
             />
             <span></span>
           </div>
-
           {/* Name */}
           <div className={styles.txtField}>
             <input
               type="text"
-              required
               name="name"
-              onChange={handleChange}
-              value={values.name}
+              value={profile.name}
+              onChange={editAccount.handleChange}
             />
+            {console.log(profile.name)}
             <span></span>
-            <label className="labels">Họ Tên</label>
+            <label>Họ và Tên</label>
+            {editAccount.errors.name && editAccount.touched.name && (
+              <p style={{ color: "red" }}>{editAccount.errors.name}</p>
+            )}
           </div>
-
           {/* Year of Birth */}
+          <div className={styles.txtField}>
+            <div className={styles.txtField} style={{ border: 0 }}>
+              <label>Ảnh đại diện</label>
+            </div>
+            <input
+              ref={imageInputRef}
+              type="file"
+              name="img"
+              onChange={(e) => setImage(e.target.files[0])}
+              className={styles.input}
+              style={{ marginTop: "20px" }}
+            />
+          </div>
           <div className={styles.txtField}>
             <input
               type="text"
-              name="phone"
+              name="phonenumber"
               maxLength={10}
               pattern="[0-9]*"
-              required
-              onChange={handleChange}
-              value={values.phone}
+              // placeholder="Type your year of birth"
+              value={profile.phonenumber}
+              onChange={editAccount.handleChange}
             />
             <span></span>
-            <label className="labels">Số điện thoại</label>
+            <label>Số điện thoại</label>
+            {editAccount.errors.phonenumber &&
+              editAccount.touched.phonenumber && (
+                <p style={{ color: "red" }}>{editAccount.errors.phonenumber}</p>
+              )}
           </div>
-
           {/* Save Button */}
           <button className={styles.save} type="submit">
             Lưu thông tin
           </button>
         </form>
+        ;
       </div>
       <Footer />
     </>

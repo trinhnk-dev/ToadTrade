@@ -109,9 +109,7 @@ function Navbar() {
                   <img src={logoToadTrade} alt="logo toad trade" />
                 </div>
 
-                <span style={{ marginLeft: "10px", fontWeight: "600" }}>
-                  ToadTrade
-                </span>
+                <span style={{ fontWeight: "600" }}>ToadTrade</span>
               </Link>
             </div>
             <div className={styles.offCanvasButton}>
