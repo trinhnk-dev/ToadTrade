@@ -5,12 +5,12 @@
 }
 
 .header {
-  background-color: #2d1c18;
+  background-color: #ffc501;
   font-size: 18px;
-  /* position: fixed;
+  position: sticky;
   z-index: 99;
   width: 100%;
-  top: 0px; */
+  top: 0px;
 }
 
 .container {
@@ -84,21 +84,21 @@
 }
 
 .navLink {
-  color: white;
+  color: black;
   text-decoration: none;
 }
 
 .navLink:hover {
-  color: white;
+  color: black;
 }
 
 .navLink span:hover {
   opacity: 0.75;
-  color: white;
+  color: black;
 }
 
 .navLink imgLogo:hover span {
-  color: white;
+  color: black;
 }
 
 .navIcons {
@@ -122,12 +122,12 @@
 
 .navIcon i {
   margin-right: 10px;
-  color: white;
+  color: black;
   display: inline;
 }
 
 .navIcon i::after {
-  color: white;
+  color: black;
 }
 
 .signTo {
@@ -202,7 +202,7 @@
   }
 
   .signToCanvas {
-    color: white;
+    color: black;
   }
 
   .signToCanvas:hover {
@@ -216,7 +216,7 @@
   .offCanvasButton button {
     background: transparent;
     padding: 5px 10px;
-    border: 1px solid white;
+    border: 1px solid black;
     margin-right: 10px;
     display: flex;
     align-items: center;
@@ -224,14 +224,14 @@
   }
 
   .offCanvasButton i {
-    color: white;
+    color: black;
     font-size: 30px;
   }
 
   .btnSignCanvas {
     background-color: transparent;
     border: none;
-    color: white;
+    color: black;
     margin-left: 5px;
     font-size: 20px;
     margin-top: 10px;

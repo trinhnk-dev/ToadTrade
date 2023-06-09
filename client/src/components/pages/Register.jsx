@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { StoreContext } from "../../store";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../api";
@@ -6,22 +6,44 @@ import * as Yup from "yup";
 import { message } from "antd";
 import Navbar from "../common/Navbar";
 import styles from "../pages/Register.module.css";
-import logoToadTrade from "../../images/toadtrade-logo.png";
+import logoToadTrade from "../../images/toadtrade-logo2.png";
 import Footer from "./Footer";
 import { useFormik } from "formik";
 
 function Register() {
+  const [image, setImage] = useState("");
+  const imageInputRef = useRef(null);
   const baseUrl = "https://6476f6b89233e82dd53a99bf.mockapi.io/user";
   const [state, dispatch] = useContext(StoreContext);
   const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
   const phoneRegExp = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
   const [usernameError, setUsernameError] = useState("");
+  const submitImage = () => {
+    if (!image) return;
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "toadtrade");
+    data.append("cloud_name", "dilykkog3");
+
+    fetch("https://api.cloudinary.com/v1_1/dilykkog3/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        register.setFieldValue("img", data.secure_url); // Set the image URL in the formik values
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const register = useFormik({
     initialValues: {
       username: "",
       password: "",
       name: "",
+      img: "",
       phonenumber: 0,
     },
     validationSchema: Yup.object({
@@ -37,12 +59,14 @@ function Register() {
         .min(5, "Tên phải tối thiểu 5 ký tự")
         .max(25, "Tên phải dưới 25 ký tự")
         .required("Không được để trống ô này"),
+      img: Yup.string().required("Bạn phải tải ảnh lên"),
       phonenumber: Yup.string()
         .required()
         .matches(phoneRegExp, "Số điện thoại này không tồn tại"),
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
+        await submitImage();
         // Check if the username already exists
         const response = await fetch(`${baseUrl}?username=${values.username}`);
         const data = await response.json();
@@ -52,6 +76,8 @@ function Register() {
           );
           return;
         }
+        resetForm();
+        imageInputRef.current.value = "";
 
         // Proceed with registration if the username is unique
         const registerResponse = await fetch(baseUrl, {
@@ -76,48 +102,6 @@ function Register() {
     },
   });
 
-  // useEffect(() => {
-  //   // setMessage(state.data);
-  //   if (state.accessToken) {
-  //     navigate("/");
-  //   } else {
-  //     setValues({ username: "", password: "", name: "", phone: "" });
-  //     navigate("/register");
-  //   }
-  // }, [state, navigate]);
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-
-  //   // Kiểm tra độ dài giá trị nhập vào
-  //   if (name === "phone" && value.length > 10) {
-  //     return;
-  //   }
-  //   setValues({
-  //     ...values,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-
-  // const onRegister = async (e) => {
-  //   e.preventDefault();
-  //   const result = await register({ values });
-  //   console.log(result);
-  //   if (result.status === 200) {
-  //     await info("success", result.message);
-  //     setTimeout(() => navigate("/login"), 1000);
-  //   } else {
-  //     info("error", result.message);
-  //   }
-  // };
-
-  // const info = (status, msg) => {
-  //   messageApi.open({
-  //     type: status,
-  //     content: msg,
-  //   });
-  // };
-
   return (
     <>
       {contextHolder}
@@ -132,7 +116,7 @@ function Register() {
           className={styles.logoToadTrade}
         />
 
-        <form onSubmit={register.handleSubmit}>
+        <form onSubmit={register.handleSubmit} onChange={submitImage}>
           {/* UserName */}
           <div className={styles.txtField}>
             <input
@@ -180,6 +164,20 @@ function Register() {
             {register.errors.name && register.touched.name && (
               <p style={{ color: "red" }}>{register.errors.name}</p>
             )}
+          </div>
+
+          <div className={styles.txtField}>
+            <div className={styles.txtField} style={{ border: 0 }}>
+              <label>Ảnh đại diện</label>
+            </div>
+            <input
+              ref={imageInputRef}
+              type="file"
+              name="img"
+              onChange={(e) => setImage(e.target.files[0])}
+              className={styles.input}
+              style={{ marginTop: "20px" }}
+            />
           </div>
 
           {/* Year of Birth */}

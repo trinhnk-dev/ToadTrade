@@ -3,7 +3,7 @@ import Navbar from "../common/Navbar";
 import { editProfile, getUserProfile } from "../../api";
 import { message } from "antd";
 import styles from "../pages/Account.module.css";
-import logoToadTrade from "../../images/toadtrade-logo.png";
+import logoToadTrade from "../../images/toadtrade-logo2.png";
 import Footer from "./Footer";
 function Accounts({ id }) {
   const [messageApi, contextHolder] = message.useMessage();

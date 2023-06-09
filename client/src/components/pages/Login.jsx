@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import Navbar from "../common/Navbar";
 import styles from "../pages/Login.module.css";
-import logoToadTrade from "../../images/toadtrade-logo.png";
+import logoToadTrade from "../../images/toadtrade-logo2.png";
 import Footer from "./Footer";
 import { useFormik } from "formik";
 import * as Yup from "yup";

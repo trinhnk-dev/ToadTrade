@@ -22,6 +22,30 @@ function Navbar() {
   const [posts, setPosts] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [navbarOpacity, setNavbarOpacity] = useState(1);
+  const headerHeight = 102;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScroll = window.pageYOffset; // Vị trí cuộn hiện tại của trang
+      const headerHeight = 102; // Chiều cao của header
+
+      // Nếu vị trí cuộn lớn hơn chiều cao của header, thì đặt opacity thành 0.75, ngược lại đặt opacity thành 1
+      if (currentScroll > headerHeight) {
+        setNavbarOpacity(0.8);
+      } else {
+        setNavbarOpacity(1);
+      }
+    };
+
+    // Thêm sự kiện cuộn trang
+    window.addEventListener("scroll", handleScroll);
+
+    // Xóa sự kiện khi component bị unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const textSearch = <span>Tìm kiếm</span>;
 
@@ -76,7 +100,7 @@ function Navbar() {
 
   return (
     <>
-      <header className={styles.header}>
+      <header className={styles.header} style={{ opacity: navbarOpacity }}>
         <div className={styles.container}>
           <div className={styles.navContent}>
             <div className={styles.navLogo}>
@@ -193,7 +217,7 @@ function Navbar() {
                           backgroundColor: "transparent",
                           border: "none",
                           boxShadow: "none",
-                          color: "white",
+                          color: "black",
                           padding: 0,
                         }}
                       >
@@ -263,7 +287,7 @@ function Navbar() {
             </div>
             <div className={styles.navIcons}>
               <div className={styles.navIcon}>
-                <div style={{ color: "white" }}>
+                <div style={{ color: "black" }}>
                   <Tooltip placement="bottom" title={textSearch}>
                     <Link to="/search">
                       <i class="fa-solid fa-magnifying-glass"></i>
@@ -273,7 +297,7 @@ function Navbar() {
               </div>
 
               <div className={styles.navIcon}>
-                <div style={{ color: "white" }}>
+                <div style={{ color: "black" }}>
                   <span>
                     <i class="fa-regular fa-bell"></i>
                   </span>
@@ -288,7 +312,7 @@ function Navbar() {
                         backgroundColor: "transparent",
                         border: "none",
                         boxShadow: "none",
-                        color: "white",
+                        color: "black",
                         padding: 0,
                       }}
                     >
@@ -339,7 +363,7 @@ function Navbar() {
                         backgroundColor: "transparent",
                         border: "none",
                         boxShadow: "none",
-                        color: "white",
+                        color: "black",
                         padding: 0,
                       }}
                     >
