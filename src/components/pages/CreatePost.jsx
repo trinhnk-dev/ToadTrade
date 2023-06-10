@@ -125,6 +125,50 @@ function CreatePost() {
             {/* Get username */}
             {formik.values.owner === profile.username}
 
+            <div className={styles.typeField}>
+              <label>Loại sản phẩm</label>
+
+              {/* Stationery Type */}
+              <input
+                type="radio"
+                name="type"
+                checked={formik.values.type === "stationery"}
+                onChange={() => formik.setFieldValue("type", "stationery")}
+              />
+              <label>Họa cụ</label>
+
+              {/* Tech Type */}
+              <input
+                type="radio"
+                checked={formik.values.type === "tech"}
+                name="type"
+                onChange={() => formik.setFieldValue("type", "tech")}
+              />
+              <label>Công nghệ</label>
+
+              {/* Book Type */}
+              <input
+                type="radio"
+                name="type"
+                checked={formik.values.type === "book"}
+                onChange={() => formik.setFieldValue("type", "book")}
+              />
+              <label>Giáo trình</label>
+
+              {/* Uniform Type */}
+              <input
+                type="radio"
+                name="type"
+                checked={formik.values.type === "uniform"}
+                onChange={() => formik.setFieldValue("type", "uniform")}
+              />
+              <label>Đồng phục</label>
+
+              {formik.errors.type && formik.touched.type && (
+                <p>{formik.errors.type}</p>
+              )}
+            </div>
+
             {/* Name */}
             <div className={styles.inputField}>
               <label>Tên sản phẩm</label>
@@ -216,49 +260,6 @@ function CreatePost() {
             </div>
 
             {/* Type */}
-            <div className={styles.inputField}>
-              <label>Loại sản phẩm</label>
-
-              {/* Stationery Type */}
-              <input
-                type="radio"
-                name="type"
-                checked={formik.values.type === "stationery"}
-                onChange={() => formik.setFieldValue("type", "stationery")}
-              />
-              <label>Họa cụ</label>
-
-              {/* Tech Type */}
-              <input
-                type="radio"
-                checked={formik.values.type === "tech"}
-                name="type"
-                onChange={() => formik.setFieldValue("type", "tech")}
-              />
-              <label>Đồ công nghệ</label>
-
-              {/* Book Type */}
-              <input
-                type="radio"
-                name="type"
-                checked={formik.values.type === "book"}
-                onChange={() => formik.setFieldValue("type", "book")}
-              />
-              <label>Giáo trình</label>
-
-              {/* Uniform Type */}
-              <input
-                type="radio"
-                name="type"
-                checked={formik.values.type === "uniform"}
-                onChange={() => formik.setFieldValue("type", "uniform")}
-              />
-              <label>Đồng phục</label>
-
-              {formik.errors.type && formik.touched.type && (
-                <p>{formik.errors.type}</p>
-              )}
-            </div>
 
             {/* Create Button */}
             <div className={styles.inputField}>

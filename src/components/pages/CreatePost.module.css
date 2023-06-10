@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
 
 /* * {
   margin: 0;
@@ -61,7 +61,7 @@
 
 .wrapper .form .inputField .input:focus,
 .wrapper .form .inputField .textarea:focus {
-  border: 1px solid #fec107;
+  border: 1px solid #ffc501;
 }
 
 .wrapper .form .inputField p {
@@ -74,7 +74,7 @@
   padding: 8px 10px;
   font-size: 15px;
   border: 0px;
-  background: #fec107;
+  background: #ffc501;
   color: #2d1c18;
   cursor: pointer;
   border-radius: 3px;
@@ -82,7 +82,7 @@
 }
 
 .wrapper .form .inputField .btn:hover {
-  background: #ffd658;
+  background: #ffc501;
 }
 
 .wrapper .form .inputField:last-child {
@@ -97,4 +97,16 @@
   .wrapper .form .inputField label {
     margin-bottom: 5px;
   }
+}
+
+.wrapper .form .typeField {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.wrapper .form .typeField label {
+  color: #757575;
+  margin-right: 10px;
+  font-size: 14px;
 }

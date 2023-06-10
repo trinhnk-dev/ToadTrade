@@ -153,7 +153,7 @@ function Navbar() {
                 className={styles.offCanVas}
                 style={{
                   background:
-                    "linear-gradient(to bottom, #89604c, #55372c, #2d1c18)",
+                    "linear-gradient(to bottom , #ffc501    , #fed843, #ffb101)",
                 }}
                 placement="end"
               >

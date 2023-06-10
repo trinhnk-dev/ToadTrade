@@ -83,132 +83,143 @@ const Search = () => {
   const totalPages = Math.ceil(totalFilteredProducts / productsPerPage);
 
   return (
-    <div className={styles.row}>
+    <>
       <Navbar />
-      <div className={styles.searchBar}>
-        <input
-          className={styles.search}
-          name="search"
-          type="text"
-          placeholder="Nhập tên sản phẩm"
-          onChange={(e) => setSearchTitle(e.target.value)}
-        />
-      </div>
-      <div className={styles.searchContent}>
-        <div className={styles.container}>
-          <div className={styles.filterContent}>
-            <div className={styles.filterType}>
-              <div className={styles.filterTitle}>
-                <i class="fa-solid fa-filter"></i>
-                <span>Bộ lọc tìm kiếm</span>
+      <div className={styles.row}>
+        <div className={styles.searchBar}>
+          <input
+            className={styles.search}
+            name="search"
+            type="text"
+            placeholder="Nhập tên sản phẩm"
+            onChange={(e) => setSearchTitle(e.target.value)}
+          />
+        </div>
+        <div className={styles.searchContent}>
+          <div className={styles.container}>
+            <div className={styles.filterContent}>
+              <div className={styles.filterType}>
+                <div className={styles.filterTitle}>
+                  <i class="fa-solid fa-filter"></i>
+                  <span>Bộ lọc tìm kiếm</span>
+                </div>
+                <h5 style={{ paddingTop: "10px" }}>Lọc theo loại sản phẩm</h5>
+                <label>
+                  <input
+                    type="checkbox"
+                    value="stationery"
+                    checked={selectedTypes.includes("stationery")}
+                    onChange={handleTypeChange}
+                  />
+                  Đồ dùng học tập
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    value="tech"
+                    checked={selectedTypes.includes("tech")}
+                    onChange={handleTypeChange}
+                  />
+                  Đồ công nghệ
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    value="book"
+                    checked={selectedTypes.includes("book")}
+                    onChange={handleTypeChange}
+                  />
+                  Giáo Trình
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    value="uniform"
+                    checked={selectedTypes.includes("uniform")}
+                    onChange={handleTypeChange}
+                  />
+                  Đồng phục
+                </label>
+                <div className={styles.filterSlider}>
+                  <h5 style={{ paddingTop: "10px" }}>Lọc theo độ mới</h5>
+                  <Slider
+                    value={statusRange}
+                    onChange={handleStatusChange}
+                    min={0}
+                    max={100}
+                    step={10}
+                    valueLabelDisplay="auto"
+                    aria-labelledby="status-range-slider"
+                    style={{ width: "80%", marginLeft: "10px" }}
+                  />
+                </div>
+                <div className={styles.filterSlider}>
+                  <h5 style={{ paddingTop: "5px" }}>Lọc theo giá sản phẩm</h5>
+                  <Slider
+                    value={priceRange}
+                    onChange={handlePriceChange}
+                    min={0}
+                    max={100}
+                    step={10}
+                    valueLabelDisplay="auto"
+                    aria-labelledby="price-range-slider"
+                    style={{ width: "80%", marginLeft: "10px" }}
+                  />
+                </div>
               </div>
-              <h5 style={{ paddingTop: "10px" }}>Lọc theo loại sản phẩm</h5>
-              <label>
-                <input
-                  type="checkbox"
-                  value="stationery"
-                  checked={selectedTypes.includes("stationery")}
-                  onChange={handleTypeChange}
-                />
-                Đồ dùng học tập
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  value="tech"
-                  checked={selectedTypes.includes("tech")}
-                  onChange={handleTypeChange}
-                />
-                Đồ công nghệ
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  value="book"
-                  checked={selectedTypes.includes("book")}
-                  onChange={handleTypeChange}
-                />
-                Giáo Trình
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  value="uniform"
-                  checked={selectedTypes.includes("uniform")}
-                  onChange={handleTypeChange}
-                />
-                Đồng phục
-              </label>
-              <div className={styles.filterSlider}>
-                <h5 style={{ paddingTop: "10px" }}>Lọc theo độ mới</h5>
-                <Slider
-                  value={statusRange}
-                  onChange={handleStatusChange}
-                  min={0}
-                  max={100}
-                  step={10}
-                  valueLabelDisplay="auto"
-                  aria-labelledby="status-range-slider"
-                  style={{ width: "80%", marginLeft: "10px" }}
-                />
-              </div>
-              <div className={styles.filterSlider}>
-                <h5 style={{ paddingTop: "10px" }}>Lọc theo giá sản phẩm</h5>
-                <Slider
-                  value={priceRange}
-                  onChange={handlePriceChange}
-                  min={0}
-                  max={100}
-                  step={10}
-                  valueLabelDisplay="auto"
-                  aria-labelledby="price-range-slider"
-                  style={{ width: "80%", marginLeft: "10px" }}
-                />
-              </div>
-            </div>
-            <div className={styles.searchResult}>
-              {loading ? (
-                <Spin indicator={antIcon} />
-              ) : (
-                <div className={styles.searchBox}>
-                  {currentProducts
-                    .filter(
-                      (item) =>
-                        selectedTypes.length === 0 ||
-                        selectedTypes.includes(item.type)
-                    )
-                    .map((item) => (
-                      <div key={item.id} className={styles.searchItem}>
-                        <div className={styles.searchImage}>
-                          <Link to={"detail/" + item.id}>
-                            <img src={item.img} alt="" />
-                          </Link>
-                        </div>
-                        <div className={styles.searchText}>
-                          <h4>{item.name}</h4>
-                          <h6>{item.price} VNĐ</h6>
-                          <div className={styles.searchFooter}>
-                            <span>Độ mới: {item.status}%</span>
-                            <p>{item.address}</p>
+              <div className={styles.searchResult}>
+                {loading ? (
+                  <Spin indicator={antIcon} />
+                ) : (
+                  <div className={styles.searchBox}>
+                    {currentProducts
+                      .filter(
+                        (item) =>
+                          selectedTypes.length === 0 ||
+                          selectedTypes.includes(item.type)
+                      )
+                      .map((item) => (
+                        <div key={item.id} className={styles.searchItem}>
+                          <div className={styles.searchImage}>
+                            <Link to={"detail/" + item.id}>
+                              <img src={item.img} alt="" />
+                            </Link>
+                          </div>
+                          <div className={styles.searchText}>
+                            <h4>{item.name}</h4>
+                            {item.type === "stationery" && (
+                              <h6>{item.price}K VNĐ</h6>
+                            )}
+                            {item.type === "book" && <h6>{item.price}K VNĐ</h6>}
+                            {item.type === "tech" && (
+                              <h6>{item.price} Triệu VNĐ</h6>
+                            )}
+                            {item.type === "uniform" && (
+                              <h6>{item.price}K VNĐ</h6>
+                            )}
+                            <div className={styles.searchFooter}>
+                              <span>Độ mới: {item.status}%</span>
+                              <p>{item.address}</p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                </div>
-              )}
-              <Pagination
-                current={currentPage}
-                pageSize={productsPerPage}
-                total={posts.length}
-                onChange={handlePageChange}
-                style={{ display: "flex", justifyContent: "center" }}
-              />
+                      ))}
+                  </div>
+                )}
+                <Pagination
+                  current={currentPage}
+                  pageSize={productsPerPage}
+                  total={posts.length}
+                  onChange={handlePageChange}
+                  style={{ display: "flex", justifyContent: "center" }}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
       <Footer />
-    </div>
+    </>
   );
 };
 

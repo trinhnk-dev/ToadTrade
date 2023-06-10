@@ -117,7 +117,7 @@ function Home() {
                       </div>
                       <div className={styles.productText}>
                         <h4 className={styles.ellipsis}>{stationery.name}</h4>
-                        <h6>{stationery.price} VNĐ</h6>
+                        <h6>{stationery.price}K VNĐ</h6>
                         <div className={styles.infoFooter}>
                           <span>Độ mới: {stationery.status}%</span>
                           <p>{stationery.address}</p>
@@ -181,7 +181,7 @@ function Home() {
                       </div>
                       <div className={styles.productText}>
                         <h4 className={styles.ellipsis}>{book.name}</h4>
-                        <h6>{book.price} VNĐ</h6>
+                        <h6>{book.price}K VNĐ</h6>
                         <div className={styles.infoFooter}>
                           <span>Độ mới: {book.status}%</span>
                           <p>{book.address}</p>
@@ -213,7 +213,7 @@ function Home() {
                       </div>
                       <div className={styles.productText}>
                         <h4 className={styles.ellipsis}>{uniform.name}</h4>
-                        <h6>{uniform.price} VNĐ</h6>
+                        <h6>{uniform.price}K VNĐ</h6>
                         <div className={styles.infoFooter}>
                           <span>Độ mới: {uniform.status}%</span>
                           <p>{uniform.address}</p>

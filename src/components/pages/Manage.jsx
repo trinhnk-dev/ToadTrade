@@ -86,7 +86,6 @@ const Manage = () => {
     { label: "Hình ảnh" },
     { label: "Độ mới" },
     { label: "Địa chỉ" },
-    { label: "Mô tả" },
     { label: "Thể loại" },
     { label: "Cập nhật" },
     { label: "Xoá" },
@@ -101,40 +100,6 @@ const Manage = () => {
             <div className={styles.productTitle}>
               <h3>Quản lý tin của {profile.name}</h3>
             </div>
-            {/* {managePost.map((manage) => {
-              if (manage.owner === profile.username) {
-                return (
-                  <div className={styles.productItem} key={manage.id}>
-                    <div className={styles.productImage}>
-                      <Link to={'detail/' + manage.id}>
-                        <img src={manage.img} alt="" />
-                      </Link>
-                    </div>
-                    <div className={styles.productText}>
-                      <h4 className={styles.ellipsis}>{manage.name}</h4>
-                      <h6>{manage.price} VNĐ</h6>
-                      <div className={styles.infoFooter}>
-                        <span>Độ mới: {manage.status}%</span>
-                        <p>{manage.address}</p>
-                      </div>
-                      <button
-                        color="red"
-                        onClick={() => confirmDelete(manage.id)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                )
-              }
-              // else {
-              //   return (
-              //     <div>
-              //       <h3>Chưa có tin nào</h3>
-              //     </div>
-              //   )
-              // }
-            })} */}
             <table className={styles.table}>
               <thead>
                 <tr>
@@ -149,7 +114,17 @@ const Manage = () => {
                     return (
                       <tr>
                         <td>{manage.name}</td>
-                        <td>{manage.price}</td>
+                        {manage.type === "stationery" && (
+                          <td>{manage.price}K VNĐ</td>
+                        )}
+                        {manage.type === "book" && <td>{manage.price}K VNĐ</td>}
+                        {manage.type === "tech" && (
+                          <td>{manage.price} Triệu VNĐ</td>
+                        )}
+                        {manage.type === "uniform" && (
+                          <td>{manage.price}K VNĐ</td>
+                        )}
+
                         <td>
                           <img
                             src={manage.img}
@@ -160,9 +135,8 @@ const Manage = () => {
                             }}
                           />
                         </td>
-                        <td>{manage.status}</td>
+                        <td>{manage.status}%</td>
                         <td>{manage.address}</td>
-                        <td>{manage.description}</td>
                         {manage.type === "stationery" && <td>Họa cụ</td>}
                         {manage.type === "book" && <td>Giáo Trình</td>}
                         {manage.type === "tech" && <td>Công nghệ</td>}
