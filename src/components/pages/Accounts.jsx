@@ -15,7 +15,7 @@ function Accounts() {
 
   const imageInputRef = useRef(null);
   const [image, setImage] = useState("");
-  const [profile, setProfile] = useState([]);
+  const [profile, setProfile] = useState({});
   const baseURL = "https://6476f6b89233e82dd53a99bf.mockapi.io/user";
   useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("userLogin"));
@@ -43,6 +43,33 @@ function Accounts() {
         console.log(err);
       });
   };
+
+  const [avatar, setAvatar] = useState([]);
+  const url = "https://6476f6b89233e82dd53a99bf.mockapi.io/user";
+  useEffect(() => {
+    getAccount();
+  }, []);
+
+  function getAccount() {
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const loggedInUser = data.find(
+          (user) => user.username === profile.username
+        );
+        if (loggedInUser) {
+          setAvatar([loggedInUser]);
+        } else {
+          setAvatar([]);
+        }
+      })
+      .catch((error) => console.log(error.message));
+  }
 
   const editAccount = useFormik({
     initialValues: {
@@ -86,12 +113,24 @@ function Accounts() {
       {contextHolder}
       <Navbar />
       <div className={styles.center}>
-        <img
-          src={logoToadTrade}
-          alt="ToadTrade"
-          className={styles.logoToadTrade}
-        />
         <form>
+          <div
+            className={styles.txtField}
+            style={{ display: "flex", justifyContent: "center", border: 0 }}
+          >
+            <div className={styles.avatar}>
+              <img src={profile.img} alt="" />
+            </div>
+          </div>
+
+          {/* <input
+              ref={imageInputRef}
+              type="file"
+              name="img"
+              onChange={(e) => setImage(e.target.files[0])}
+              className={styles.input}
+              style={{ marginTop: "20px" }}
+            /> */}
           {/* Username */}
           <div className={styles.txtField}>
             <input
@@ -117,20 +156,7 @@ function Accounts() {
               <p style={{ color: "red" }}>{editAccount.errors.name}</p>
             )}
           </div>
-          {/* Year of Birth */}
-          <div className={styles.txtField}>
-            <div className={styles.txtField} style={{ border: 0 }}>
-              <label>Ảnh đại diện</label>
-            </div>
-            <input
-              ref={imageInputRef}
-              type="file"
-              name="img"
-              onChange={(e) => setImage(e.target.files[0])}
-              className={styles.input}
-              style={{ marginTop: "20px" }}
-            />
-          </div>
+
           <div className={styles.txtField}>
             <input
               type="text"
@@ -149,9 +175,9 @@ function Accounts() {
               )}
           </div>
           {/* Save Button */}
-          <button className={styles.save} type="submit">
+          {/* <button className={styles.save} type="submit">
             Lưu thông tin
-          </button>
+          </button> */}
         </form>
         ;
       </div>

@@ -93,3 +93,13 @@ form .txtField {
   border-color: #5acfbf;
   transition: 0.5s;
 }
+
+.avatar {
+  width: 30%;
+  margin-top: 20px;
+}
+
+.avatar img {
+  width: 100%;
+  border-radius: 5px;
+}

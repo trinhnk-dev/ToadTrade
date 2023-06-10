@@ -231,6 +231,7 @@ function Navbar() {
                             )
                             .map((user) => (
                               <span className={styles.navName} key={user.id}>
+                                <img src={profile.img} alt="" />
                                 {user.name}
                               </span>
                             ))}
@@ -312,6 +313,8 @@ function Navbar() {
                         boxShadow: "none",
                         color: "black",
                         padding: 0,
+                        display: "flex",
+                        alignItems: "center",
                       }}
                     >
                       <span
@@ -326,6 +329,9 @@ function Navbar() {
                           )
                           .map((user) => (
                             <span className={styles.navName} key={user.id}>
+                              <div className={styles.avatarNav}>
+                                <img src={profile.img} alt="" />
+                              </div>
                               {user.name}
                             </span>
                           ))}

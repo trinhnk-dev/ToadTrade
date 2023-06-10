@@ -87,16 +87,25 @@ function Details() {
                 </div>
                 <p>Mô tả: {product.description}</p>
                 {/* <p>{product.time}</p> */}
-                <div className={styles.contact}>
+                <div className={styles.price}>
                   <h6>Giá: {product.price} VNĐ</h6>
                 </div>
-                <div className={styles.clickToContact}>
-                  <button className={styles.phone} onClick={handleContactClick}>
-                    {isContactClicked ? phoneNumber : "Bấm để hiện số"}
-                  </button>
-                  <Link to="/chat" className={styles.chat}>
-                    Ấn để chat với người bán
-                  </Link>
+                <div className={styles.contact}>
+                  <div className={styles.clickToContact}>
+                    <button
+                      className="btn btn-success"
+                      onClick={handleContactClick}
+                    >
+                      {isContactClicked ? phoneNumber : "Hiện số điện thoại"}
+                    </button>
+                  </div>
+                  <div className={styles.clickToChat}>
+                    <button className="btn btn-info">
+                      <Link to="/chat" className={styles.chat}>
+                        Ấn để chat với người bán
+                      </Link>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -122,7 +131,19 @@ function Details() {
                     </div>
                     <div className={styles.productText}>
                       <h4 className={styles.ellipsis}>{stationery.name}</h4>
-                      <h6>{stationery.price} VNĐ</h6>
+                      {stationery.type === "stationery" && (
+                        <h6>{stationery.price}K VNĐ</h6>
+                      )}
+                      {stationery.type === "book" && (
+                        <h6>{stationery.price}K VNĐ</h6>
+                      )}
+                      {stationery.type === "tech" && (
+                        <h6>{stationery.price} Triệu VNĐ</h6>
+                      )}
+                      {stationery.type === "uniform" && (
+                        <h6>{stationery.price}K VNĐ</h6>
+                      )}
+
                       <div className={styles.infoFooter}>
                         <span>Độ mới: {stationery.status}%</span>
                         <p>{stationery.address}</p>

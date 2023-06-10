@@ -40,11 +40,13 @@ function Login() {
             formik.setFieldValue("name", user.name);
             formik.setFieldValue("phonenumber", user.phonenumber);
             formik.setFieldValue("count", user.count);
+            formik.setFieldValue("img", user.img);
             const updatedValues = {
               ...values,
               name: user.name,
               phonenumber: user.phonenumber,
               count: user.count,
+              img: user.img,
             };
             sessionStorage.setItem("userLogin", JSON.stringify(updatedValues));
             userNavigate("/");

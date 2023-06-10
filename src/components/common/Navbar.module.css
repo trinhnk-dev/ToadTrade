@@ -249,3 +249,25 @@
 .navIcon a {
   text-decoration: none;
 }
+
+.navName {
+  display: flex;
+  align-items: center;
+}
+
+.avatarNav {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 5px;
+}
+
+.avatarNav img {
+  width: 100%;
+}
+
+.getUser {
+  display: flex;
+  justify-content: center;
+}

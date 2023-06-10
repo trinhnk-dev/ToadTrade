@@ -55,7 +55,7 @@
   text-transform: uppercase;
   letter-spacing: 2px;
 }
-.contact {
+.price {
   color: #ff397a;
 }
 .box .colors button {
@@ -71,41 +71,26 @@
   margin: 15px 0;
 }
 
-.clickToContact {
+.price {
+  display: flex;
+  justify-content: flex-start;
+  height: 40px;
+}
+.contact {
   display: flex;
   justify-content: space-around;
-  padding: 15px 0px;
+  height: 40px;
 }
 
-.phone {
-  width: 50%;
-  margin-right: 10px;
-  background-color: #2d1c18;
-  color: white;
-  border: none;
-  padding: 5px 0px;
-  transition: 0.5s all;
-}
-.phone:hover {
-  background-color: rgba(45, 28, 24, 0.75);
-  color: white;
-  transition: 0.5s all;
-}
 .chat {
   width: 50%;
   margin-right: 10px;
-  background-color: #2d1c18;
   color: white;
   border: none;
-  padding: 5px 0px;
   transition: 0.5s all;
   text-decoration: none;
   text-align: center;
-}
-.chat:hover {
-  background-color: rgba(45, 28, 24, 0.75);
-  color: white;
-  transition: 0.5s all;
+  height: 40px;
 }
 
 @media (max-width: 500px) {
@@ -180,7 +165,7 @@
 
 .productContent {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
 

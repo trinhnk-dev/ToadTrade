@@ -4,6 +4,8 @@ import { useRef, useState, useEffect } from "react";
 import Navbar from "../common/Navbar";
 import Footer from "./Footer";
 import styles from "../pages/CreatePost.module.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CreatePost() {
   const [image, setImage] = useState("");
@@ -101,6 +103,8 @@ function CreatePost() {
         });
         if (!response.ok) {
           throw new Error(`HTTP Status: ${response.status}`);
+        } else {
+          toast.success("Thêm sản phẩm thành công!");
         }
         setOpen(true);
         resetForm();
@@ -276,6 +280,7 @@ function CreatePost() {
       </div>
 
       <Footer />
+      <ToastContainer />
     </div>
   );
 }

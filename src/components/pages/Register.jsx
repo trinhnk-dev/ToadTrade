@@ -9,6 +9,8 @@ import styles from "../pages/Register.module.css";
 import logoToadTrade from "../../images/toadtrade-logo2.png";
 import Footer from "./Footer";
 import { useFormik } from "formik";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Register() {
   const [image, setImage] = useState("");
@@ -91,6 +93,8 @@ function Register() {
 
         if (!registerResponse.ok) {
           throw new Error(`HTTP Status: ${registerResponse.status}`);
+        } else {
+          toast.success("Đăng ký thành công!");
         }
 
         resetForm();
@@ -214,6 +218,7 @@ function Register() {
         </form>
       </div>
       <Footer />
+      <ToastContainer />
     </>
   );
 }
