@@ -17,7 +17,7 @@ const Search = () => {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [statusRange, setStatusRange] = useState([0, 100]);
 
-  const [priceRange, setPriceRange] = useState([0, 1000000]);
+  const [priceRange, setPriceRange] = useState([0, 10000000]);
   const antIcon = (
     <LoadingOutlined
       style={{
@@ -159,7 +159,7 @@ const Search = () => {
                     value={priceRange}
                     onChange={handlePriceChange}
                     min={0}
-                    max={100}
+                    max={1000}
                     step={10}
                     valueLabelDisplay="auto"
                     aria-labelledby="price-range-slider"

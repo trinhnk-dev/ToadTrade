@@ -125,3 +125,21 @@
 .searchResult {
   background-color: #fff;
 }
+
+@media (max-width: 1060px) {
+  .searchItem {
+    width: 33.33%;
+  }
+}
+
+@media (max-width: 792px) {
+  .searchItem {
+    width: 50%;
+  }
+}
+
+@media (max-width: 630px) {
+  .searchItem {
+    width: 100%;
+  }
+}

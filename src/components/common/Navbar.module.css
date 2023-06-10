@@ -161,13 +161,13 @@
   align-items: center;
 }
 
-@media screen and (min-width: 576px) {
+@media screen and (min-width: 775px) {
   .offCanvasButton {
     display: none;
   }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 775px) {
   .offCanvasButton {
     display: block;
   }

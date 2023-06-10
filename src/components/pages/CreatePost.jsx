@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import styles from "../pages/CreatePost.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 function CreatePost() {
   const [image, setImage] = useState("");
@@ -278,6 +279,14 @@ function CreatePost() {
           </form>
         </div>
       </div>
+      <Link to="/payment">
+        <button
+          className="btn btn-success"
+          style={{ position: "absolute", top: "150px", left: "20px" }}
+        >
+          Thanh Toán
+        </button>
+      </Link>
 
       <Footer />
       <ToastContainer />

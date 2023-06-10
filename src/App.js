@@ -10,6 +10,7 @@ import Chat from "./components/chat/Chat";
 import CreatePost from "./components/pages/CreatePost";
 import Manage from "./components/pages/Manage";
 import Search from "./components/pages/Search";
+import Payment from "./components/pages/Payment";
 
 const history = createBrowserHistory();
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/createPost" element={<CreatePost />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/manage" element={<Manage />} />
           <Route path="/accounts" element={<Accounts />} />
         </Routes>

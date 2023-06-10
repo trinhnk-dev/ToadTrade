@@ -178,14 +178,14 @@ function Navbar() {
                   </Link>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                  <form className={styles.formSearch}>
+                  {/* <form className={styles.formSearch}>
                     <input
                       className={styles.formControl}
                       type="search"
                       aria-label="Search"
                       placeholder="Tìm kiếm..."
                     />
-                  </form>
+                  </form> */}
                   {navData.map((item) => {
                     const { id, name, link } = item;
                     return (
@@ -207,6 +207,18 @@ function Navbar() {
                       </div>
                     );
                   })}
+                  <Link
+                    to="/search"
+                    className={styles.navName}
+                    style={{
+                      color: "black",
+                      textDecoration: "none",
+                      marginTop: "10px",
+                    }}
+                  >
+                    Tìm kiếm
+                  </Link>
+
                   {isLoggedIn ? (
                     <Dropdown className={styles.showName}>
                       <Dropdown.Toggle
@@ -217,6 +229,8 @@ function Navbar() {
                           boxShadow: "none",
                           color: "black",
                           padding: 0,
+                          display: "flex",
+                          alignItems: "center",
                         }}
                       >
                         <span
@@ -231,7 +245,9 @@ function Navbar() {
                             )
                             .map((user) => (
                               <span className={styles.navName} key={user.id}>
-                                <img src={profile.img} alt="" />
+                                <div className={styles.avatarNav}>
+                                  <img src={profile.img} alt="" />
+                                </div>
                                 {user.name}
                               </span>
                             ))}
@@ -304,39 +320,41 @@ function Navbar() {
               </div>
               <div className={styles.navIcon}>
                 {isLoggedIn ? (
-                  <Dropdown className={styles.showName}>
-                    <Dropdown.Toggle
-                      id="dropdown-autoclose-true"
-                      style={{
-                        backgroundColor: "transparent",
-                        border: "none",
-                        boxShadow: "none",
-                        color: "black",
-                        padding: 0,
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <span
-                        className=" ml-3"
-                        style={{ textTransform: "capitalize" }}
+                  <Dropdown>
+                    <div className={styles.showName}>
+                      <Dropdown.Toggle
+                        id="dropdown-autoclose-true"
+                        style={{
+                          backgroundColor: "transparent",
+                          border: "none",
+                          boxShadow: "none",
+                          color: "black",
+                          padding: 0,
+                          display: "flex",
+                          alignItems: "center",
+                        }}
                       >
-                        {user
-                          .filter(
-                            (user) =>
-                              user.username === profile.username &&
-                              user.password === profile.password
-                          )
-                          .map((user) => (
-                            <span className={styles.navName} key={user.id}>
-                              <div className={styles.avatarNav}>
-                                <img src={profile.img} alt="" />
-                              </div>
-                              {user.name}
-                            </span>
-                          ))}
-                      </span>
-                    </Dropdown.Toggle>
+                        <span
+                          className=" ml-3"
+                          style={{ textTransform: "capitalize" }}
+                        >
+                          {user
+                            .filter(
+                              (user) =>
+                                user.username === profile.username &&
+                                user.password === profile.password
+                            )
+                            .map((user) => (
+                              <span className={styles.navName} key={user.id}>
+                                <div className={styles.avatarNav}>
+                                  <img src={profile.img} alt="" />
+                                </div>
+                                {user.name}
+                              </span>
+                            ))}
+                        </span>
+                      </Dropdown.Toggle>
+                    </div>
 
                     <Dropdown.Menu>
                       <Link to="/accounts" className={styles.signTo}>

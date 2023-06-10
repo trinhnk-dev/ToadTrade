@@ -80,7 +80,6 @@ function Register() {
         }
         resetForm();
         imageInputRef.current.value = "";
-
         // Proceed with registration if the username is unique
         const registerResponse = await fetch(baseUrl, {
           method: "POST",
