@@ -1,129 +1,130 @@
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useRef, useState, useEffect } from "react";
-import Navbar from "../common/Navbar";
-import Footer from "./Footer";
-import styles from "../pages/CreatePost.module.css";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { useRef, useState, useEffect } from 'react'
+import Navbar from '../common/Navbar'
+import Footer from './Footer'
+import styles from '../pages/CreatePost.module.css'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { Link } from 'react-router-dom'
 
+// comment
 function CreatePost() {
-  const [image, setImage] = useState("");
-  const [isCreating, setIsCreating] = useState(false);
-  const imageInputRef = useRef(null);
-  const [profile, setProfile] = useState([]);
-  const baseUrl = "https://6476f6b89233e82dd53a99bf.mockapi.io/post";
+  const [image, setImage] = useState('')
+  const [isCreating, setIsCreating] = useState(false)
+  const imageInputRef = useRef(null)
+  const [profile, setProfile] = useState([])
+  const baseUrl = 'https://6476f6b89233e82dd53a99bf.mockapi.io/post'
   const submitImage = () => {
-    if (!image) return;
-    const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "toadtrade");
-    data.append("cloud_name", "dilykkog3");
+    if (!image) return
+    const data = new FormData()
+    data.append('file', image)
+    data.append('upload_preset', 'toadtrade')
+    data.append('cloud_name', 'dilykkog3')
 
-    fetch("https://api.cloudinary.com/v1_1/dilykkog3/image/upload", {
-      method: "post",
+    fetch('https://api.cloudinary.com/v1_1/dilykkog3/image/upload', {
+      method: 'post',
       body: data,
     })
       .then((res) => res.json())
       .then((data) => {
-        formik.setFieldValue("img", data.secure_url); // Set the image URL in the formik values
+        formik.setFieldValue('img', data.secure_url) // Set the image URL in the formik values
       })
       .catch((err) => {
-        console.log(err);
-      });
-  };
+        console.log(err)
+      })
+  }
 
   useEffect(() => {
-    const user = JSON.parse(sessionStorage.getItem("userLogin"));
+    const user = JSON.parse(sessionStorage.getItem('userLogin'))
     if (user) {
-      setProfile(user);
-      formik.setFieldValue("owner", user.username);
+      setProfile(user)
+      formik.setFieldValue('owner', user.username)
     }
-    console.log(profile);
-  }, []);
+    console.log(profile)
+  }, [])
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
   const formik = useFormik({
     initialValues: {
-      owner: "",
-      name: "",
+      owner: '',
+      name: '',
       price: 0,
-      img: "",
+      img: '',
       status: 0,
-      address: "",
-      description: "",
-      type: "",
+      address: '',
+      description: '',
+      type: '',
     },
     validationSchema: Yup.object({
       owner: Yup.string(),
       // Name
       name: Yup.string()
-        .min(5, "Tên phải ít nhất 5 ký tự")
-        .max(25, "Tên chứa tối đa 25 ký tự")
-        .required("Vui lòng không để trống ô này"),
+        .min(5, 'Tên phải ít nhất 5 ký tự')
+        .max(25, 'Tên chứa tối đa 25 ký tự')
+        .required('Vui lòng không để trống ô này'),
 
       // Price
       price: Yup.number()
         .integer()
-        .required("Vui lòng không để trống ô này"),
+        .required('Vui lòng không để trống ô này'),
 
       // img
-      img: Yup.string().required("Bạn phải tải ảnh lên"),
+      img: Yup.string().required('Bạn phải tải ảnh lên'),
 
       // Status
       status: Yup.number()
         .integer()
-        .required("Vui lòng không để trống ô này"),
+        .required('Vui lòng không để trống ô này'),
 
       // Address
-      address: Yup.string().required("Vui lòng không để trống ô này"),
+      address: Yup.string().required('Vui lòng không để trống ô này'),
 
       // Description
       description: Yup.string()
-        .min(8, "Mật khẩu phải ít nhất 8 ký tự")
-        .required("Vui lòng không để trống ô này"),
+        .min(8, 'Mật khẩu phải ít nhất 8 ký tự')
+        .required('Vui lòng không để trống ô này'),
 
       // Type
       // type: Yup.string().required('Must choose'),
     }),
     onSubmit: async (values, { resetForm }) => {
-      setIsCreating(true);
+      setIsCreating(true)
       try {
-        await submitImage();
+        await submitImage()
         const response = await fetch(baseUrl, {
-          method: "POST",
+          method: 'POST',
           body: JSON.stringify(values),
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
-          credentials: "same-origin",
-        });
+          credentials: 'same-origin',
+        })
         if (!response.ok) {
-          throw new Error(`HTTP Status: ${response.status}`);
+          throw new Error(`HTTP Status: ${response.status}`)
         } else {
-          toast.success("Thêm sản phẩm thành công!");
+          toast.success('Thêm sản phẩm thành công!')
         }
-        setOpen(true);
-        resetForm();
-        imageInputRef.current.value = ""; // Clear the input field
+        setOpen(true)
+        resetForm()
+        imageInputRef.current.value = '' // Clear the input field
       } catch (error) {
-        console.log(error.message);
+        console.log(error.message)
       } finally {
-        setIsCreating(false);
+        setIsCreating(false)
       }
     },
-  });
+  })
 
   //   Return
   return (
     <div>
       <Navbar />
       <div className={styles.wrapper}>
-        {" "}
+        {' '}
         <div className={styles.title}>Tạo bài đăng</div>
         <div className={styles.form}>
           <form onSubmit={formik.handleSubmit} onChange={submitImage}>
@@ -137,17 +138,17 @@ function CreatePost() {
               <input
                 type="radio"
                 name="type"
-                checked={formik.values.type === "stationery"}
-                onChange={() => formik.setFieldValue("type", "stationery")}
+                checked={formik.values.type === 'stationery'}
+                onChange={() => formik.setFieldValue('type', 'stationery')}
               />
               <label>Họa cụ</label>
 
               {/* Tech Type */}
               <input
                 type="radio"
-                checked={formik.values.type === "tech"}
+                checked={formik.values.type === 'tech'}
                 name="type"
-                onChange={() => formik.setFieldValue("type", "tech")}
+                onChange={() => formik.setFieldValue('type', 'tech')}
               />
               <label>Công nghệ</label>
 
@@ -155,8 +156,8 @@ function CreatePost() {
               <input
                 type="radio"
                 name="type"
-                checked={formik.values.type === "book"}
-                onChange={() => formik.setFieldValue("type", "book")}
+                checked={formik.values.type === 'book'}
+                onChange={() => formik.setFieldValue('type', 'book')}
               />
               <label>Giáo trình</label>
 
@@ -164,8 +165,8 @@ function CreatePost() {
               <input
                 type="radio"
                 name="type"
-                checked={formik.values.type === "uniform"}
-                onChange={() => formik.setFieldValue("type", "uniform")}
+                checked={formik.values.type === 'uniform'}
+                onChange={() => formik.setFieldValue('type', 'uniform')}
               />
               <label>Đồng phục</label>
 
@@ -282,7 +283,7 @@ function CreatePost() {
       <Link to="/payment">
         <button
           className="btn btn-success"
-          style={{ position: "absolute", top: "150px", left: "20px" }}
+          style={{ position: 'absolute', top: '150px', left: '20px' }}
         >
           Thanh Toán
         </button>
@@ -291,6 +292,6 @@ function CreatePost() {
       <Footer />
       <ToastContainer />
     </div>
-  );
+  )
 }
-export default CreatePost;
+export default CreatePost
