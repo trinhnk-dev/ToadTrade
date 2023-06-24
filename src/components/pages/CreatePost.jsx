@@ -13,12 +13,13 @@ function CreatePost() {
   const [image, setImage] = useState('')
   const [isCreating, setIsCreating] = useState(false)
   const imageInputRef = useRef(null)
-  const [profile, setProfile] = useState([])
+  const [profile, setProfile] = useState({})
   const baseUrl = 'https://6476f6b89233e82dd53a99bf.mockapi.io/post'
   const userUrl = 'https://6476f6b89233e82dd53a99bf.mockapi.io/user'
 
   useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem('userLogin'))
+    console.log(user)
     if (user) {
       setProfile(user)
       formik.setFieldValue('owner', user.username)
@@ -133,10 +134,11 @@ function CreatePost() {
       if (!response.ok) {
         throw new Error(`HTTP Status: ${response.status}`)
       }
+
       const updatedProfile = await response.json()
       const updateProfile = { ...updatedProfile }
       updateProfile.count += 1
-      console.log(updateProfile.count)
+      // console.log(updateProfile.count)
 
       const putResponse = await fetch(`${userUrl}/${updateProfile.id}`, {
         method: 'PUT',
@@ -145,7 +147,7 @@ function CreatePost() {
           'Content-Type': 'application/json',
         },
       })
-      console.log(updateProfile)
+      // console.log(updateProfile)
       if (!putResponse.ok) {
         throw new Error(`HTTP Status: ${putResponse.status}`)
       }
