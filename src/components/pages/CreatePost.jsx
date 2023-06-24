@@ -15,6 +15,16 @@ function CreatePost() {
   const imageInputRef = useRef(null)
   const [profile, setProfile] = useState([])
   const baseUrl = 'https://6476f6b89233e82dd53a99bf.mockapi.io/post'
+  const userUrl = 'https://6476f6b89233e82dd53a99bf.mockapi.io/user'
+
+  useEffect(() => {
+    const user = JSON.parse(sessionStorage.getItem('userLogin'))
+    if (user) {
+      setProfile(user)
+      formik.setFieldValue('owner', user.username)
+    }
+  }, [])
+
   const submitImage = () => {
     if (!image) return
     const data = new FormData()
@@ -35,22 +45,13 @@ function CreatePost() {
       })
   }
 
-  useEffect(() => {
-    const user = JSON.parse(sessionStorage.getItem('userLogin'))
-    if (user) {
-      setProfile(user)
-      formik.setFieldValue('owner', user.username)
-    }
-    console.log(profile)
-  }, [])
-
   const [open, setOpen] = useState(false)
   const handleClose = () => {
     setOpen(false)
   }
+
   const formik = useFormik({
     initialValues: {
-      owner: '',
       name: '',
       price: 0,
       img: '',
@@ -93,11 +94,17 @@ function CreatePost() {
     }),
     onSubmit: async (values, { resetForm }) => {
       setIsCreating(true)
+      const updatedValues = {
+        ...values,
+        owner: profile.username,
+        statusPost: profile.count >= 2 ? 'isPending' : 'isPosted',
+      }
+
       try {
         await submitImage()
         const response = await fetch(baseUrl, {
           method: 'POST',
-          body: JSON.stringify(values),
+          body: JSON.stringify(updatedValues),
           headers: {
             'Content-Type': 'application/json',
           },
@@ -105,9 +112,10 @@ function CreatePost() {
         })
         if (!response.ok) {
           throw new Error(`HTTP Status: ${response.status}`)
-        } else {
-          toast.success('Thêm sản phẩm thành công!')
         }
+        // console.log(updatedValues)
+        await updateCount()
+        toast.success('Thêm sản phẩm thành công!')
         setOpen(true)
         resetForm()
         imageInputRef.current.value = '' // Clear the input field
@@ -118,6 +126,33 @@ function CreatePost() {
       }
     },
   })
+
+  async function updateCount() {
+    try {
+      const response = await fetch(`${userUrl}/${profile.id}`)
+      if (!response.ok) {
+        throw new Error(`HTTP Status: ${response.status}`)
+      }
+      const updatedProfile = await response.json()
+      const updateProfile = { ...updatedProfile }
+      updateProfile.count += 1
+      console.log(updateProfile.count)
+
+      const putResponse = await fetch(`${userUrl}/${updateProfile.id}`, {
+        method: 'PUT',
+        body: JSON.stringify(updateProfile),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      console.log(updateProfile)
+      if (!putResponse.ok) {
+        throw new Error(`HTTP Status: ${putResponse.status}`)
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
   //   Return
   return (
