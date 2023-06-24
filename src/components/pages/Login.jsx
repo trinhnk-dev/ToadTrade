@@ -1,61 +1,63 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
-import Navbar from "../common/Navbar";
-import styles from "../pages/Login.module.css";
-import logoToadTrade from "../../images/toadtrade-logo2.png";
-import Footer from "./Footer";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import Navbar from '../common/Navbar'
+import styles from '../pages/Login.module.css'
+import logoToadTrade from '../../images/toadtrade-logo2.png'
+import Footer from './Footer'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
 function Login() {
-  const userNavigate = useNavigate();
+  const userNavigate = useNavigate()
 
-  const baseUrl = "https://6476f6b89233e82dd53a99bf.mockapi.io/user";
+  const baseUrl = 'https://6476f6b89233e82dd53a99bf.mockapi.io/user'
 
   const formik = useFormik({
     initialValues: {
-      username: "",
-      password: "",
+      username: '',
+      password: '',
     },
     validationSchema: Yup.object({
-      username: Yup.string().required("Không được để trống ô này"),
-      password: Yup.string().required("Không được để trống ô này"),
+      username: Yup.string().required('Không được để trống ô này'),
+      password: Yup.string().required('Không được để trống ô này'),
     }),
     onSubmit: (values, { resetForm }) => {
       fetch(baseUrl)
         .then((response) => {
           if (!response.ok) {
-            throw new Error(`HTTP Status: ${response.status}`);
+            throw new Error(`HTTP Status: ${response.status}`)
           }
-          return response.json();
+          return response.json()
         })
         .then((data) => {
           const user = data.find(
             (userData) =>
               userData.username === values.username &&
               userData.password === values.password
-          );
+          )
           if (user) {
-            formik.setFieldValue("name", user.name);
-            formik.setFieldValue("phonenumber", user.phonenumber);
-            formik.setFieldValue("count", user.count);
-            formik.setFieldValue("img", user.img);
+            formik.setFieldValue('name', user.name)
+            formik.setFieldValue('phonenumber', user.phonenumber)
+            formik.setFieldValue('count', user.count)
+            formik.setFieldValue('img', user.img)
+            formik.setFieldValue('id', user.id)
             const updatedValues = {
               ...values,
               name: user.name,
               phonenumber: user.phonenumber,
               count: user.count,
               img: user.img,
-            };
-            sessionStorage.setItem("userLogin", JSON.stringify(updatedValues));
-            userNavigate("/");
+              id: user.id,
+            }
+            sessionStorage.setItem('userLogin', JSON.stringify(updatedValues))
+            userNavigate('/')
           }
         })
-        .catch((error) => console.log(error.message));
-      resetForm();
+        .catch((error) => console.log(error.message))
+      resetForm()
     },
-  });
+  })
 
   return (
     <>
@@ -110,7 +112,7 @@ function Login() {
       </div>
       <Footer />
     </>
-  );
+  )
 }
 
-export default Login;
+export default Login
