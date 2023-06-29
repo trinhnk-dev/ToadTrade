@@ -188,14 +188,12 @@ const Search = () => {
                           <div className={styles.searchText}>
                             <h4>{item.name}</h4>
                             {item.type === "stationery" && (
-                              <h6>{item.price}K VNĐ</h6>
+                              <h6>{item.price} VNĐ</h6>
                             )}
-                            {item.type === "book" && <h6>{item.price}K VNĐ</h6>}
-                            {item.type === "tech" && (
-                              <h6>{item.price} Triệu VNĐ</h6>
-                            )}
+                            {item.type === "book" && <h6>{item.price} VNĐ</h6>}
+                            {item.type === "tech" && <h6>{item.price} VNĐ</h6>}
                             {item.type === "uniform" && (
-                              <h6>{item.price}K VNĐ</h6>
+                              <h6>{item.price} VNĐ</h6>
                             )}
                             <div className={styles.searchFooter}>
                               <span>Độ mới: {item.status}%</span>

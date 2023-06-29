@@ -7,9 +7,12 @@ import styles from "../pages/CreatePost.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import { Upload, Button, Image } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import numeral from "numeral";
 
 function CreatePost() {
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [isCreating, setIsCreating] = useState(false);
   const imageInputRef = useRef(null);
   const [profile, setProfile] = useState([]);
@@ -34,6 +37,15 @@ function CreatePost() {
       });
   };
 
+  const handlePriceKeyPress = (event) => {
+    const allowedChars = /[0-9.]/; // Chỉ cho phép nhập số và dấu phẩy
+    const inputChar = String.fromCharCode(event.charCode);
+
+    if (!allowedChars.test(inputChar)) {
+      event.preventDefault(); // Loại bỏ ký tự không hợp lệ
+    }
+  };
+
   useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("userLogin"));
     if (user) {
@@ -51,7 +63,7 @@ function CreatePost() {
     initialValues: {
       owner: "",
       name: "",
-      price: 0,
+      price: "",
       img: "",
       status: 0,
       address: "",
@@ -67,8 +79,14 @@ function CreatePost() {
         .required("Vui lòng không để trống ô này"),
 
       // Price
-      price: Yup.number()
-        .integer()
+      price: Yup.string()
+        .test("valid-price", "Vui lòng nhập giá hợp lệ", (value) => {
+          if (!value) return false;
+          const numericValue = numeral(
+            value.replace(/,/g, "").replace(/\./g, "")
+          ).value();
+          return !isNaN(numericValue);
+        })
         .required("Vui lòng không để trống ô này"),
 
       // img
@@ -122,9 +140,24 @@ function CreatePost() {
   return (
     <div>
       <Navbar />
+
       <div className={styles.wrapper}>
         {" "}
-        <div className={styles.title}>Tạo bài đăng</div>
+        {/* <div className={styles.title}>Tạo bài đăng</div> */}
+        <div className={styles.upLoadImg}>
+          <label>Hình ảnh</label>
+
+          <Upload
+            listType="picture-card"
+            beforeUpload={(file) => {
+              setImage(file); // Lưu file vào state
+              return false; // Ngăn việc tải lên tự động của Ant Design
+            }}
+            className={styles.upload}
+          >
+            <p style={{ margin: 0 }}>Tải lên</p>
+          </Upload>
+        </div>
         <div className={styles.form}>
           <form onSubmit={formik.handleSubmit} onChange={submitImage}>
             {/* Get username */}
@@ -193,13 +226,15 @@ function CreatePost() {
             {/* Price */}
 
             <div className={styles.inputField}>
-              <label>Giá</label>
+              <label>Giá (VNĐ)</label>
               <input
-                type="number"
+                type="text"
                 name="price"
                 value={formik.values.price}
                 onChange={formik.handleChange}
+                onKeyPress={handlePriceKeyPress}
                 className={styles.input}
+                placeholder="Ví dụ: 200.000"
               />
               {formik.errors.price && formik.touched.price && (
                 <p color="red">{formik.errors.price}</p>
@@ -207,16 +242,6 @@ function CreatePost() {
             </div>
 
             {/* Image */}
-            <div className={styles.inputField}>
-              <label>Hình ảnh</label>
-              <input
-                ref={imageInputRef}
-                type="file"
-                name="img"
-                onChange={(e) => setImage(e.target.files[0])}
-                className={styles.input}
-              />
-            </div>
 
             {/* Status */}
             <div className={styles.inputField}>

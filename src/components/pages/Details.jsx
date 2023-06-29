@@ -132,16 +132,16 @@ function Details() {
                     <div className={styles.productText}>
                       <h4 className={styles.ellipsis}>{stationery.name}</h4>
                       {stationery.type === "stationery" && (
-                        <h6>{stationery.price}K VNĐ</h6>
+                        <h6>{stationery.price} VNĐ</h6>
                       )}
                       {stationery.type === "book" && (
-                        <h6>{stationery.price}K VNĐ</h6>
+                        <h6>{stationery.price} VNĐ</h6>
                       )}
                       {stationery.type === "tech" && (
-                        <h6>{stationery.price} Triệu VNĐ</h6>
+                        <h6>{stationery.price} VNĐ</h6>
                       )}
                       {stationery.type === "uniform" && (
-                        <h6>{stationery.price}K VNĐ</h6>
+                        <h6>{stationery.price} VNĐ</h6>
                       )}
 
                       <div className={styles.infoFooter}>

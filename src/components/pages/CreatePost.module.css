@@ -8,8 +8,7 @@
 } */
 
 .wrapper {
-  max-width: 500px;
-  width: 100%;
+  width: 70%;
   background: #fff;
   margin: 50px auto;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.125);
@@ -109,4 +108,30 @@
   color: #757575;
   margin-right: 10px;
   font-size: 14px;
+}
+
+.upload {
+  width: 100%;
+}
+
+.uploadButton {
+  margin-top: 10px;
+}
+
+.wrapper{
+  display: flex;
+  justify-content: space-between;
+}
+
+.form{
+  width: 60%
+}
+
+.uploadImg{
+  width: 40%;
+}
+
+.upload{
+  width: 200px;
+  height: 200px;
 }

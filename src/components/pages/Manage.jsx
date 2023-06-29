@@ -114,16 +114,8 @@ const Manage = () => {
                     return (
                       <tr>
                         <td>{manage.name}</td>
-                        {manage.type === "stationery" && (
-                          <td>{manage.price}K VNĐ</td>
-                        )}
-                        {manage.type === "book" && <td>{manage.price}K VNĐ</td>}
-                        {manage.type === "tech" && (
-                          <td>{manage.price} Triệu VNĐ</td>
-                        )}
-                        {manage.type === "uniform" && (
-                          <td>{manage.price}K VNĐ</td>
-                        )}
+                        <td>{manage.price} VNĐ</td>
+                        
 
                         <td>
                           <img
