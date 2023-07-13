@@ -6,12 +6,13 @@ import Footer from "./Footer";
 import styles from "../pages/CreatePost.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Upload, Button, Image } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import numeral from "numeral";
 
 function CreatePost() {
+  const userNavigate = useNavigate()
   const [image, setImage] = useState(null);
   const [isCreating, setIsCreating] = useState(false);
   const imageInputRef = useRef(null);
@@ -135,7 +136,10 @@ function CreatePost() {
         toast.success("Thêm sản phẩm thành công!");
         setOpen(true);
         resetForm();
-        imageInputRef.current.value = ""; // Clear the input field
+        imageInputRef.current.value = "";
+        if (updatedValues.statusPost === 'isPending') {
+          userNavigate('/payment')
+        } // Clear the input field
       } catch (error) {
         console.log(error.message);
       } finally {
