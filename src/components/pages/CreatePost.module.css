@@ -131,7 +131,19 @@
   width: 40%;
 }
 
-.upload{
-  width: 200px;
-  height: 200px;
+
+.boxInput{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0px;
+}
+
+.textInput{
+  width: 70%;
+}
+
+.imageInput{
+  width: 30%;
 }

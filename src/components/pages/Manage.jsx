@@ -1,95 +1,94 @@
-import React from "react";
-import Navbar from "../common/Navbar";
-import Footer from "./Footer";
-import styles from "./Manage.module.css";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import React from 'react'
+import Navbar from '../common/Navbar'
+import Footer from './Footer'
+import styles from './Manage.module.css'
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPencil } from '@fortawesome/free-solid-svg-icons'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const Manage = () => {
-  const [profile, setProfile] = useState([]);
-  const [user, setUser] = useState([]);
-  const [managePost, setManagePost] = useState([]);
-  const postURL = "https://6476f6b89233e82dd53a99bf.mockapi.io/post";
-  const userURL = "https://6476f6b89233e82dd53a99bf.mockapi.io/user";
+  const [profile, setProfile] = useState([])
+  const [user, setUser] = useState([])
+  const [managePost, setManagePost] = useState([])
+  const postURL = 'https://6476f6b89233e82dd53a99bf.mockapi.io/post'
+  const userURL = 'https://6476f6b89233e82dd53a99bf.mockapi.io/user'
 
   useEffect(() => {
-    const user = JSON.parse(sessionStorage.getItem("userLogin"));
+    const user = JSON.parse(sessionStorage.getItem('userLogin'))
     if (user) {
-      setProfile(user);
+      setProfile(user)
     }
-    getManagePost();
-  }, []);
+    getManagePost()
+  }, [])
 
   function getManagePost() {
     fetch(postURL)
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP Status: ${response.status}`);
+          throw new Error(`HTTP Status: ${response.status}`)
         }
-        return response.json();
+        return response.json()
       })
       .then((data) => {
-        setManagePost(data);
+        setManagePost(data)
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => console.log(error.message))
   }
 
   // Confirm to delete
   function confirmDelete(id) {
     confirmAlert({
-      title: "Confirm to delete",
-      message: "Are you sure to do this.",
+      title: 'Confirm to delete',
+      message: 'Are you sure to do this.',
       buttons: [
         {
-          label: "Yes",
+          label: 'Yes',
           onClick: () => deletePost(id),
         },
         {
-          label: "No",
+          label: 'No',
         },
       ],
-    });
+    })
   }
 
   function deletePost(id) {
-    console.log(id);
-    fetch(postURL + "/" + id, {
-      method: "DELETE",
+    fetch(postURL + '/' + id, {
+      method: 'DELETE',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to delete data");
+          throw new Error('Failed to delete data')
         }
-        getManagePost();
-        return response.json();
+        getManagePost()
+        return response.json()
       })
       .then((data) => {
-        console.log(data);
-        toast.success("Success");
+        console.log(data)
+        toast.success('Success')
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => console.log(error.message))
   }
 
   const columns = [
-    { label: "Tiêu đề" },
-    { label: "Giá" },
-    { label: "Hình ảnh" },
-    { label: "Độ mới" },
-    { label: "Địa chỉ" },
-    { label: "Thể loại" },
-    { label: "Cập nhật" },
-    { label: "Xoá" },
-  ];
+    { label: 'Tiêu đề' },
+    { label: 'Giá' },
+    { label: 'Hình ảnh' },
+    { label: 'Độ mới' },
+    { label: 'Địa chỉ' },
+    { label: 'Thể loại' },
+    { label: 'Cập nhật' },
+    { label: 'Xoá' },
+  ]
 
   return (
     <>
@@ -104,7 +103,7 @@ const Manage = () => {
               <thead>
                 <tr>
                   {columns.map((col) => {
-                    return <th>{col.label}</th>;
+                    return <th>{col.label}</th>
                   })}
                 </tr>
               </thead>
@@ -114,25 +113,33 @@ const Manage = () => {
                     return (
                       <tr>
                         <td>{manage.name}</td>
-                        <td>{manage.price} VNĐ</td>
-                        
+                        {manage.type === 'stationery' && (
+                          <td>{manage.price}K VNĐ</td>
+                        )}
+                        {manage.type === 'book' && <td>{manage.price}K VNĐ</td>}
+                        {manage.type === 'tech' && (
+                          <td>{manage.price} Triệu VNĐ</td>
+                        )}
+                        {manage.type === 'uniform' && (
+                          <td>{manage.price}K VNĐ</td>
+                        )}
 
                         <td>
                           <img
                             src={manage.img}
                             style={{
-                              width: "80px",
-                              height: "80px",
-                              objectFit: "cover",
+                              width: '80px',
+                              height: '80px',
+                              objectFit: 'cover',
                             }}
                           />
                         </td>
                         <td>{manage.status}%</td>
                         <td>{manage.address}</td>
-                        {manage.type === "stationery" && <td>Họa cụ</td>}
-                        {manage.type === "book" && <td>Giáo Trình</td>}
-                        {manage.type === "tech" && <td>Công nghệ</td>}
-                        {manage.type === "uniform" && <td>Đồng phục</td>}
+                        {manage.type === 'stationery' && <td>Họa cụ</td>}
+                        {manage.type === 'book' && <td>Giáo Trình</td>}
+                        {manage.type === 'tech' && <td>Công nghệ</td>}
+                        {manage.type === 'uniform' && <td>Đồng phục</td>}
 
                         <td>
                           <button className="btn">
@@ -148,7 +155,7 @@ const Manage = () => {
                           </button>
                         </td>
                       </tr>
-                    );
+                    )
                   }
                 })}
               </tbody>
@@ -159,7 +166,7 @@ const Manage = () => {
       <Footer />
       <ToastContainer />
     </>
-  );
-};
+  )
+}
 
-export default Manage;
+export default Manage

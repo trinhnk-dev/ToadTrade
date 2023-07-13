@@ -107,7 +107,8 @@ function Home() {
             </div>
             <div className={styles.productContent}>
               {APIData.map((stationery) => {
-                if (stationery.type === "stationery") {
+                if (stationery.type === "stationery" &&
+                stationery.statusPost === 'isPosted') {
                   return (
                     <div className={styles.productItem} key={stationery.id}>
                       <div className={styles.productImage}>
@@ -139,7 +140,8 @@ function Home() {
             </div>
             <div className={styles.productContent}>
               {APIData.map((tech) => {
-                if (tech.type === "tech") {
+                if (tech.type === "tech" &&
+                tech.statusPost === 'isPosted') {
                   return (
                     <div className={styles.productItem} key={tech.id}>
                       <div className={styles.productImage}>
@@ -171,7 +173,8 @@ function Home() {
             </div>
             <div className={styles.productContent}>
               {APIData.map((book) => {
-                if (book.type === "book") {
+                if (book.type === "book" &&
+                book.statusPost === 'isPosted') {
                   return (
                     <div className={styles.productItem} key={book.id}>
                       <div className={styles.productImage}>
@@ -203,7 +206,8 @@ function Home() {
             </div>
             <div className={styles.productContent}>
               {APIData.map((uniform) => {
-                if (uniform.type === "uniform") {
+                if (uniform.type === "uniform" &&
+                  uniform.statusPost === 'isPosted') {
                   return (
                     <div className={styles.productItem} key={uniform.id}>
                       <div className={styles.productImage}>

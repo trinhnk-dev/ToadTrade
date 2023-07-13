@@ -17,6 +17,7 @@ function CreatePost() {
   const imageInputRef = useRef(null);
   const [profile, setProfile] = useState([]);
   const baseUrl = "https://6476f6b89233e82dd53a99bf.mockapi.io/post";
+  const userUrl = "https://6476f6b89233e82dd53a99bf.mockapi.io/user";
   const submitImage = () => {
     if (!image) return;
     const data = new FormData();
@@ -110,11 +111,17 @@ function CreatePost() {
     }),
     onSubmit: async (values, { resetForm }) => {
       setIsCreating(true);
+      const updatedValues = {
+        ...values,
+        owner: profile.username,
+        statusPost: profile.count >= 2 ? "isPending" : "isPosted",
+      };
+
       try {
         await submitImage();
         const response = await fetch(baseUrl, {
           method: "POST",
-          body: JSON.stringify(values),
+          body: JSON.stringify(updatedValues),
           headers: {
             "Content-Type": "application/json",
           },
@@ -122,9 +129,10 @@ function CreatePost() {
         });
         if (!response.ok) {
           throw new Error(`HTTP Status: ${response.status}`);
-        } else {
-          toast.success("Thêm sản phẩm thành công!");
         }
+        // console.log(updatedValues)
+        await updateCount();
+        toast.success("Thêm sản phẩm thành công!");
         setOpen(true);
         resetForm();
         imageInputRef.current.value = ""; // Clear the input field
@@ -136,6 +144,34 @@ function CreatePost() {
     },
   });
 
+  async function updateCount() {
+    try {
+      const response = await fetch(`${userUrl}/${profile.id}`);
+      if (!response.ok) {
+        throw new Error(`HTTP Status: ${response.status}`);
+      }
+
+      const updatedProfile = await response.json();
+      const updateProfile = { ...updatedProfile };
+      updateProfile.count += 1;
+      // console.log(updateProfile.count)
+
+      const putResponse = await fetch(`${userUrl}/${updateProfile.id}`, {
+        method: "PUT",
+        body: JSON.stringify(updateProfile),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      // console.log(updateProfile)
+      if (!putResponse.ok) {
+        throw new Error(`HTTP Status: ${putResponse.status}`);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   //   Return
   return (
     <div>
@@ -144,20 +180,6 @@ function CreatePost() {
       <div className={styles.wrapper}>
         {" "}
         {/* <div className={styles.title}>Tạo bài đăng</div> */}
-        <div className={styles.upLoadImg}>
-          <label>Hình ảnh</label>
-
-          <Upload
-            listType="picture-card"
-            beforeUpload={(file) => {
-              setImage(file); // Lưu file vào state
-              return false; // Ngăn việc tải lên tự động của Ant Design
-            }}
-            className={styles.upload}
-          >
-            <p style={{ margin: 0 }}>Tải lên</p>
-          </Upload>
-        </div>
         <div className={styles.form}>
           <form onSubmit={formik.handleSubmit} onChange={submitImage}>
             {/* Get username */}
@@ -208,37 +230,58 @@ function CreatePost() {
             </div>
 
             {/* Name */}
-            <div className={styles.inputField}>
-              <label>Tên sản phẩm</label>
-              <input
-                type="text"
-                name="name"
-                value={formik.values.name}
-                onChange={formik.handleChange}
-                className={styles.input}
-                placeholder="Nhập tên sản phẩm"
-              />
-              {formik.errors.name && formik.touched.name && (
-                <p color="red">{formik.errors.name}</p>
-              )}
-            </div>
+            <div className={styles.boxInput}>
+              <div className={styles.textInput}>
+                <div className={styles.inputField}>
+                  <label>Tên sản phẩm</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    className={styles.input}
+                    placeholder="Nhập tên sản phẩm"
+                  />
+                  {formik.errors.name && formik.touched.name && (
+                    <p color="red">{formik.errors.name}</p>
+                  )}
+                </div>
 
-            {/* Price */}
+                {/* Price */}
 
-            <div className={styles.inputField}>
-              <label>Giá (VNĐ)</label>
-              <input
-                type="text"
-                name="price"
-                value={formik.values.price}
-                onChange={formik.handleChange}
-                onKeyPress={handlePriceKeyPress}
-                className={styles.input}
-                placeholder="Ví dụ: 200.000"
-              />
-              {formik.errors.price && formik.touched.price && (
-                <p color="red">{formik.errors.price}</p>
-              )}
+                <div className={styles.inputField}>
+                  <label>Giá (VNĐ)</label>
+                  <input
+                    type="text"
+                    name="price"
+                    value={formik.values.price}
+                    onChange={formik.handleChange}
+                    onKeyPress={handlePriceKeyPress}
+                    className={styles.input}
+                    placeholder="Ví dụ: 200.000"
+                  />
+                  {formik.errors.price && formik.touched.price && (
+                    <p color="red">{formik.errors.price}</p>
+                  )}
+                </div>
+              </div>
+              <div className={styles.imageInput}>
+                <div className={styles.upLoadImg}>
+                  <label>Hình ảnh</label>
+
+                  <Upload
+                    listType="picture-card"
+                    beforeUpload={(file) => {
+                      setImage(file); // Lưu file vào state
+                      return false; // Ngăn việc tải lên tự động của Ant Design
+                    }}
+                    className={styles.upload}
+                    style={{ margin: 0 }}
+                  >
+                    <p style={{ margin: 0 }}>Tải lên</p>
+                  </Upload>
+                </div>
+              </div>
             </div>
 
             {/* Image */}
@@ -304,14 +347,14 @@ function CreatePost() {
           </form>
         </div>
       </div>
-      <Link to="/payment">
+      {/* <Link to="/payment">
         <button
           className="btn btn-success"
           style={{ position: "absolute", top: "150px", left: "20px" }}
         >
           Thanh Toán
         </button>
-      </Link>
+      </Link> */}
 
       <Footer />
       <ToastContainer />
