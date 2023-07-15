@@ -90,7 +90,7 @@ ul {
 }
 .col .socialLinks a:hover {
   color: #24262b;
-  background-color: black;
+  background-color: white;
 }
 
 /*responsive*/
@@ -180,7 +180,11 @@ ul {
 .footerRight .tiktok i {
   color: #111111;
 
-  filter: drop-shadow(2px 0px 0px #fd3e3e) drop-shadow(-2px -2px 0px #4de8f4);
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  -webkit-background-clip: text;
+          /* Also define standard property for compatibility */
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .footerRight a:hover {

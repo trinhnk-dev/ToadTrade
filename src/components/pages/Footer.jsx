@@ -3,6 +3,9 @@ import footerLogo from "../../images/toadtrade-logo.png";
 import { Link } from "react-router-dom";
 
 function Footer() {
+  const handleClick = () => {
+    window.open('https://www.facebook.com/Toadtrade', '_blank');
+  };
   return (
     <body>
       <footer className={styles.footer}>
@@ -27,9 +30,9 @@ function Footer() {
               <h4>ToadTrade</h4>
               <ul>
                 <li>
-                  <Link to="/">Về chúng tôi</Link>
-                  <Link to="/">Dịch vụ</Link>
-                  <Link to="/">Lịch sử hình thành</Link>
+                  <a href="https://www.facebook.com/Toadtrade" target="_blank" rel="noopener noreferrer">Về chúng tôi</a>
+                  <a href="https://www.facebook.com/Toadtrade" target="_blank" rel="noopener noreferrer">Dịch vụ</a>
+                  <a href="https://www.facebook.com/Toadtrade" target="_blank" rel="noopener noreferrer">Lịch sử hình thành</a>
                 </li>
               </ul>
             </div>
@@ -39,10 +42,10 @@ function Footer() {
               <h4>Truy cập</h4>
               <ul>
                 <li>
-                  <Link to="/">Đăng tin</Link>
-                  <Link to="/">Quản lý tin</Link>
-                  <Link to="/">Đơn hàng</Link>
-                  <Link to="/">Chat</Link>
+                  <Link to="/createPost">Đăng tin</Link>
+                  <Link to="/manage">Quản lý tin</Link>
+                  <Link to="/search">Tìm kiếm</Link>
+                  <Link to="/chat">Chat</Link>
                 </li>
               </ul>
             </div>
@@ -64,12 +67,12 @@ function Footer() {
             <div className={styles.col}>
               <h4>Theo dõi</h4>
               <div className={styles.socialLinks}>
-                <Link to="/">
+                <a href="https://www.facebook.com/Toadtrade" target="_blank" rel="noopener noreferrer">
                   <i className="fab fa-facebook-f"></i>
-                </Link>
-                <Link to="/">
-                  <i className="fab fa-tiktok"></i>
-                </Link>
+                </a>
+                <a href="https://www.instagram.com/toadtrade_vn/" target="_blank" rel="noopener noreferrer">
+                  <i className="fab fa-instagram"></i>
+                </a>
               </div>
             </div>
           </div>
@@ -88,12 +91,12 @@ function Footer() {
               </p>
             </div>
             <div className={styles.footerRight}>
-              <Link to="facebook.com" className={styles.facebook}>
+              <a href="https://www.facebook.com/Toadtrade" className={styles.facebook} target="_blank" rel="noopener noreferrer">
                 <i class="fa-brands fa-facebook-f"></i>
-              </Link>
-              <Link to="tiktok.com" className={styles.tiktok}>
-                <i class="fa-brands fa-tiktok"></i>
-              </Link>
+              </a>
+              <a href="https://www.instagram.com/toadtrade_vn/" className={styles.tiktok} target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
             </div>
           </div>
         </div>
