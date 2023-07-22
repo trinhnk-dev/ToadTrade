@@ -71,6 +71,7 @@ function CreatePost() {
       address: "",
       description: "",
       type: "",
+      statusPost: "",
     },
     validationSchema: Yup.object({
       owner: Yup.string(),
@@ -353,14 +354,14 @@ function CreatePost() {
           </form>
         </div>
       </div>
-      {/* <Link to="/payment">
+      <Link to="/payment">
         <button
           className="btn btn-success"
           style={{ position: "absolute", top: "150px", left: "20px" }}
         >
           Thanh Toán
         </button>
-      </Link> */}
+      </Link>
 
       <Footer />
       <ToastContainer />

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Payment.module.css";
-import momoImage from "../../images/momo-payment.jpg";
+import qrCodeImage from "../../images/qrcode-payment.jpg";
 import Navbar from "../common/Navbar";
 import Footer from "./Footer";
 
@@ -52,7 +52,7 @@ const Payment = () => {
             </div>
             <div className={styles.paymentImage}>
               <h3 style={{ marginLeft: "15px" }}>Bạn vui lòng quét mã ở đây</h3>
-              <img src={momoImage} alt="" />
+              <img src={qrCodeImage} alt="" />
             </div>
           </div>
         </div>

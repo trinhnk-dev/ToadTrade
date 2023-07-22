@@ -34,7 +34,7 @@ function Home() {
     getPosts();
   }, []);
 
-  function getPosts() {
+  function getPosts() { 
     fetch(baseURL)
       .then((response) => {
         if (!response.ok) {
