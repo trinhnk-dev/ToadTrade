@@ -344,7 +344,6 @@ function CreatePost() {
               )}
             </div>
 
-            {/* Description */}
             <div className={styles.inputField}>
               <label>Mô tả</label>
               <textarea
