@@ -5,6 +5,7 @@ import { Image } from "antd";
 import Navbar from "../common/Navbar";
 import Footer from "./Footer";
 import { stationeryList } from "../../data";
+import zaloImage from "../../images/zalo.png";
 
 function Details() {
   const { id } = useParams();
@@ -15,8 +16,14 @@ function Details() {
   const baseURL = "https://6476f6b89233e82dd53a99bf.mockapi.io/post";
 
   const [isContactClicked, setIsContactClicked] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("0989 013 930");
+  const [phoneNumber, setPhoneNumber] = useState("0989013930");
   const [APIData, setAPIData] = useState([]);
+
+  const handleZaloLink = () => {
+    const phoneNumber = "0987654321"; // Số điện thoại cần kết nối với Zalo
+    const zaloLink = `https://zalo.me/${phoneNumber}`;
+    window.open(zaloLink, "_blank");
+  };
 
   useEffect(() => {
     getDetailPosts();
@@ -35,7 +42,9 @@ function Details() {
   };
 
   const handleContactClick = () => {
-    setIsContactClicked(!isContactClicked);
+    const phoneNumber = "0989013930"; // Số điện thoại cần kết nối với Zalo
+    const zaloLink = `https://zalo.me/${phoneNumber}`;
+    window.open(zaloLink, "_blank");
   };
 
   function getDetailPosts() {
@@ -90,20 +99,20 @@ function Details() {
                 <div className={styles.price}>
                   <h6>Giá: {product.price} VNĐ</h6>
                 </div>
+
                 <div className={styles.contact}>
+                  <div className={styles.clickToChat}>
+                    <p style={{ fontWeight: 600 }}>Liên hệ: {phoneNumber}</p>
+                  </div>
+                  <div>
+                    <p>Hoặc</p>
+                  </div>
                   <div className={styles.clickToContact}>
                     <button
-                      className="btn btn-success"
+                      className={styles.chatZalo}
                       onClick={handleContactClick}
                     >
-                      {isContactClicked ? phoneNumber : "Hiện số điện thoại"}
-                    </button>
-                  </div>
-                  <div className={styles.clickToChat}>
-                    <button className="btn btn-info">
-                      <Link to="/chat" className={styles.chat}>
-                        Ấn để chat với người bán
-                      </Link>
+                      <p style={{ fontWeight: 600, textDecoration: "underline" }}>Nhắn tin Zalo</p>
                     </button>
                   </div>
                 </div>
@@ -135,13 +144,13 @@ function Details() {
                         <h6>{stationery.price} VNĐ</h6>
                       )}
                       {stationery.type === "book" && (
-                        <h6>{stationery.price}K VNĐ</h6>
+                        <h6>{stationery.price} VNĐ</h6>
                       )}
                       {stationery.type === "tech" && (
-                        <h6>{stationery.price} Triệu VNĐ</h6>
+                        <h6>{stationery.price} VNĐ</h6>
                       )}
                       {stationery.type === "uniform" && (
-                        <h6>{stationery.price}K VNĐ</h6>
+                        <h6>{stationery.price} VNĐ</h6>
                       )}
 
                       <div className={styles.infoFooter}>

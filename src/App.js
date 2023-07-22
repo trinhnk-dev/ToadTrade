@@ -26,7 +26,7 @@ function App() {
           <Route path="/home/detail/:id" element={<Details />} />
           <Route path="/search/detail/:id" element={<Details />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/createPost" element={<CreatePost />} />
+          <Route path="/createPost" element={<CreatePost  />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/manage" element={<Manage />} />

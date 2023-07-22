@@ -12,7 +12,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import numeral from "numeral";
 
 function CreatePost() {
-  const userNavigate = useNavigate()
+  const userNavigate = useNavigate();
   const [image, setImage] = useState(null);
   const [isCreating, setIsCreating] = useState(false);
   const imageInputRef = useRef(null);
@@ -137,9 +137,11 @@ function CreatePost() {
         setOpen(true);
         resetForm();
         imageInputRef.current.value = "";
-        if (updatedValues.statusPost === 'isPending') {
-          userNavigate('/payment')
-        } // Clear the input field
+        console.log(updatedValues.statusPost);
+        if (updatedValues.statusPost === "isPending") {
+          userNavigate("/payment");
+        } 
+        
       } catch (error) {
         console.log(error.message);
       } finally {
