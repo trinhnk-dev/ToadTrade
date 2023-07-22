@@ -1,181 +1,201 @@
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useRef, useState, useEffect } from "react";
-import Navbar from "../common/Navbar";
-import Footer from "./Footer";
-import styles from "../pages/CreatePost.module.css";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { Link, useNavigate } from "react-router-dom";
-import { Upload, Button, Image } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-import numeral from "numeral";
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { useRef, useState, useEffect } from 'react'
+import Navbar from '../common/Navbar'
+import Footer from './Footer'
+import styles from '../pages/CreatePost.module.css'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { Link, useNavigate } from 'react-router-dom'
+import { Upload, Button, Image } from 'antd'
+import { UploadOutlined } from '@ant-design/icons'
+import numeral from 'numeral'
 
 function CreatePost() {
-  const userNavigate = useNavigate();
-  const [image, setImage] = useState(null);
-  const [isCreating, setIsCreating] = useState(false);
-  const imageInputRef = useRef(null);
-  const [profile, setProfile] = useState([]);
-  const baseUrl = "https://6476f6b89233e82dd53a99bf.mockapi.io/post";
-  const userUrl = "https://6476f6b89233e82dd53a99bf.mockapi.io/user";
+  const userNavigate = useNavigate()
+  const [image, setImage] = useState(null)
+  const [isCreating, setIsCreating] = useState(false)
+  const imageInputRef = useRef(null)
+  const [profile, setProfile] = useState([])
+  const baseUrl = 'https://6476f6b89233e82dd53a99bf.mockapi.io/post'
+  const userUrl = 'https://6476f6b89233e82dd53a99bf.mockapi.io/user'
   const submitImage = () => {
-    if (!image) return;
-    const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "toadtrade");
-    data.append("cloud_name", "dilykkog3");
+    if (!image) return
+    const data = new FormData()
+    data.append('file', image)
+    data.append('upload_preset', 'toadtrade')
+    data.append('cloud_name', 'dilykkog3')
 
-    fetch("https://api.cloudinary.com/v1_1/dilykkog3/image/upload", {
-      method: "post",
+    fetch('https://api.cloudinary.com/v1_1/dilykkog3/image/upload', {
+      method: 'post',
       body: data,
     })
       .then((res) => res.json())
       .then((data) => {
-        formik.setFieldValue("img", data.secure_url); // Set the image URL in the formik values
+        formik.setFieldValue('img', data.secure_url) // Set the image URL in the formik values
       })
       .catch((err) => {
-        console.log(err);
-      });
-  };
+        console.log(err)
+      })
+  }
 
   const handlePriceKeyPress = (event) => {
-    const allowedChars = /[0-9.]/; // Chỉ cho phép nhập số và dấu phẩy
-    const inputChar = String.fromCharCode(event.charCode);
+    const allowedChars = /[0-9.]/ // Chỉ cho phép nhập số và dấu phẩy
+    const inputChar = String.fromCharCode(event.charCode)
 
     if (!allowedChars.test(inputChar)) {
-      event.preventDefault(); // Loại bỏ ký tự không hợp lệ
+      event.preventDefault() // Loại bỏ ký tự không hợp lệ
     }
-  };
+  }
+
+  async function fetchUserData() {
+    const user = JSON.parse(sessionStorage.getItem('userLogin'))
+    if (user) {
+      const response = await fetch(
+        `https://6476f6b89233e82dd53a99bf.mockapi.io/user/${user.id}`
+      )
+      if (!response.ok) {
+        throw new Error(`HTTP Status: ${response.status}`)
+      }
+      const userData = await response.json()
+      return userData
+    }
+    return null
+  }
 
   useEffect(() => {
-    const user = JSON.parse(sessionStorage.getItem("userLogin"));
-    if (user) {
-      setProfile(user);
-      formik.setFieldValue("owner", user.username);
+    async function fetchData() {
+      try {
+        const userData = await fetchUserData()
+        if (userData) {
+          setProfile(userData)
+        }
+      } catch (error) {
+        console.log(error.message)
+      }
     }
-    console.log(profile);
-  }, []);
+    fetchData()
+  }, [])
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
   const formik = useFormik({
     initialValues: {
-      owner: "",
-      name: "",
-      price: "",
-      img: "",
+      owner: '',
+      name: '',
+      price: '',
+      img: '',
       status: 0,
-      address: "",
-      description: "",
-      type: "",
-      statusPost: "",
+      address: '',
+      description: '',
+      type: '',
+      statusPost: '',
     },
     validationSchema: Yup.object({
       owner: Yup.string(),
       // Name
       name: Yup.string()
-        .min(5, "Tên phải ít nhất 5 ký tự")
-        .max(25, "Tên chứa tối đa 25 ký tự")
-        .required("Vui lòng không để trống ô này"),
+        .min(5, 'Tên phải ít nhất 5 ký tự')
+        .max(25, 'Tên chứa tối đa 25 ký tự')
+        .required('Vui lòng không để trống ô này'),
 
       // Price
       price: Yup.string()
-        .test("valid-price", "Vui lòng nhập giá hợp lệ", (value) => {
-          if (!value) return false;
+        .test('valid-price', 'Vui lòng nhập giá hợp lệ', (value) => {
+          if (!value) return false
           const numericValue = numeral(
-            value.replace(/,/g, "").replace(/\./g, "")
-          ).value();
-          return !isNaN(numericValue);
+            value.replace(/,/g, '').replace(/\./g, '')
+          ).value()
+          return !isNaN(numericValue)
         })
-        .required("Vui lòng không để trống ô này"),
+        .required('Vui lòng không để trống ô này'),
 
       // img
-      img: Yup.string().required("Bạn phải tải ảnh lên"),
+      img: Yup.string().required('Bạn phải tải ảnh lên'),
 
       // Status
       status: Yup.number()
         .integer()
-        .required("Vui lòng không để trống ô này"),
+        .required('Vui lòng không để trống ô này'),
 
       // Address
-      address: Yup.string().required("Vui lòng không để trống ô này"),
+      address: Yup.string().required('Vui lòng không để trống ô này'),
 
       // Description
       description: Yup.string()
-        .min(8, "Mật khẩu phải ít nhất 8 ký tự")
-        .required("Vui lòng không để trống ô này"),
+        .min(8, 'Mật khẩu phải ít nhất 8 ký tự')
+        .required('Vui lòng không để trống ô này'),
 
       // Type
       // type: Yup.string().required('Must choose'),
     }),
     onSubmit: async (values, { resetForm }) => {
-      setIsCreating(true);
+      setIsCreating(true)
+      await updateCount(profile.count)
       const updatedValues = {
         ...values,
         owner: profile.username,
-        statusPost: profile.count >= 2 ? "isPending" : "isPosted",
-      };
+        statusPost: profile.count >= 2 ? 'isPending' : 'isPosted',
+      }
 
       try {
-        await submitImage();
+        await submitImage()
         const response = await fetch(baseUrl, {
-          method: "POST",
+          method: 'POST',
           body: JSON.stringify(updatedValues),
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
-          credentials: "same-origin",
-        });
+          credentials: 'same-origin',
+        })
         if (!response.ok) {
-          throw new Error(`HTTP Status: ${response.status}`);
+          throw new Error(`HTTP Status: ${response.status}`)
         }
-        // console.log(updatedValues)
-        await updateCount();
-        toast.success("Thêm sản phẩm thành công!");
-        setOpen(true);
-        resetForm();
-        imageInputRef.current.value = "";
-        console.log(updatedValues.statusPost);
-        if (updatedValues.statusPost === "isPending") {
-          userNavigate("/payment");
-        } 
-        
+
+        toast.success('Thêm sản phẩm thành công!')
+        setOpen(true)
+        resetForm()
+        // imageInputRef.current.value = ''
+        console.log(updatedValues.statusPost)
+        if (profile.count >= 2) {
+          userNavigate('/payment')
+        }
       } catch (error) {
-        console.log(error.message);
+        console.log(error.message)
       } finally {
-        setIsCreating(false);
+        setIsCreating(false)
       }
     },
-  });
+  })
 
-  async function updateCount() {
+  async function updateCount(count) {
     try {
-      const response = await fetch(`${userUrl}/${profile.id}`);
+      const response = await fetch(`${userUrl}/${profile.id}`)
       if (!response.ok) {
-        throw new Error(`HTTP Status: ${response.status}`);
+        throw new Error(`HTTP Status: ${response.status}`)
       }
 
-      const updatedProfile = await response.json();
-      const updateProfile = { ...updatedProfile };
-      updateProfile.count += 1;
+      const updatedProfile = await response.json()
+      const updateProfile = { ...updatedProfile }
+      updateProfile.count = count + 1
       // console.log(updateProfile.count)
 
       const putResponse = await fetch(`${userUrl}/${updateProfile.id}`, {
-        method: "PUT",
+        method: 'PUT',
         body: JSON.stringify(updateProfile),
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-      });
+      })
+      setProfile(updateProfile)
       // console.log(updateProfile)
       if (!putResponse.ok) {
-        throw new Error(`HTTP Status: ${putResponse.status}`);
+        throw new Error(`HTTP Status: ${putResponse.status}`)
       }
     } catch (error) {
-      console.log(error.message);
+      console.log(error.message)
     }
   }
 
@@ -185,7 +205,7 @@ function CreatePost() {
       <Navbar />
 
       <div className={styles.wrapper}>
-        {" "}
+        {' '}
         {/* <div className={styles.title}>Tạo bài đăng</div> */}
         <div className={styles.form}>
           <form onSubmit={formik.handleSubmit} onChange={submitImage}>
@@ -199,17 +219,17 @@ function CreatePost() {
               <input
                 type="radio"
                 name="type"
-                checked={formik.values.type === "stationery"}
-                onChange={() => formik.setFieldValue("type", "stationery")}
+                checked={formik.values.type === 'stationery'}
+                onChange={() => formik.setFieldValue('type', 'stationery')}
               />
               <label>Họa cụ</label>
 
               {/* Tech Type */}
               <input
                 type="radio"
-                checked={formik.values.type === "tech"}
+                checked={formik.values.type === 'tech'}
                 name="type"
-                onChange={() => formik.setFieldValue("type", "tech")}
+                onChange={() => formik.setFieldValue('type', 'tech')}
               />
               <label>Công nghệ</label>
 
@@ -217,8 +237,8 @@ function CreatePost() {
               <input
                 type="radio"
                 name="type"
-                checked={formik.values.type === "book"}
-                onChange={() => formik.setFieldValue("type", "book")}
+                checked={formik.values.type === 'book'}
+                onChange={() => formik.setFieldValue('type', 'book')}
               />
               <label>Giáo trình</label>
 
@@ -226,8 +246,8 @@ function CreatePost() {
               <input
                 type="radio"
                 name="type"
-                checked={formik.values.type === "uniform"}
-                onChange={() => formik.setFieldValue("type", "uniform")}
+                checked={formik.values.type === 'uniform'}
+                onChange={() => formik.setFieldValue('type', 'uniform')}
               />
               <label>Đồng phục</label>
 
@@ -279,8 +299,8 @@ function CreatePost() {
                   <Upload
                     listType="picture-card"
                     beforeUpload={(file) => {
-                      setImage(file); // Lưu file vào state
-                      return false; // Ngăn việc tải lên tự động của Ant Design
+                      setImage(file) // Lưu file vào state
+                      return false // Ngăn việc tải lên tự động của Ant Design
                     }}
                     className={styles.upload}
                     style={{ margin: 0 }}
@@ -354,18 +374,10 @@ function CreatePost() {
           </form>
         </div>
       </div>
-      <Link to="/payment">
-        <button
-          className="btn btn-success"
-          style={{ position: "absolute", top: "150px", left: "20px" }}
-        >
-          Thanh Toán
-        </button>
-      </Link>
 
       <Footer />
       <ToastContainer />
     </div>
-  );
+  )
 }
-export default CreatePost;
+export default CreatePost
