@@ -1,83 +1,103 @@
-import React, { useContext, useEffect, useState } from "react";
-import styles from "./Details.module.css";
-import { Link, useParams } from "react-router-dom";
-import { Image } from "antd";
-import Navbar from "../common/Navbar";
-import Footer from "./Footer";
-import { stationeryList } from "../../data";
-import zaloImage from "../../images/zalo.png";
+import React, { useContext, useEffect, useState } from 'react'
+import styles from './Details.module.css'
+import { Link, useParams } from 'react-router-dom'
+import { Image } from 'antd'
+import Navbar from '../common/Navbar'
+import Footer from './Footer'
 
 function Details() {
-  const { id } = useParams();
-  const [index, setIndex] = useState(0);
-  const [product, setProduct] = useState([]);
-  const [selectedProductId, setSelectedProductId] = useState(id);
+  const { id } = useParams()
 
-  const baseURL = "https://6476f6b89233e82dd53a99bf.mockapi.io/post";
+  const [product, setProduct] = useState([])
+  const [selectedProductId, setSelectedProductId] = useState(id)
 
-  const [isContactClicked, setIsContactClicked] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("0989013930");
-  const [APIData, setAPIData] = useState([]);
+  const baseURL = 'https://6476f6b89233e82dd53a99bf.mockapi.io/post'
+  const userURL = 'https://6476f6b89233e82dd53a99bf.mockapi.io/user'
 
-  const handleZaloLink = () => {
-    const phoneNumber = "0987654321"; // Số điện thoại cần kết nối với Zalo
-    const zaloLink = `https://zalo.me/${phoneNumber}`;
-    window.open(zaloLink, "_blank");
-  };
+  const [phoneNumber, setPhoneNumber] = useState([])
+  const [APIData, setAPIData] = useState([])
+  const [users, setUsers] = useState([])
 
   useEffect(() => {
-    getDetailPosts();
-  }, []);
+    async function fetchData() {
+      try {
+        await getDetailPosts()
+        await getPosts()
+        await getUsers()
+        // comparePostAndUser()
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   useEffect(() => {
-    getDetailPosts();
-  }, [selectedProductId]);
+    comparePostAndUser()
+  }, [users, product])
 
   const handleProductClick = (productId) => {
-    setSelectedProductId(productId);
-  };
-
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-  };
+    setSelectedProductId(productId)
+  }
 
   const handleContactClick = () => {
-    const phoneNumber = "0989013930"; // Số điện thoại cần kết nối với Zalo
-    const zaloLink = `https://zalo.me/${phoneNumber}`;
-    window.open(zaloLink, "_blank");
-  };
-
-  function getDetailPosts() {
-    fetch(baseURL + "/" + id)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setProduct(data);
-      })
-      .catch((error) => console.log(error.message));
+    // Số điện thoại cần kết nối với Zalo
+    const zaloLink = `https://zalo.me/${phoneNumber}`
+    window.open(zaloLink, '_blank')
   }
 
-  useEffect(() => {
-    getPosts();
-  }, []);
-
-  function getPosts() {
-    fetch(baseURL)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setAPIData(data);
-      })
-      .catch((error) => console.log(error.message));
+  async function getDetailPosts() {
+    try {
+      const response = await fetch(baseURL + '/' + id)
+      if (!response.ok) {
+        throw new Error(`HTTP Status: ${response.status}`)
+      }
+      const data = await response.json()
+      setProduct(data)
+    } catch (error) {
+      console.log(error.message)
+    }
   }
+
+  async function getPosts() {
+    try {
+      const response = await fetch(baseURL)
+
+      if (!response.ok) {
+        throw new Error(`HTTP Status: ${response.status}`)
+      }
+      const data = await response.json()
+
+      setAPIData(data)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  async function getUsers() {
+    try {
+      const response = await fetch(userURL)
+
+      if (!response.ok) {
+        throw new Error(`HTTP Status: ${response.status}`)
+      }
+      const data = await response.json()
+      setUsers(data)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  const comparePostAndUser = async () => {
+    const userWithMatchingUsername = await users.find(
+      (user) => user.username === product.owner
+    )
+    if (userWithMatchingUsername) {
+      setPhoneNumber(userWithMatchingUsername.phonenumber)
+    }
+  }
+  console.log(phoneNumber)
 
   return (
     <>
@@ -112,7 +132,11 @@ function Details() {
                       className={styles.chatZalo}
                       onClick={handleContactClick}
                     >
-                      <p style={{ fontWeight: 600, textDecoration: "underline" }}>Nhắn tin Zalo</p>
+                      <p
+                        style={{ fontWeight: 600, textDecoration: 'underline' }}
+                      >
+                        Nhắn tin Zalo
+                      </p>
                     </button>
                   </div>
                 </div>
@@ -134,22 +158,22 @@ function Details() {
                     onClick={() => handleProductClick(stationery.id)}
                   >
                     <div className={styles.productImage}>
-                      <Link to={"detail/" + stationery.id}>
+                      <Link to={'detail/' + stationery.id}>
                         <img src={stationery.img} alt="" />
                       </Link>
                     </div>
                     <div className={styles.productText}>
                       <h4 className={styles.ellipsis}>{stationery.name}</h4>
-                      {stationery.type === "stationery" && (
+                      {stationery.type === 'stationery' && (
                         <h6>{stationery.price} VNĐ</h6>
                       )}
-                      {stationery.type === "book" && (
+                      {stationery.type === 'book' && (
                         <h6>{stationery.price} VNĐ</h6>
                       )}
-                      {stationery.type === "tech" && (
+                      {stationery.type === 'tech' && (
                         <h6>{stationery.price} VNĐ</h6>
                       )}
-                      {stationery.type === "uniform" && (
+                      {stationery.type === 'uniform' && (
                         <h6>{stationery.price} VNĐ</h6>
                       )}
 
@@ -159,7 +183,7 @@ function Details() {
                       </div>
                     </div>
                   </div>
-                );
+                )
               })}
             </div>
           </div>
@@ -168,7 +192,7 @@ function Details() {
 
       <Footer />
     </>
-  );
+  )
 }
 
-export default Details;
+export default Details
