@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import Navbar from '../common/Navbar'
@@ -10,7 +10,7 @@ import * as Yup from 'yup'
 
 function Login() {
   const userNavigate = useNavigate()
-
+  const [loginError, setLoginError] = useState('');
   const baseUrl = 'https://6476f6b89233e82dd53a99bf.mockapi.io/user'
 
   const formik = useFormik({
@@ -29,6 +29,7 @@ function Login() {
             throw new Error(`HTTP Status: ${response.status}`)
           }
           return response.json()
+          
         })
         .then((data) => {
           const user = data.find(
@@ -52,6 +53,8 @@ function Login() {
             }
             sessionStorage.setItem('userLogin', JSON.stringify(updatedValues))
             userNavigate('/')
+          }else {
+            setLoginError('Tên đăng nhập hoặc mật khẩu không đúng');
           }
         })
         .catch((error) => console.log(error.message))
@@ -81,6 +84,10 @@ function Login() {
             />
             <span></span>
             <label>Tên đăng nhập</label>
+            {formik.errors.username && formik.touched.username && (
+              <p style={{ color: 'red' }}>{formik.errors.username}</p>
+            )}
+            
           </div>
 
           {/* Password */}
@@ -94,12 +101,17 @@ function Login() {
             />
             <span></span>
             <label>Mật khẩu</label>
+            {formik.errors.password && formik.touched.password && (
+              <p style={{ color: 'red' }}>{formik.errors.password}</p>
+            )}
           </div>
 
           {/* Login Button */}
           <button type="submit" className={styles.login}>
             Đăng nhập
           </button>
+
+          {loginError && <p style={{ color: 'red' }}>{loginError}</p>}
 
           {/* Link To Register */}
           <div className={styles.registerLink}>
